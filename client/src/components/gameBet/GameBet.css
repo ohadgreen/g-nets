@@ -1,0 +1,30 @@
+.my-container {
+  margin: auto;
+}
+
+.game-bet-container {
+  width: 80%;
+  border: 1px solid #999;
+  border-radius: 4px;
+  padding: 15px;
+  font-size: 12px;
+  line-height: 12px;
+  position: absolute;
+}
+
+.img-col {
+  width: 35%;
+  padding: 10px;
+  position: relative;
+}
+
+.game-center {
+  width: 30%;
+  display: inline-block;
+}
+
+.at {
+  text-align: center;
+  font-size: 30px;
+  margin-top: 50%
+}
