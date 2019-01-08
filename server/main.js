@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require("body-parser");
 const router = express.Router();
+require('./model/Game');
 
 const app = express();
 app.use('/', router);
@@ -13,7 +14,7 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(express.static(__dirname + '/public'));
 
-require('./nba/extractGamesSchedule')(app);
+require('./routes/PullGameSched')(app);
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Listening on port ${port}`));
