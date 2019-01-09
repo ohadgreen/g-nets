@@ -4,25 +4,71 @@ const keys = require("../config/keys");
 const Game = mongoose.model("games");
 const API_URL =
   "http://api.sportradar.us/nba/trial/v5/en/games/YEAR/MONTH/DAY/schedule.json";
-const gamesFetchLimit = 2;
+const gamesFetchLimit = 3;
 
 module.exports = app => {
-  app.get("/api/games/schedule", async (req, res) => {
-    console.log("games/sched " + JSON.stringify(req.query));
+  app.post("/api/games/insert/bydate", async (req, res) => {
+    console.log("games/insert/bydate params " + JSON.stringify(req.query));
     let schedGamesData = await fetchGames(req.query);
 
     if (schedGamesData) {
-      const dbGamesList = apiScheduleToDbGamesList(schedGamesData.games);
-      const dbGame = dbGamesList[0];
-      console.log('dbGame: ' + JSON.stringify(dbGame));
-      try {
-        await Game.create(dbGamesList);
-        res.send({ message: "new game saved" });
-      } catch (error) {
-        res.status(420).send(error);
+        const dbGamesList = apiGamesListToDbGamesList(schedGamesData.games);
+        const dbSaveRes = await insertGamesBatchToDb(dbGamesList);
+        if(dbSaveRes.status === 0){
+          res.send({ message: "day games batch saved" });
+        }
+        else{
+          res.status(420).send(dbSaveRes.error);
+        }
+      }
+  });
+
+  app.post("/api/games/insert/nextday", async (req, res) => {
+    const today = new Date();
+    const tomorrow = new Date();
+    tomorrow.setDate(today.getDate()+1);
+    const dd = tomorrow.getDate();
+    const day = (dd < 10) ? '0' + dd : dd;
+    const mm = tomorrow.getMonth() + 1; //January is 0!
+    const month = (mm < 10) ? '0' + mm : mm;
+    const yyyy = tomorrow.getFullYear();
+
+    const nextDayQueryParams = { day: day, month: month ,year: yyyy };
+    
+    console.log("games/insert/nextday params" + JSON.stringify(nextDayQueryParams));
+    let schedGamesData = await fetchGames(nextDayQueryParams);
+
+    if (schedGamesData) {
+      const dbGamesList = apiGamesListToDbGamesList(schedGamesData.games);
+      const dbSaveRes = await insertGamesBatchToDb(dbGamesList);
+      if(dbSaveRes.status === 0){
+        res.send({ message: "day games batch saved" });
+      }
+      else{
+        res.status(420).send(dbSaveRes.error);
       }
     }
   });
+
+  app.post('/api/games/insert/test', async (req, res) => {
+    const gameTest = new Game({
+        srId: '12345',
+        srIdLong: 'abcde',
+        homeTeam: {
+          city: 'New York',
+          name: 'Knicks',
+          alias: 'NYK'
+        }
+        });
+
+    try {
+        await gameTest.save();
+        res.send({ message: "test game saved" });
+    }
+    catch (error) {
+        res.status(420).send(error);
+      }
+  })
 
   async function fetchGames(date) {
     const { day, month, year } = date;
@@ -49,12 +95,20 @@ module.exports = app => {
     }
   }
 
-  function apiScheduleToDbGamesList(apiGamesSched) {
+  async function insertGamesBatchToDb(gamesList) {
+    try {
+        await Game.create(gamesList);
+        return { status: 0, error: '' };
+      } catch (error) {
+        return { status: -1, error: error.text };
+      }
+  }
+
+  function apiGamesListToDbGamesList(apiGamesSched) {
     let dbGamesList = [];
     let gamesCount = 0;
     for (game of apiGamesSched) {
       if (gamesCount < gamesFetchLimit) {
-        console.log('game converter api id: ' + game.id);
         const dbGame = gameConvertApiToDb(game);
         dbGamesList.push(dbGame);
         gamesCount++;

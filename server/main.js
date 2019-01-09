@@ -1,7 +1,11 @@
 const express = require('express');
-const bodyParser = require("body-parser");
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 const router = express.Router();
 require('./model/Game');
+const keys = require('./config/keys');
+
+mongoose.connect(keys.mongoURI);
 
 const app = express();
 app.use('/', router);
