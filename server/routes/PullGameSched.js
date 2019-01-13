@@ -32,8 +32,6 @@ module.exports = app => {
     const mm = tomorrow.getMonth() + 1; //January is 0!
     const month = (mm < 10) ? '0' + mm : mm;
     const yyyy = tomorrow.getFullYear();
-
-    console.log('hello api');
         
     const nextDayQueryParams = { day: day, month: month ,year: yyyy };
     

@@ -11,10 +11,10 @@ const teamSchema = new Schema({
     division: String,
     wins: Number,
     losses: Number,
-    win_pct: Number,
+    winPct: Number,
     pointsFor: Number,
     pointsAgainst: Number,
-    pointDiff: Number,
+    pointsDiff: Number,
     gamesBehind: {
     league: Number,
     conference: Number,
