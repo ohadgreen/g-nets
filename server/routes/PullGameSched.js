@@ -33,6 +33,8 @@ module.exports = app => {
     const month = (mm < 10) ? '0' + mm : mm;
     const yyyy = tomorrow.getFullYear();
 
+    console.log('hello api');
+        
     const nextDayQueryParams = { day: day, month: month ,year: yyyy };
     
     console.log("games/insert/nextday params" + JSON.stringify(nextDayQueryParams));
