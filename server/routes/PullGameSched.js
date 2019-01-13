@@ -2,6 +2,7 @@ const axios = require("axios");
 const mongoose = require("mongoose");
 const keys = require("../config/keys");
 const Game = mongoose.model("games");
+const Team = mongoose.model("teams");
 const API_URL =
   "http://api.sportradar.us/nba/trial/v5/en/games/YEAR/MONTH/DAY/schedule.json";
 const gamesFetchLimit = 3;
@@ -12,7 +13,7 @@ module.exports = app => {
     let schedGamesData = await fetchGames(req.query);
 
     if (schedGamesData) {
-        const dbGamesList = apiGamesListToDbGamesList(schedGamesData.games);
+        const dbGamesList = await apiGamesListToDbGamesList(schedGamesData.games);
         const dbSaveRes = await insertGamesBatchToDb(dbGamesList);
         if(dbSaveRes.status === 0){
           res.send({ message: "day games batch saved" });
@@ -39,7 +40,7 @@ module.exports = app => {
     let schedGamesData = await fetchGames(nextDayQueryParams);
 
     if (schedGamesData) {
-      const dbGamesList = apiGamesListToDbGamesList(schedGamesData.games);
+      const dbGamesList = await apiGamesListToDbGamesList(schedGamesData.games);
       const dbSaveRes = await insertGamesBatchToDb(dbGamesList);
       if(dbSaveRes.status === 0){
         res.send({ message: "day games batch saved" });
@@ -95,6 +96,20 @@ module.exports = app => {
     }
   }
 
+  async function fetchTeamStats() {
+    try {
+        const dbTeamList = await Team.find({}).select('srId');
+        if(dbTeamList) {
+          return dbTeamList;
+        }
+        else {
+          return { error: 'cannot find teams in db'}
+        }
+      } catch (error) {
+        return { error: error.text };
+      }
+  }
+
   async function insertGamesBatchToDb(gamesList) {
     try {
         await Game.create(gamesList);
@@ -104,59 +119,42 @@ module.exports = app => {
       }
   }
 
-  function apiGamesListToDbGamesList(apiGamesSched) {
+  async function apiGamesListToDbGamesList(apiGamesSched) {
     let dbGamesList = [];
     let gamesCount = 0;
+    const dbTeamList = await fetchTeamStats();
+
     for (game of apiGamesSched) {
       if (gamesCount < gamesFetchLimit) {
-        const dbGame = gameConvertApiToDb(game);
+        let homeTeamDbId, awayTeamDbId;
+        for (team of dbTeamList) {
+          if (game.home.sr_id === team.srId){
+            homeTeamDbId = team._id;
+          };
+          if (game.away.sr_id === team.srId){
+            awayTeamDbId = team._id;
+          }
+        }
+        const dbGame = gameConvertApiToDb(game, homeTeamDbId, awayTeamDbId);
         dbGamesList.push(dbGame);
-        gamesCount++;
+        gamesCount++; 
       }
     }
     return dbGamesList;
   }
 
-  function gameConvertApiToDb(apiGameData) {
+  function gameConvertApiToDb(apiGameData, homeTeamDbId, awayTeamDbId) {
     const homePoints = apiGameData.home_points ? apiGameData.home_points : 0;
     const awayPoints = apiGameData.away_points ? apiGameData.away_points : 0;
-
-    const homeTeam = teamNameSplit(apiGameData.home.name);
-    const awayTeam = teamNameSplit(apiGameData.away.name);
 
     const game = new Game({
       srId: apiGameData.sr_id,
       srIdLong: apiGameData.id,
       schedule: apiGameData.scheduled,
-      homeTeam: {
-        city: homeTeam.city,
-        name: homeTeam.name,
-        alias: apiGameData.home.alias
-      },
-      awayTeam: {
-        city: awayTeam.city,
-        name: awayTeam.name,
-        alias: apiGameData.away.alias
-      },
+      homeTeam: homeTeamDbId,
+      awayTeam: awayTeamDbId,
       results: { homePoints, awayPoints }
     });
     return game;
-  }
-
-  function teamNameSplit(rawTeamName) {
-    const teamWordSplit = rawTeamName.split(" ");
-    let teamCity = "";
-    let teamName = "";
-
-    if (teamWordSplit.length === 3) {
-      teamCity = teamWordSplit[0] + " " + teamWordSplit[1];
-      teamName = teamWordSplit[2];
-    }
-    if (teamWordSplit.length === 2) {
-      teamCity = teamWordSplit[0];
-      teamName = teamWordSplit[1];
-    }
-
-    return { city: teamCity, name: teamName };
   }
 };
