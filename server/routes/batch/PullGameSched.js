@@ -132,6 +132,7 @@ module.exports = app => {
   async function updateGameScores(game) {
     try {
       const gameUpdateRes = await Game.findOneAndUpdate({ srId: game.srId }, { $set: { results: game.results } }, { new: true });
+      console.log('gameUpdateRes: ' + JSON.stringify(gameUpdateRes));
       if (gameUpdateRes) {
         return { status: 0 };
       }

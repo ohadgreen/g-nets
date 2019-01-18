@@ -6,7 +6,7 @@ require('./model/Game');
 require('./model/Team');
 const keys = require('./config/keys');
 
-mongoose.connect(keys.mongoURI);
+mongoose.connect(keys.mongoURI, { useNewUrlParser: true });
 
 const app = express();
 app.use('/', router);
@@ -19,6 +19,7 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(express.static(__dirname + '/public'));
 
+require('./routes/app/FetchGames')(app);
 require('./routes/batch/PullGameSched')(app);
 require('./routes/batch/PullTeamStats')(app);
 
