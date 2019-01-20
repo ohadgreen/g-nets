@@ -1,5 +1,5 @@
 let rawStoredUser = localStorage.getItem('user');
-console.log(rawStoredUser.username);
+console.log(`login reducer: ${rawStoredUser.nickname}`);
 let storedUser = (rawStoredUser.length !== 0) ? JSON.stringify(rawStoredUser) : '';
 
 const initialState = {

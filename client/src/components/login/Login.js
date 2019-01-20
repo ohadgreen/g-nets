@@ -36,7 +36,6 @@ class Login extends React.Component {
     }
 
     render() {
-        const { username, password } = this.state;
         return (
             <div>
                 <h2>Login Page</h2>
@@ -50,7 +49,8 @@ class Login extends React.Component {
             <label>Password</label>
             <input required placeholder="password" name="password" onChange={this.handleChange}/>
           </Form.Field>
-          <Button type="submit" onClick={this.handleSubmit}>Register</Button>
+          <Button type="submit" onClick={this.handleSubmit}>Login</Button>
+          <p><Link to='/register'>Register</Link></p>
         </Form>
             </div>
         )
