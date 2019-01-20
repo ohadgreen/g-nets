@@ -60,6 +60,11 @@ class AuthService {
             return { data: response.data };
         }
     }
+
+    logout() {
+        // remove user from local storage to log user out
+        localStorage.removeItem('user');
+    }
 }
 
 export default new AuthService();

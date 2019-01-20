@@ -26,6 +26,12 @@ import authService from '../../services/auth.service';
             dispatch({ type: 'REGISTER_FAILURE', payload: registerResult.data.error });
         }
     }
+
+    export const logout = () => dispatch => {
+        authService.logout();
+        dispatch ({ type: 'LOGOUT' });
+    }
+
  function appRoute(route){
     history.push(route);
 }
