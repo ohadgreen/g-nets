@@ -28,8 +28,10 @@ import authService from '../../services/auth.service';
     }
 
     export const logout = () => dispatch => {
+        console.log('actions logout');
         authService.logout();
         dispatch ({ type: 'LOGOUT' });
+        appRoute("/login");
     }
 
  function appRoute(route){

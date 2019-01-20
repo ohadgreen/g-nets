@@ -63,6 +63,7 @@ class AuthService {
 
     logout() {
         // remove user from local storage to log user out
+        console.log('authService logout');
         localStorage.removeItem('user');
     }
 }

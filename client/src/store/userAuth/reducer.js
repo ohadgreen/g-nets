@@ -37,7 +37,7 @@ export default function reduce(state = initialState, action) {
                 loginResult: action.payload,
             }
         case 'LOGOUT':
-            return {}
+            return {loggedIn: false}
 
         default:
             return state;
