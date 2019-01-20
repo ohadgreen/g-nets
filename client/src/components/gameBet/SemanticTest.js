@@ -1,6 +1,6 @@
 import React from 'react'
 import { Container } from 'semantic-ui-react';
-import GameBet from './gameBet/GameBet';
+import GameBet from './GameBet';
 
 const AppContainer = () => (
   <Container>

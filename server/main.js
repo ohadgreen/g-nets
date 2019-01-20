@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const router = express.Router();
 require('./model/Game');
 require('./model/Team');
+require('./model/User');
 const keys = require('./config/keys');
 
 mongoose.connect(keys.mongoURI, { useNewUrlParser: true });
@@ -19,6 +20,7 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(express.static(__dirname + '/public'));
 
+require('./routes/auth/UserAuth')(app);
 require('./routes/app/FetchGames')(app);
 require('./routes/batch/PullGameSched')(app);
 require('./routes/batch/PullTeamStats')(app);
