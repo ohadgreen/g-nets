@@ -1,0 +1,87 @@
+.gamebet-container {
+  border: 1px solid;
+  border-radius: 5px;
+  background: white;
+  display: grid;
+  grid-gap: 2px;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: 20px 50px 50px;
+  grid-template-areas:
+    "ghead ghead ghead whead dhead bhead bhead bhead"
+    "himg hname hstat hwin dbet gbet gbet gbet"
+    "aimg aname astat awin dbet gbet gbet gbet";
+}
+
+.game-header {
+  grid-area: ghead;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.home-team__img {
+  grid-area: himg;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.away-team__img {
+  grid-area: aimg;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.home-team__name {
+  grid-area: hname;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.away-team__name {
+  grid-area: aname;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.home-team__stats {
+  grid-area: hstat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.away-team__stats {
+  grid-area: astat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.winner-header {
+    grid-area: whead;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .home-win {
+    grid-area: hwin;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .away-win {
+    grid-area: awin;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .points-diff-head {
+    grid-area: dhead;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .points-diff-dd {
+    grid-area: dbet;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
