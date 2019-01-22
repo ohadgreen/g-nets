@@ -7,9 +7,10 @@ module.exports = app => {
     //return games without results
     app.get("/api/games/new", async (req, res) => { 
         let errorMsg;
-        const newGames = await Game.find({ 'results.homePoints': 0})
-            .populate('homeTeam', 'name city wins losses winPct gamesBehind.league')
-            .populate('awayTeam', 'name city wins losses winPct gamesBehind.league');
+        const newGames = await Game.find({ 'results.homePoints': 0},
+        { results: 0, srIdLong: 0 })
+            .populate('homeTeam', 'name city alias wins losses winPct gamesBehind.league')
+            .populate('awayTeam', 'name city alias wins losses winPct gamesBehind.league');
         if (!newGames) {
             errorMsg = 'cannot find new games';
             console.log(errorMsg);
@@ -26,9 +27,10 @@ module.exports = app => {
         let yesterday = dateUtils.dateDiffFromToday(-2);
         console.log('yesterday: ' + yesterday);
 
-        const recentGames = await Game.find({ 'schedule': { '$gte': new Date(yesterday) }, 'results.homePoints': {'$gt': 0} } )
-            .populate('homeTeam', 'name city wins losses winPct gamesBehind.league')
-            .populate('awayTeam', 'name city wins losses winPct gamesBehind.league');
+        const recentGames = await Game.find({ 'schedule': { '$gte': new Date(yesterday) }, 'results.homePoints': {'$gt': 0} },
+        { results: 0, srIdLong: 0 } )
+            .populate('homeTeam', 'name city alias wins losses winPct gamesBehind.league')
+            .populate('awayTeam', 'name city alias wins losses winPct gamesBehind.league');
         if (!recentGames) {
             errorMsg = 'cannot find recent games';
             console.log(errorMsg);

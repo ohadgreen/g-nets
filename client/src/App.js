@@ -3,9 +3,9 @@ import { Router, Route, Switch } from "react-router-dom";
 import { Container } from "semantic-ui-react";
 import { history } from "./services/history";
 import "./App.css";
-import AppContainer from "./components/gameBet/SemanticTest";
 import Header from "./components/header/Header";
-import GameBet2 from "./components/gameBet/GameBet2";
+import GameBet3 from "./components/gameBet/GameBet3";
+import { GameBetContainer } from "./components/main/GameBetContainer";
 import Login from "./components/login/Login";
 import Register from "./components/login/Register";
 
@@ -19,7 +19,7 @@ class App extends Component {
           <Switch>
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
-            <Route path="/gamebet" component={GameBet2} />
+            <Route path="/gamebet" component={GameBetContainer} />
             <Route path="/" component={Login} />
           </Switch>
         </Router>

@@ -2,14 +2,15 @@
   display: grid;
     grid-template-areas: "header header" "content side";
     height: 100vh;
-    grid-template-columns: 1fr 200px;
+    grid-template-columns: 1fr 100px;
     grid-template-rows: 60px 1fr ;
-    grid-gap: 10px;
+    grid-gap: 1px;
     margin-left: 10px;
 }
 
 .app-content {
   grid-area: content;
   width: 100%;
-  background: #F9F5F0;
+  padding: 10px;
+  background: rgb(223, 222, 222)
 }
