@@ -7,9 +7,12 @@
   grid-template-columns: repeat(8, 1fr);
   grid-template-rows: 20px 50px 50px;
   grid-template-areas:
-    "ghead ghead ghead whead dhead bhead bhead bhead"
-    "himg hname hstat hwin dbet gbet gbet gbet"
-    "aimg aname astat awin dbet gbet gbet gbet";
+    "teams teams teams whead dhead bhead bhead bhead"
+    "teams teams teams hwin dbet gbet gbet gbet"
+    "teams teams teams awin dbet gbet gbet gbet";
+}
+.teams-info {
+    grid-area: teams;
 }
 
 .game-header {

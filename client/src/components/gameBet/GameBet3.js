@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as gamesActions from "../../store/gameBet/actions";
+import { TeamsInfo } from "./TeamsInfo";
 import { Dropdown } from 'semantic-ui-react';
 import "./GameBet3.css";
 
@@ -21,56 +22,29 @@ class GameBet3 extends Component {
     );
   };
 
-  pointsDiffOptions = (n) => {
-      let pointsDiffArr = [];
-      for (let i=1; i<=n; i++) { pointsDiffArr.push(i) }
-    //   return pointsDiffArr;
-    return['a', 'b', 'c'];
+  setPointsDiff = (e, { value }) => {
+      this.setState(
+          () => { return { pointsDiff: value } }, 
+          () => console.log('pointsDiff: ' + this.state.pointsDiff)
+        )
+    };
+
+  pointsDiffOtionsTest = (n) => {
+    let pointsDiffMenuItems = [];
+    for (let i=1; i<=n; i++) {
+      pointsDiffMenuItems.push({text: i, value: i}) 
+  }
+    return pointsDiffMenuItems;
   }
 
   render() {
     if (!this.props.gameInfo.srId) {
       return <div>Fetching info...</div>;
     } else {
-      const gameSched = new Date(Date.parse(this.props.gameInfo.schedule));
-      const gameDate =
-        gameSched.getDate() +
-        "-" +
-        (gameSched.getMonth() + 1) +
-        "-" +
-        gameSched.getFullYear();
-      const homeTeam = this.props.gameInfo.homeTeam;
-      const awayTeam = this.props.gameInfo.awayTeam;
-      const homeImg = (
-        <img
-          src={require(`../../resources/images/50/${homeTeam.alias}-50.png`)}
-          alt={homeTeam.name}
-        />
-      );
-      const awayImg = (
-        <img
-          src={require(`../../resources/images/50/${awayTeam.alias}-50.png`)}
-          alt={awayTeam.name}
-        />
-      );
       return (
         <div className="gamebet-container">
-          <div className="game-header">Next Game on {gameDate}</div>
-          <div className="home-team__img">{homeImg}</div>
-          <div className="home-team__name">
-            {homeTeam.city} {homeTeam.name}
-          </div>
-          <div className="home-team__stats">
-            ({homeTeam.wins} - {homeTeam.losses})
-          </div>
-          <div className="away-team__img">{awayImg}</div>
-          <div className="away-team__name">
-            {awayTeam.city} {awayTeam.name}
-          </div>
-          <div className="away-team__stats">
-            ({awayTeam.wins} - {awayTeam.losses})
-          </div>
-          <div className="winner-head">Choose winner</div>
+         <div className="teams-info"><TeamsInfo gameInfo={this.props.gameInfo} /></div>
+          <div className="winner-header">Choose winner</div>
           <div className="home-win">
             <input
               type="radio"
@@ -89,7 +63,9 @@ class GameBet3 extends Component {
           </div>
           <div className="points-diff-head">Points diff</div>
           <div className="points-diff-dd">
-          <Dropdown placeholder='Differene' scrolling options={[1, 2, 3]/* this.pointsDiffOptions(20) */} /></div>
+          <Dropdown placeholder='"points"' scrolling value={this.state.pointsDiff} onChange={this.setPointsDiff} options={this.pointsDiffOtionsTest(35)}>
+          
+          </Dropdown></div>
         </div>
       );
     }
