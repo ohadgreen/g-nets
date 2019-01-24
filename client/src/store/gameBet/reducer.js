@@ -22,6 +22,7 @@ export default function reduce(state = initialState, action) {
         };
         case 'BET_ADD_SUCCESS': {
             return {
+                ...initialState,
                 currentUserBet: action.payload,
                 finalizedBet: true
                 }

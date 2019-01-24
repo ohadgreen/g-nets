@@ -43,7 +43,8 @@ class NewGamesInfo {
             return {error: errorMsg};
         }
         else {
-            return response.msg;
+            // console.log('service addBet: ' + JSON.stringify(response));
+            return {msg: response.data.msg};
         }
     }
 }

@@ -43,16 +43,15 @@ module.exports = app => {
     // add bet
     app.post("/api/games/addbet", async (req, res) => { 
         let errorMsg;
-        const { gameid, userid, winner_ha, winnerTeamName, pointsDiff } = req.query;
+        const { gameid, userid, winner, pointsDiff, betString } = req.query;
         const userBet = {
             user: userid,
-            winner: winner_ha,
+            winner: winner,
             pointsDiff: pointsDiff,
-            betString: `${winnerTeamName} by ${pointsDiff}`            
+            betString: betString           
         };
         const addBetRes = await Game.findOneAndUpdate({ 'srId': gameid }, { $push: { bets: userBet } });
-
-        console.log('addBetRes: ' + JSON.stringify(addBetRes));
+        // console.log('addBetRes: ' + JSON.stringify(addBetRes));
 
         if (!addBetRes) {
             errorMsg = 'cannot add user bet';

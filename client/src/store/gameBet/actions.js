@@ -7,7 +7,8 @@ import { getUser } from '../userAuth/reducer';
         // const state = getState();
         const currentUserId = getUser(getState()).id;
         const userBet = findCurrentUserBet(newGame, currentUserId);
-        const finalizedBet = (userBet !== {});
+        console.log('user bet: ' + JSON.stringify(userBet));
+        const finalizedBet = Object.keys(userBet).length > 0;
 
         dispatch({ type: 'NEW_GAME_INFO_SUCCESS', payload: {gameid: newGame.srId, gameInfo: newGame, currentUserBet: userBet, finalizedBet: finalizedBet } });
     }

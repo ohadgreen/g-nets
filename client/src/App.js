@@ -1,10 +1,7 @@
 import React, { Component } from "react";
 import { Router, Route, Switch } from "react-router-dom";
-import { Container } from "semantic-ui-react";
 import { history } from "./services/history";
-import "./App.css";
 import Header from "./components/header/Header";
-import GameBet from "./components/gameBet/GameBet";
 import { GameBetContainer } from "./components/main/GameBetContainer";
 import Login from "./components/login/Login";
 import Register from "./components/login/Register";

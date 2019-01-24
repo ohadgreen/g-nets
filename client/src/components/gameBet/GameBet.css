@@ -4,45 +4,74 @@
   background: white;
   display: grid;
   grid-gap: 2px;
-  grid-template-columns: repeat(8, 1fr);
-  grid-template-rows: 20px 50px 50px;
-  grid-template-areas:
-    "teams teams teams whead dhead bhead bhead bhead"
-    "teams teams teams hwin dbet gbet gbet gbet"
-    "teams teams teams awin dbet gbet gbet gbet";
+  grid-template-columns: repeat(3, 1fr);
+  /* grid-template-areas: "teams ebet bbtn"; */
 }
 
 .teams-info {
-    grid-area: teams;
+  grid-area: teams;
+}
+
+.new-bet {
+  grid-area: nbet;
+}
+
+.exists-bet {
+  grid-area: ebet;
+  display: flex;
+  justify-self: center;
+  align-items: center;
+}
+
+.bet-button {
+  grid-area: bbtn;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* .all-bets {
+  grid-area: abet
+} */
+
+.user-bet-container {
+  display: grid;
+  grid-gap: 2px;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 20px 50px 50px;
+  grid-template-areas:
+    "whead dhead"
+    "hwin dbet"
+    "awin dbet";
 }
 
 .winner-header {
-    grid-area: whead;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .home-win {
-    grid-area: hwin;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .away-win {
-    grid-area: awin;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .points-diff-head {
-    grid-area: dhead;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .points-diff-dd {
-    grid-area: dbet;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+  grid-area: whead;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.home-win {
+  grid-area: hwin;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.away-win {
+  grid-area: awin;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.points-diff-head {
+  grid-area: dhead;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.points-diff-dd {
+  grid-area: dbet;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
