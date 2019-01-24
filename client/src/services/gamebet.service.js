@@ -26,6 +26,26 @@ class NewGamesInfo {
     getNewGamesAll() {
         return newGameSample;
     }
+
+    async addUserBet(userBet) {
+        const response = await axios({
+            url: baseUrl + 'addbet',
+            method: 'POST',
+            params: userBet,
+            headers: {
+                Accept: 'application/json'
+            }
+        });
+
+        if(!response || response.error) {
+            const errorMsg = response.error ? response.error : 'cannot fetch new games';
+            console.log(errorMsg);
+            return {error: errorMsg};
+        }
+        else {
+            return response.msg;
+        }
+    }
 }
 
 export default new NewGamesInfo();

@@ -1,0 +1,55 @@
+.teams-info-container {
+  background: white;
+  display: grid;
+  grid-gap: 2px;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 20px 50px 50px;
+  grid-template-areas:
+    "ghead ghead ghead"
+    "himg hname hstat"
+    "aimg aname astat";
+}
+
+.game-header {
+  grid-area: ghead;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.home-team__img {
+  grid-area: himg;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.away-team__img {
+  grid-area: aimg;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.home-team__name {
+  grid-area: hname;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.away-team__name {
+  grid-area: aname;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.home-team__stats {
+  grid-area: hstat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.away-team__stats {
+  grid-area: astat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

@@ -8,6 +8,14 @@ const gameSchema = new Schema({
     homeTeam: { type: Schema.Types.ObjectId, ref: 'teams' },
     awayTeam: { type: Schema.Types.ObjectId, ref: 'teams' },
     results: { homePoints: Number, awayPoints: Number },
+    bets: [{
+        user: { type: Schema.Types.ObjectId, ref: 'users' },
+        winner: String,
+        pointsDiff: Number,
+        betString: String,
+        score: Number,
+        rank: Number
+    }],
     gameSummaryUrl: String,
 });
 

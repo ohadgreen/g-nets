@@ -5,7 +5,7 @@ const Game = mongoose.model("games");
 const Team = mongoose.model("teams");
 const API_URL =
   "http://api.sportradar.us/nba/trial/v5/en/games/YEAR/MONTH/DAY/schedule.json";
-const gamesFetchLimit = 3;
+const gamesFetchLimit = 2;
 
 module.exports = app => {
   app.post("/api/games/insert/bydate", async (req, res) => {
@@ -81,7 +81,7 @@ module.exports = app => {
       .replace("MONTH", month)
       .replace("DAY", day);
     scheduleGamesApiUrl += "?api_key=" + keys.sportsRadarApiKey;
-    // console.log('games sched api: ' + scheduleGamesApiUrl);
+    console.log('games sched api: ' + scheduleGamesApiUrl);
 
     const response = await axios({
       url: scheduleGamesApiUrl,

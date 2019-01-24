@@ -19,7 +19,7 @@ module.exports = app => {
         else {
             res.send(newGames);
         }
-    });
+    });    
 
     // return games from two days ago that have results
     app.get("/api/games/recent", async (req, res) => { 
@@ -38,6 +38,29 @@ module.exports = app => {
         }
         else {
             res.send(recentGames);
+        }
+    });
+    // add bet
+    app.post("/api/games/addbet", async (req, res) => { 
+        let errorMsg;
+        const { gameid, userid, winner_ha, winnerTeamName, pointsDiff } = req.query;
+        const userBet = {
+            user: userid,
+            winner: winner_ha,
+            pointsDiff: pointsDiff,
+            betString: `${winnerTeamName} by ${pointsDiff}`            
+        };
+        const addBetRes = await Game.findOneAndUpdate({ 'srId': gameid }, { $push: { bets: userBet } });
+
+        console.log('addBetRes: ' + JSON.stringify(addBetRes));
+
+        if (!addBetRes) {
+            errorMsg = 'cannot add user bet';
+            console.log(errorMsg);
+            res.send({ error: errorMsg });
+        }
+        else {
+            res.send({msg: 'user bet added'});
         }
     });
 }

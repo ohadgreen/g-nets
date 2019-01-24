@@ -4,8 +4,7 @@ const initialState = {
     fetched: false,
     gameid: '',
     gameInfo: {},
-    bets: [],
-    currentUserBet: [],
+    currentUserBet: {},
     finalizedBet: false,
 };
 
@@ -15,9 +14,16 @@ export default function reduce(state = initialState, action) {
         case 'NEW_GAME_INFO_SUCCESS': {
             return {
                 fetched: true,
-                gameid: action.payload._id,
-                gameInfo: action.payload,
-                finalizedBet: false
+                gameid: action.payload.gameid,
+                gameInfo: action.payload.gameInfo,
+                currentUserBet: action.payload.currentUserBet,
+                finalizedBet: action.payload.finalizedBet
+                }
+        };
+        case 'BET_ADD_SUCCESS': {
+            return {
+                currentUserBet: action.payload,
+                finalizedBet: true
                 }
         }
         default:
