@@ -3,8 +3,8 @@ import { newGameSample } from '../resources/sampleData/newGames';
 const baseUrl = '/api/games/';
 
 class NewGamesInfo {
-    /* async */ getNewGamesFirst() {
-        /* const response = await axios({
+    async getNewGamesFirst() {
+        const response = await axios({
             url: baseUrl + 'new',
             method: 'GET',
             headers: {
@@ -18,16 +18,17 @@ class NewGamesInfo {
             console.log(errorMsg);
         }
         else {
-            return response.data[1];
-        } */
+            return response.data[0];
+        }
 
-        return newGameSample[0];
+        // return newGameSample[0];
     }
     getNewGamesAll() {
         return newGameSample;
     }
 
     async addUserBet(userBet) {
+        console.log('add bet service: ' + JSON.stringify(userBet));
         const response = await axios({
             url: baseUrl + 'addbet',
             method: 'POST',
@@ -38,13 +39,13 @@ class NewGamesInfo {
         });
 
         if(!response || response.error) {
-            const errorMsg = response.error ? response.error : 'cannot fetch new games';
+            const errorMsg = response.error ? response.error : 'cannot add bet';
             console.log(errorMsg);
             return {error: errorMsg};
         }
         else {
-            // console.log('service addBet: ' + JSON.stringify(response));
-            return {msg: response.data.msg};
+            console.log('service addBet: ' + JSON.stringify(response.data));
+            return {msg: response.msg, data: response.data};
         }
     }
 }

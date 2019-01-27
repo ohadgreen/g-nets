@@ -99,7 +99,7 @@ class GameBet extends Component {
   renderBetButton = () => {
     if(this.props.finalizedBet){
       return (
-        <div><Button onClick={this.updateBet}>Update</Button></div>
+        <div><Button size="tiny" onClick={this.updateBet}>Update</Button></div>
       )
     }
     else {
@@ -110,17 +110,26 @@ class GameBet extends Component {
     }
   }
 
+  renderAllBets = () => {
+    return (
+      <ul>
+      {this.props.allBets.map((b, i) => { return (<li key={i}>{b.user.username} {b.betString}</li>)})}
+      </ul>
+    )
+  }
+
   render() {
     if (!this.props.gameInfo.srId) {
       return <div>Fetching info...</div>;
     } else {      
       return (
-        <div className="gamebet-container" style={{'gridTemplateAreas': (this.props.finalizedBet) ? "'teams ebet bbtn'" : "'teams nbet bbtn'"}}>
+        <div className="gamebet-container" style={{'gridTemplateAreas': (this.props.finalizedBet) ? "'teams teams teams ebet ebet bbtn abet abet'" : "'teams teams teams nbet nbet bbtn abet abet'"}}>
           <div className="teams-info">
             <TeamsInfo gameInfo={this.props.gameInfo} />
           </div>
           {(this.props.finalizedBet) ? (<div className="exists-bet">{this.renderExistsBet()}</div>) :(<div className="new-bet">{this.renderUserBet()}</div>)}
           <div className="bet-button">{this.renderBetButton()}</div>
+          <div className="all-bets">{this.renderAllBets()}</div>
         </div>
       );
     }
@@ -133,14 +142,17 @@ function mapStateToProps(state) {
   const gameid = state.game.gameid;
   const finalizedBet = state.game.finalizedBet;
   const userBet = state.game.currentUserBet;
+  const allBets = state.game.allBets;
   console.log("mstp gameInfo: " + gameInfo.srId);
-  console.log('finalized: ' + finalizedBet);
+  console.log("mstp allBets: " + JSON.stringify(allBets));
+  // console.log('finalized: ' + finalizedBet);
   return {
     user,
     gameInfo,
     gameid,
     finalizedBet,
-    userBet
+    userBet,
+    allBets
   };
 }
 

@@ -10,46 +10,33 @@
     "aimg aname astat";
 }
 
-.game-header {
-  grid-area: ghead;
+.teams-info-container > * {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
+.game-header {
+  grid-area: ghead;
+}
+
 .home-team__img {
   grid-area: himg;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 .away-team__img {
   grid-area: aimg;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 .home-team__name {
   grid-area: hname;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
 }
 .away-team__name {
   grid-area: aname;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
 }
 .home-team__stats {
   grid-area: hstat;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 .away-team__stats {
   grid-area: astat;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }

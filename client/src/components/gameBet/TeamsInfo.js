@@ -13,13 +13,13 @@ export const TeamsInfo = props => {
   const awayTeam = props.gameInfo.awayTeam;
   const homeImg = (
     <img
-      src={require(`../../resources/images/50/${homeTeam.alias}-50.png`)}
+      src={require(`../../resources/images/40/${homeTeam.alias}-40.png`)}
       alt={homeTeam.name}
     />
   );
   const awayImg = (
     <img
-      src={require(`../../resources/images/50/${awayTeam.alias}-50.png`)}
+      src={require(`../../resources/images/40/${awayTeam.alias}-40.png`)}
       alt={awayTeam.name}
     />
   );
@@ -28,14 +28,14 @@ export const TeamsInfo = props => {
       <div className="game-header">Next Game on {gameDate}</div>
       <div className="home-team__img">{homeImg}</div>
       <div className="home-team__name">
-        {homeTeam.city} {homeTeam.name}
+        {homeTeam.city}<br/><b>{homeTeam.name}</b>
       </div>
       <div className="home-team__stats">
         ({homeTeam.wins} - {homeTeam.losses})
       </div>
       <div className="away-team__img">{awayImg}</div>
       <div className="away-team__name">
-        {awayTeam.city} {awayTeam.name}
+        {awayTeam.city}<br/><b>{awayTeam.name}</b>
       </div>
       <div className="away-team__stats">
         ({awayTeam.wins} - {awayTeam.losses})

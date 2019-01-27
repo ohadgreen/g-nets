@@ -7,10 +7,12 @@ module.exports = app => {
     //return games without results
     app.get("/api/games/new", async (req, res) => { 
         let errorMsg;
-        const newGames = await Game.find({ 'results.homePoints': 0},
+        const newGames = await Game.find({ 'results.homePoints': 0 , 'srId' : 'sr:match:15329122'},
         { results: 0, srIdLong: 0 })
             .populate('homeTeam', 'name city alias wins losses winPct gamesBehind.league')
-            .populate('awayTeam', 'name city alias wins losses winPct gamesBehind.league');
+            .populate('awayTeam', 'name city alias wins losses winPct gamesBehind.league')
+            .populate({path: 'bets.user', model: 'users', select: 'username'})
+            ;
         if (!newGames) {
             errorMsg = 'cannot find new games';
             console.log(errorMsg);
@@ -43,15 +45,16 @@ module.exports = app => {
     // add bet
     app.post("/api/games/addbet", async (req, res) => { 
         let errorMsg;
-        const { gameid, userid, winner, pointsDiff, betString } = req.query;
+        const { gameid, user, winner, pointsDiff, betString } = req.query;
         const userBet = {
-            user: userid,
+            user: user,
             winner: winner,
             pointsDiff: pointsDiff,
             betString: betString           
         };
-        const addBetRes = await Game.findOneAndUpdate({ 'srId': gameid }, { $push: { bets: userBet } });
-        // console.log('addBetRes: ' + JSON.stringify(addBetRes));
+        // console.log('userBet: ' + JSON.stringify(userBet));
+        const addBetRes = await Game.findOneAndUpdate({ 'srId': gameid }, { $push: { bets: userBet } }, { new: true })
+        .populate({path: 'bets.user', model: 'users', select: 'username'});
 
         if (!addBetRes) {
             errorMsg = 'cannot add user bet';
@@ -59,7 +62,27 @@ module.exports = app => {
             res.send({ error: errorMsg });
         }
         else {
-            res.send({msg: 'user bet added'});
+            res.send({msg: 'user bet added', data: addBetRes});
+        }
+    });
+
+    // remove bet
+    app.post("/api/games/removebet", async (req, res) => { 
+        let errorMsg;
+        const { gameid, user } = req.query;
+        console.log(`user: ${user} gameid: ${gameid}`);
+        const userObj = mongoose.Types.ObjectId('' + user + '');
+        console.log('userObj: ' + userObj);
+        const removeBetRes = await Game.findOneAndUpdate({ 'srId': gameid }, { $pull: { bets: {'user._id' : user} } }, { new: true })
+            .populate({path: 'bets.user', model: 'users', select: 'username'});
+
+        if (!removeBetRes) {
+            errorMsg = 'cannot remove user bet';
+            console.log(errorMsg);
+            res.send({ error: errorMsg });
+        }
+        else {
+            res.send({msg: 'user bet removed', data: removeBetRes});
         }
     });
 }

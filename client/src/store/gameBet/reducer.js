@@ -4,6 +4,7 @@ const initialState = {
     fetched: false,
     gameid: '',
     gameInfo: {},
+    allBets: {},
     currentUserBet: {},
     finalizedBet: false,
 };
@@ -16,14 +17,17 @@ export default function reduce(state = initialState, action) {
                 fetched: true,
                 gameid: action.payload.gameid,
                 gameInfo: action.payload.gameInfo,
+                allBets: action.payload.allBets,
                 currentUserBet: action.payload.currentUserBet,
                 finalizedBet: action.payload.finalizedBet
                 }
         };
         case 'BET_ADD_SUCCESS': {
+            console.log('reducer: ' + JSON.stringify(action.payload));
             return {
-                ...initialState,
-                currentUserBet: action.payload,
+                ...state,
+                allBets: action.payload.allBets,
+                currentUserBet: action.payload.currentUserBet,
                 finalizedBet: true
                 }
         }
