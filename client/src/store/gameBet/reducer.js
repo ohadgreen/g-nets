@@ -23,14 +23,27 @@ export default function reduce(state = initialState, action) {
                 }
         };
         case 'BET_ADD_SUCCESS': {
-            console.log('reducer: ' + JSON.stringify(action.payload));
             return {
                 ...state,
                 allBets: action.payload.allBets,
                 currentUserBet: action.payload.currentUserBet,
                 finalizedBet: true
                 }
-        }
+        };case 'BET_ADD_FAILURE': {
+            return state;
+        };
+        case 'BET_REMOVE_SUCCESS': {
+            console.log('reducer: ' + JSON.stringify(action.payload));
+            return {
+                ...state,
+                allBets: action.payload.allBets,
+                currentUserBet: {},
+                finalizedBet: false
+                }
+        };case 'BET_REMOVE_FAILURE': {
+            console.log('reducer: ' + JSON.stringify(action.payload));
+            return state;
+        };
         default:
             return state;
     }

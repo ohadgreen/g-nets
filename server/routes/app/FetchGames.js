@@ -69,20 +69,18 @@ module.exports = app => {
     // remove bet
     app.post("/api/games/removebet", async (req, res) => { 
         let errorMsg;
-        const { gameid, user } = req.query;
-        console.log(`user: ${user} gameid: ${gameid}`);
-        const userObj = mongoose.Types.ObjectId('' + user + '');
-        console.log('userObj: ' + userObj);
-        const removeBetRes = await Game.findOneAndUpdate({ 'srId': gameid }, { $pull: { bets: {'user._id' : user} } }, { new: true })
+        const { gameid, betid } = req.query;
+        console.log(`gameid: ${gameid} betid: ${betid}`);
+        const removeBetRes = await Game.findOneAndUpdate({ 'srId': gameid }, { $pull: { bets: {'_id' : betid} } }, { new: true })
             .populate({path: 'bets.user', model: 'users', select: 'username'});
 
         if (!removeBetRes) {
             errorMsg = 'cannot remove user bet';
             console.log(errorMsg);
-            res.send({ error: errorMsg });
+            res.send({ success: false, error: errorMsg });
         }
         else {
-            res.send({msg: 'user bet removed', data: removeBetRes});
+            res.send({success: true, data: removeBetRes});
         }
     });
 }

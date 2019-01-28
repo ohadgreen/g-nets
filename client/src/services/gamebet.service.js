@@ -44,8 +44,27 @@ class NewGamesInfo {
             return {error: errorMsg};
         }
         else {
-            console.log('service addBet: ' + JSON.stringify(response.data));
+            // console.log('service addBet: ' + JSON.stringify(response.data));
             return {msg: response.msg, data: response.data};
+        }
+    }
+
+    async removeUserBet(userBet) {
+        const response = await axios({
+            url: baseUrl + 'removebet',
+            method: 'POST',
+            params: userBet,
+            headers: {
+                Accept: 'application/json'
+            }
+        });
+
+        if(!response.data.success){
+            return {success: false};       
+        }
+        else {
+            // console.log('service removeBet: ' + JSON.stringify(response.data));
+            return {success: true, data: response.data};
         }
     }
 }

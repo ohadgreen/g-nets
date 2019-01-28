@@ -47,8 +47,10 @@ class GameBet extends Component {
     this.props.dispatch(gamesActions.addBet(userBet));
   }
 
-  updateBet = () => {
-    console.log('update bet');
+  removeBet = () => {
+    this.setState({ chosenWinner: "", pointsDiff: 0 })
+    const userBet = { gameid: this.props.gameid, betid: this.props.userBet._id }
+    this.props.dispatch(gamesActions.removeBet(userBet));
   }
 
   pointsDiffOtionsTest = n => {
@@ -99,13 +101,13 @@ class GameBet extends Component {
   renderBetButton = () => {
     if(this.props.finalizedBet){
       return (
-        <div><Button size="tiny" onClick={this.updateBet}>Update</Button></div>
+        <div><Button size="tiny" onClick={this.removeBet}>Remove</Button></div>
       )
     }
     else {
       const disableBtn = (this.state.chosenWinner === "" || this.state.pointsDiff === 0);
       return (
-        <div><Button disabled={disableBtn} onClick={this.placeBet}>Place bet</Button></div>
+        <div><Button size="tiny" disabled={disableBtn} onClick={this.placeBet}>Place bet</Button></div>
       )
     }
   }
@@ -143,8 +145,8 @@ function mapStateToProps(state) {
   const finalizedBet = state.game.finalizedBet;
   const userBet = state.game.currentUserBet;
   const allBets = state.game.allBets;
-  console.log("mstp gameInfo: " + gameInfo.srId);
-  console.log("mstp allBets: " + JSON.stringify(allBets));
+  // console.log("mstp userBet: " + JSON.stringify(userBet));
+  // console.log("mstp allBets: " + JSON.stringify(allBets));
   // console.log('finalized: ' + finalizedBet);
   return {
     user,

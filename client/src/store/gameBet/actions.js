@@ -19,7 +19,6 @@ import { getUser } from '../userAuth/reducer';
 export const addBet = (userBet) => async (dispatch, getState) => {
     const newBetAdd = await gameService.addUserBet(userBet);
     const allBets = newBetAdd.data.data.bets;
-    console.log('action addBet: ' + JSON.stringify(newBetAdd));
     const currentUserId = getUser(getState()).id;
     const userBetUpdated = findCurrentUserBet(newBetAdd.data.data, currentUserId);
     if(newBetAdd.data.msg === 'user bet added'){
@@ -27,6 +26,17 @@ export const addBet = (userBet) => async (dispatch, getState) => {
     }
     else{
         dispatch({ type: 'BET_ADD_FAILURE' });
+    }
+}
+
+export const removeBet = (userBet) => async (dispatch) => {
+    const betRemove = await gameService.removeUserBet(userBet);
+    const allBets = betRemove.data.data.bets;
+    if(betRemove.success){
+        dispatch({ type: 'BET_REMOVE_SUCCESS', payload: {allBets: allBets} });
+    }
+    else{
+        dispatch({ type: 'BET_REMOVE_FAILURE' });
     }
 }
 
