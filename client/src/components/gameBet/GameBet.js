@@ -125,7 +125,7 @@ class GameBet extends Component {
       return <div>Fetching info...</div>;
     } else {      
       return (
-        <div className="gamebet-container" style={{'gridTemplateAreas': (this.props.finalizedBet) ? "'teams teams teams ebet ebet bbtn abet abet'" : "'teams teams teams nbet nbet bbtn abet abet'"}}>
+        <div className="gamebet-container" style={{'gridTemplateAreas': (this.props.finalizedBet) ? "'teams ebet ebet bbtn abet abet'" : "'teams nbet nbet bbtn abet abet'"}}>
           <div className="teams-info">
             <TeamsInfo gameInfo={this.props.gameInfo} />
           </div>

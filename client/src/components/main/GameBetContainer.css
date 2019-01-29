@@ -1,7 +1,7 @@
 .g-container {
     display: grid;
     grid-gap: 10px;
-    grid-template-rows: 3fr 2fr auto;
+    grid-template-rows: repeat(3, 300px) ;
     grid-template-areas: 
     "newgame"
     "recent"
@@ -10,10 +10,10 @@
 
 .new-game {
     grid-area: newgame;
+    padding: 5px;
 }
 .recent-game {
-    grid-area: recent;
-    
+    grid-area: recent;    
 }
 .players-chart {
     grid-area: chart;

@@ -12,7 +12,7 @@ const initialState = {
 export default function reduce(state = initialState, action) {
     console.log('reducer action.type ', action.type);
     switch (action.type) {
-        case 'NEW_GAME_INFO_SUCCESS': {
+        case 'NEW_GAME_INFO_SUCCESS': 
             return {
                 fetched: true,
                 gameid: action.payload.gameid,
@@ -21,18 +21,19 @@ export default function reduce(state = initialState, action) {
                 currentUserBet: action.payload.currentUserBet,
                 finalizedBet: action.payload.finalizedBet
                 }
-        };
-        case 'BET_ADD_SUCCESS': {
+        
+        case 'BET_ADD_SUCCESS': 
             return {
                 ...state,
                 allBets: action.payload.allBets,
                 currentUserBet: action.payload.currentUserBet,
                 finalizedBet: true
                 }
-        };case 'BET_ADD_FAILURE': {
+
+        case 'BET_ADD_FAILURE': 
             return state;
-        };
-        case 'BET_REMOVE_SUCCESS': {
+    
+        case 'BET_REMOVE_SUCCESS': 
             console.log('reducer: ' + JSON.stringify(action.payload));
             return {
                 ...state,
@@ -40,10 +41,11 @@ export default function reduce(state = initialState, action) {
                 currentUserBet: {},
                 finalizedBet: false
                 }
-        };case 'BET_REMOVE_FAILURE': {
+                
+        case 'BET_REMOVE_FAILURE': 
             console.log('reducer: ' + JSON.stringify(action.payload));
             return state;
-        };
+        
         default:
             return state;
     }

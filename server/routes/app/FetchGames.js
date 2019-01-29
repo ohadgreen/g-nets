@@ -7,7 +7,7 @@ module.exports = app => {
     //return games without results
     app.get("/api/games/new", async (req, res) => { 
         let errorMsg;
-        const newGames = await Game.find({ 'results.homePoints': 0 , 'srId' : 'sr:match:15329122'},
+        const newGames = await Game.find({ 'results.homePoints': 0 , 'srId' : 'sr:match:15329958'},
         { results: 0, srIdLong: 0 })
             .populate('homeTeam', 'name city alias wins losses winPct gamesBehind.league')
             .populate('awayTeam', 'name city alias wins losses winPct gamesBehind.league')
@@ -29,8 +29,11 @@ module.exports = app => {
         let yesterday = dateUtils.dateDiffFromToday(-2);
         console.log('yesterday: ' + yesterday);
 
-        const recentGames = await Game.find({ 'schedule': { '$gte': new Date(yesterday) }, 'results.homePoints': {'$gt': 0} },
-        { results: 0, srIdLong: 0 } )
+        const recentGames = await Game.find({ 
+            // 'schedule': { '$gte': new Date(yesterday) },
+            'srId' : 'sr:match:15329122',
+            'results.homePoints': {'$gt': 0} },
+            { srIdLong: 0 } )
             .populate('homeTeam', 'name city alias wins losses winPct gamesBehind.league')
             .populate('awayTeam', 'name city alias wins losses winPct gamesBehind.league');
         if (!recentGames) {
@@ -70,7 +73,6 @@ module.exports = app => {
     app.post("/api/games/removebet", async (req, res) => { 
         let errorMsg;
         const { gameid, betid } = req.query;
-        console.log(`gameid: ${gameid} betid: ${betid}`);
         const removeBetRes = await Game.findOneAndUpdate({ 'srId': gameid }, { $pull: { bets: {'_id' : betid} } }, { new: true })
             .populate({path: 'bets.user', model: 'users', select: 'username'});
 

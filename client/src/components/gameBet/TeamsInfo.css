@@ -2,12 +2,12 @@
   background: white;
   display: grid;
   grid-gap: 2px;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: 20px 50px 50px;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 20px 60px 60px;
   grid-template-areas:
-    "ghead ghead ghead"
-    "himg hname hstat"
-    "aimg aname astat";
+    "ghead ghead"
+    "himg hname"
+    "aimg aname";
 }
 
 .teams-info-container > * {
@@ -15,28 +15,27 @@
   justify-content: center;
   align-items: center;
 }
-
 .game-header {
   grid-area: ghead;
 }
-
 .home-team__img {
   grid-area: himg;
 }
 .away-team__img {
   grid-area: aimg;
 }
-.home-team__name {
+.home-team__details {
   grid-area: hname;
   flex-direction: column;
 }
-.away-team__name {
+.home-team__details > * {
+  align-content: left;
+}
+
+.team-name {
+  font-size: large;
+}
+.away-team__details {
   grid-area: aname;
   flex-direction: column;
-}
-.home-team__stats {
-  grid-area: hstat;
-}
-.away-team__stats {
-  grid-area: astat;
 }

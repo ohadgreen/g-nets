@@ -43,7 +43,7 @@
   display: grid;
   grid-gap: 2px;
   grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: 20px 40px 40px;
+  grid-template-rows: 20px 60px 60px;
   grid-template-areas:
     "whead dhead"
     "hwin dbet"
