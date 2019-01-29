@@ -2,12 +2,21 @@
   background: white;
   display: grid;
   grid-gap: 2px;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: 20px 60px 60px;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(7, 1fr);
   grid-template-areas:
-    "ghead ghead"
-    "himg hname"
-    "aimg aname";
+  "ghead ghead ghead"
+    "himg hname hname"
+    "himg hname hname"
+    "himg hname hname"
+    "aimg aname aname"
+    "aimg aname aname"
+    "aimg aname aname"
+  /* grid-template-rows: 20px 60px 60px;
+  grid-template-areas:
+    "ghead ghead ghead"
+    "himg hname hname"
+    "aimg aname aname"; */
 }
 
 .teams-info-container > * {
@@ -28,14 +37,13 @@
   grid-area: hname;
   flex-direction: column;
 }
-.home-team__details > * {
-  align-content: left;
-}
-
-.team-name {
+.home-team__details > div > b {
   font-size: large;
 }
 .away-team__details {
   grid-area: aname;
   flex-direction: column;
+}
+.away-team__details > div > b {
+  font-size: large;
 }

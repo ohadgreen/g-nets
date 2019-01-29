@@ -28,16 +28,14 @@ export const TeamsInfo = props => {
       <div className="game-header">{gameDate}</div>
       <div className="home-team__img">{homeImg}</div>
       <div className="home-team__details">
-        <div>{homeTeam.city}</div>
-        <div className="team-name">{homeTeam.name}</div>
+        <div>{homeTeam.city} <b>{homeTeam.name}</b></div>
         <div>
           ({homeTeam.wins} - {homeTeam.losses})
         </div>
       </div>
       <div className="away-team__img">{awayImg}</div>
       <div className="away-team__details">
-        <div>{awayTeam.city}</div>
-        <div className="team-name">{awayTeam.name}</div>
+      <div>{awayTeam.city} <b>{awayTeam.name}</b></div>
         <div>
           ({awayTeam.wins} - {awayTeam.losses})
         </div>

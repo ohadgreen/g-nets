@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as gamesActions from "../../store/gameBet/actions";
 import { TeamsInfo } from "./TeamsInfo";
+import { AllBets } from "./AllBets";
 import { Dropdown, Button } from "semantic-ui-react";
 import "./GameBet.css";
 
@@ -112,26 +113,20 @@ class GameBet extends Component {
     }
   }
 
-  renderAllBets = () => {
-    return (
-      <ul>
-      {this.props.allBets.map((b, i) => { return (<li key={i}>{b.user.username} {b.betString}</li>)})}
-      </ul>
-    )
-  }
-
   render() {
     if (!this.props.gameInfo.srId) {
       return <div>Fetching info...</div>;
     } else {      
       return (
-        <div className="gamebet-container" style={{'gridTemplateAreas': (this.props.finalizedBet) ? "'teams ebet ebet bbtn abet abet'" : "'teams nbet nbet bbtn abet abet'"}}>
+        <div className="gamebet-container" style={{'gridTemplateAreas': (this.props.finalizedBet) ? 
+        "'teams teams ebet ebet bbtn abet abet'" : 
+        "'teams teams nbet nbet bbtn abet abet'"}}>
           <div className="teams-info">
             <TeamsInfo gameInfo={this.props.gameInfo} />
           </div>
           {(this.props.finalizedBet) ? (<div className="exists-bet">{this.renderExistsBet()}</div>) :(<div className="new-bet">{this.renderUserBet()}</div>)}
           <div className="bet-button">{this.renderBetButton()}</div>
-          <div className="all-bets">{this.renderAllBets()}</div>
+          <div className="all-bets"><AllBets allBets={this.props.allBets} scores={false}/></div>
         </div>
       );
     }

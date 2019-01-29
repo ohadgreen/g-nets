@@ -35,7 +35,8 @@ module.exports = app => {
             'results.homePoints': {'$gt': 0} },
             { srIdLong: 0 } )
             .populate('homeTeam', 'name city alias wins losses winPct gamesBehind.league')
-            .populate('awayTeam', 'name city alias wins losses winPct gamesBehind.league');
+            .populate('awayTeam', 'name city alias wins losses winPct gamesBehind.league')
+            .populate({path: 'bets.user', model: 'users', select: 'username'});
         if (!recentGames) {
             errorMsg = 'cannot find recent games';
             console.log(errorMsg);

@@ -3,6 +3,7 @@ import GameBet from "../gameBet/GameBet";
 import { RecentGame } from "./RecentGame";
 import RecentGameMain  from "../recentGame/RecentGameMain";
 import { PlayersChart } from "./PlayersChart";
+import './GameBetContainer.css';
 
 export const GameBetContainer = props => {
   return (
