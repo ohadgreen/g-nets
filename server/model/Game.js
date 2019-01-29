@@ -7,7 +7,7 @@ const gameSchema = new Schema({
     schedule: Date,
     homeTeam: { type: Schema.Types.ObjectId, ref: 'teams' },
     awayTeam: { type: Schema.Types.ObjectId, ref: 'teams' },
-    results: { homePoints: Number, awayPoints: Number },
+    results: { homePoints: Number, awayPoints: Number, resultsString: String },
     bets: [{
         user: { type: Schema.Types.ObjectId, ref: 'users' },
         winner: String,

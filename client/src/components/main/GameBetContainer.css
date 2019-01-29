@@ -10,10 +10,9 @@
 
 .new-game {
     grid-area: newgame;
-    padding: 5px;
 }
 .recent-game {
-    grid-area: recent;    
+    grid-area: recent;
 }
 .players-chart {
     grid-area: chart;

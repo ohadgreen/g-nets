@@ -11,7 +11,6 @@ class NewGamesInfo {
                 Accept: 'application/json'
             }
         });
-
         if(!response) {
             const errorMsg = 'cannot fetch new games';
             return {error: errorMsg};
@@ -20,11 +19,28 @@ class NewGamesInfo {
         else {
             return response.data[0];
         }
-
         // return newGameSample[0];
     }
     getNewGamesAll() {
         return newGameSample;
+    }
+
+    async getRecentGame() {
+        const response = await axios({
+            url: baseUrl + 'recent',
+            method: 'GET',
+            headers: {
+                Accept: 'application/json'
+            }
+        });
+        if(!response || response.data.length === 0) {
+            const errorMsg = 'cannot fetch recent games';
+            console.log(errorMsg);
+            return {error: errorMsg};
+        }
+        else {
+            return response.data[0];
+        }
     }
 
     async addUserBet(userBet) {
@@ -37,7 +53,6 @@ class NewGamesInfo {
                 Accept: 'application/json'
             }
         });
-
         if(!response || response.error) {
             const errorMsg = response.error ? response.error : 'cannot add bet';
             console.log(errorMsg);
@@ -58,7 +73,6 @@ class NewGamesInfo {
                 Accept: 'application/json'
             }
         });
-
         if(!response.data.success){
             return {success: false};       
         }
