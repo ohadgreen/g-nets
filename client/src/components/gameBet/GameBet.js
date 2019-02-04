@@ -68,24 +68,6 @@ class GameBet extends Component {
     return pointsDiffMenuItems;
   };
 
-  renderTeamStats = (homeTeam, awayTeam) => {
-    return (
-      <div className="team-stats-container">
-      <div className="stats-header">Team Stats</div>
-        <div className="home-stats">
-          <div>Points for: {homeTeam.pointsFor}</div>
-          <div>Points Against: {homeTeam.pointsAgainst}</div>
-          <div>Points Diff: {homeTeam.pointsDiff}</div>
-        </div>
-        <div className="away-stats">
-          <div>Points for: {awayTeam.pointsFor}</div>
-          <div>Points Against: {awayTeam.pointsAgainst}</div>
-          <div>Points Diff: {awayTeam.pointsDiff}</div>
-        </div>
-      </div>
-    );
-  };
-
   renderUserBet = () => {
     return (
       <div className="user-bet-container">
@@ -155,14 +137,13 @@ class GameBet extends Component {
           className="gamebet-container"
           style={{
             gridTemplateAreas: this.props.finalizedBet
-              ? "'teams teams stat ebet ebet bbtn abet abet'"
-              : "'teams teams stat nbet nbet bbtn abet abet'"
+              ? "'teams teams teams ebet ebet bbtn abet abet'"
+              : "'teams teams teams nbet nbet bbtn abet abet'"
           }}
         >
           <div className="teams-info">
-            <TeamsInfo gameInfo={this.props.gameInfo} />
+            <TeamsInfo gameInfo={this.props.gameInfo} mode="stats" gameResults={this.props.gameInfo.gameResults} />
           </div>
-          {this.renderTeamStats(this.props.gameInfo.homeTeam, this.props.gameInfo.awayTeam )}
           {this.props.finalizedBet ? (
             <div className="exists-bet">{this.renderExistsBet()}</div>
           ) : (

@@ -10,20 +10,6 @@ class RecentGameMain extends Component {
     this.props.dispatch(recentGamesActions.recentGame());
   }
 
-  renderFinalScore = () => {
-    return (
-        <div className="final-score-container">
-        <div className="final-header">Final Score</div>
-          <div className="home-final-score">
-            <div>{this.props.gameResults.homePoints}</div>
-          </div>
-          <div className="away-final-score">
-            <div>{this.props.gameResults.awayPoints}</div>
-          </div>          
-        </div>
-      );
-  }
-
   renderAllBets = () => {
     return (
       <ul>
@@ -49,9 +35,8 @@ class RecentGameMain extends Component {
       return (
         <div className="recent-game-container">
           <div className="teams-info">
-            <TeamsInfo gameInfo={this.props.gameInfo} />
+            <TeamsInfo gameInfo={this.props.gameInfo} mode="final" gameResults={this.props.gameResults} />
           </div>
-          {this.renderFinalScore()}
           <div className="user-bets">{this.renderUserBet()}</div>
           <div className="all-bets"><AllBets allBets={this.props.allBets} scores={true}/></div>
         </div>

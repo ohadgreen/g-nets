@@ -14,14 +14,12 @@ export const TeamsInfo = props => {
   const homeImg = (
     <img
       src={require(`../../resources/images/ext/${homeTeam.alias}-70.png`)}
-      // src={require(`../../resources/images/ext/GSW_p.png`)}
       alt={homeTeam.name}
     />
   );
   const awayImg = (
     <img
       src={require(`../../resources/images/ext/${awayTeam.alias}-70.png`)}
-      // src={require(`../../resources/images/ext/PHX_p.png`)}
       alt={awayTeam.name}
     />
   );
@@ -42,6 +40,42 @@ export const TeamsInfo = props => {
           ({awayTeam.wins} - {awayTeam.losses})
         </div>
       </div>
+      {(props.mode === 'stats') ? renderTeamStats(homeTeam, awayTeam):renderFinalScore(props.gameResults)}
     </div>
   );
 };
+
+function renderTeamStats (homeTeam, awayTeam){
+  return (
+   <React.Fragment>
+    <div className="stats-header">Team Stats</div>
+      <div className="home-stats">
+        <div>Points for: {homeTeam.pointsFor}</div>
+        <div>Points Against: {homeTeam.pointsAgainst}</div>
+        <div>Points Diff: {homeTeam.pointsDiff}</div>
+      </div>
+      <div className="away-stats">
+        <div>Points for: {awayTeam.pointsFor}</div>
+        <div>Points Against: {awayTeam.pointsAgainst}</div>
+        <div>Points Diff: {awayTeam.pointsDiff}</div>
+      </div>
+      </React.Fragment>
+  );
+};
+
+function renderFinalScore(gameResults) {
+  const homeTeamWon = (gameResults.homePoints > gameResults.awayPoints);
+  const homePointsColor = homeTeamWon ? 'red' : 'black';
+  const awayPointsColor = homeTeamWon ? 'black' : 'red';
+  return (
+    <React.Fragment>
+      <div className="stats-header">Final Score</div>
+        <div className="home-stats" >
+          <div style={{fontSize: "16px", color: 'red'}}>{gameResults.homePoints}</div>
+        </div>
+        <div className="away-stats">
+          <div style={{fontSize: "16px", color: awayPointsColor}}>{gameResults.awayPoints}</div>
+        </div>          
+        </React.Fragment>
+    );
+}

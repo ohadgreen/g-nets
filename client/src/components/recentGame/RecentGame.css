@@ -1,15 +1,15 @@
 .recent-game-container {
   width: 100%;
-  padding: 10px 0px;
-  margin: 5px;
+  padding: 0px 0px;
+  margin: 1px 5px;
   font-size: 14px;
-  border: 1px solid;
-  border-radius: 5px;
+  /* border: 1px solid;
+  border-radius: 5px; */
   background: white;
   display: grid;
   grid-gap: 2px;
   grid-template-columns: repeat(8, 1fr);
-  grid-template-areas: "teams teams final ebet abet abet";
+  grid-template-areas: "teams teams teams ebet abet abet";
 }
 
 .teams-info {
@@ -18,44 +18,6 @@
 
 .final-score {
   grid-area: final;
-}
-
-.final-score-container {
-  height: 100%;
-  display: grid;
-  grid-gap: 2px;
-  grid-template-rows: repeat(7, 1fr);
-  grid-template-areas:
-    "fhead"
-    "hfin"
-    "hfin"
-    "hfin"
-    "afin"
-    "afin"
-    "afin"
-}
-.final-score-container > * {
-  display: flex;
-  justify-content: center;
-  align-items: center;  
-}
-
-.final-header {
-  grid-area: fhead;
-}
-
-.home-final-score {
-  grid-area: hfin;
-  font-size: 16px;
-}
-
-.away-final-score {
-  grid-area: afin;
-  font-size: 16px;
-}
-
-.new-bet {
-  grid-area: nbet;
 }
 
 .exists-bet {
