@@ -13,13 +13,15 @@ export const TeamsInfo = props => {
   const awayTeam = props.gameInfo.awayTeam;
   const homeImg = (
     <img
-      src={require(`../../resources/images/50/${homeTeam.alias}-50.png`)}
+      src={require(`../../resources/images/ext/${homeTeam.alias}-70.png`)}
+      // src={require(`../../resources/images/ext/GSW_p.png`)}
       alt={homeTeam.name}
     />
   );
   const awayImg = (
     <img
-      src={require(`../../resources/images/50/${awayTeam.alias}-50.png`)}
+      src={require(`../../resources/images/ext/${awayTeam.alias}-70.png`)}
+      // src={require(`../../resources/images/ext/PHX_p.png`)}
       alt={awayTeam.name}
     />
   );

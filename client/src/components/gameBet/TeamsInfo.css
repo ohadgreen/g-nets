@@ -12,11 +12,6 @@
     "aimg aname aname"
     "aimg aname aname"
     "aimg aname aname"
-  /* grid-template-rows: 20px 60px 60px;
-  grid-template-areas:
-    "ghead ghead ghead"
-    "himg hname hname"
-    "aimg aname aname"; */
 }
 
 .teams-info-container > * {
@@ -28,10 +23,16 @@
   grid-area: ghead;
 }
 .home-team__img {
-  grid-area: himg;
+  grid-area: himg;  
+}
+.home-team__img > img {
+  height: 70px;  
 }
 .away-team__img {
   grid-area: aimg;
+}
+.away-team__img > img {
+  height: 70px;  
 }
 .home-team__details {
   grid-area: hname;
