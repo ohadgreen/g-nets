@@ -7,19 +7,18 @@ import  * as authActions from '../../store/userAuth/actions';
 class Header extends React.Component {
     logout = (e) => {
         e.preventDefault();
-        console.log('logging out props: ' + JSON.stringify(this.props));
         this.props.dispatch(authActions.logout());
     }
 
     render() {
         const logoutBtn = this.props.user ? (<Button onClick={this.logout}>Logout</Button>) : '';
+        const logoutLink = this.props.user ? 'Logout' : '';
         const headerUser = (this.props.user && this.props.user.username )? `Welcome ${this.props.user.username}` : 'Please login or register';
         console.log('header user: ' + headerUser);
         return (
             <div className="header-grid">
                 <div className="header-user">{headerUser}</div>
-                {/* <div>{logoutBtn}</div> */}
-                <div><a href="#" onClick={this.logout}>Logout</a></div>
+                <div><a href="#" onClick={this.logout}>{logoutLink}</a></div>
             </div>
         )
     }

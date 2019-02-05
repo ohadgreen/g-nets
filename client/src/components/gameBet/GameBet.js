@@ -91,11 +91,10 @@ class GameBet extends Component {
         <div className="points-diff-head">Points diff</div>
         <div className="points-diff-dd">
           <Dropdown
-            placeholder="Select"
-            scrolling
-            value={this.state.pointsDiff}
+            placeholder={"choose"}
             onChange={this.setPointsDiff}
             options={this.pointsDiffOtionsTest(35)}
+            scrolling
           />
         </div>
       </div>
