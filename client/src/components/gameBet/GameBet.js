@@ -166,9 +166,8 @@ function mapStateToProps(state) {
   const finalizedBet = state.game.finalizedBet;
   const userBet = state.game.currentUserBet;
   const allBets = state.game.allBets;
-  // console.log("mstp userBet: " + JSON.stringify(userBet));
-  // console.log("mstp allBets: " + JSON.stringify(allBets));
-  // console.log('finalized: ' + finalizedBet);
+  console.log(`new game: ${gameid}`);
+  
   return {
     user,
     gameInfo,

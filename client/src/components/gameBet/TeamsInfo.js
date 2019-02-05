@@ -71,7 +71,7 @@ function renderFinalScore(gameResults) {
     <React.Fragment>
       <div className="stats-header">Final Score</div>
         <div className="home-stats" >
-          <div style={{fontSize: "16px", color: 'red'}}>{gameResults.homePoints}</div>
+          <div style={{fontSize: "16px", color: homePointsColor}}>{gameResults.homePoints}</div>
         </div>
         <div className="away-stats">
           <div style={{fontSize: "16px", color: awayPointsColor}}>{gameResults.awayPoints}</div>

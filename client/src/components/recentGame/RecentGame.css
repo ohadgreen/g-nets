@@ -7,9 +7,9 @@
   border-radius: 5px; */
   background: white;
   display: grid;
-  grid-gap: 2px;
+  grid-gap: 5px;
   grid-template-columns: repeat(8, 1fr);
-  grid-template-areas: "teams teams teams ebet abet abet";
+  grid-template-areas: "teams teams teams ebet ebet abet abet";
 }
 
 .teams-info {
@@ -20,18 +20,40 @@
   grid-area: final;
 }
 
-.exists-bet {
-  grid-area: ebet;
-  display: flex;
-  justify-self: center;
-  align-items: center;
+.user-bet {
+  grid-area: ebet;  
 }
 
-.bet-button {
-  grid-area: bbtn;
+.user-recent-bet-container {
+  height: 100%;
+  border: solid 1px black;
+  border-radius: 10px;
+  display: grid;
+  grid-gap: 2px;
+  grid-template-rows: repeat(7, 1fr);
+  grid-template-areas: 
+  "bhead"
+  "bcont"
+  "bcont"
+  "bcont"
+  "bcont"
+  "bcont"
+  "bcont"
+  ;
+}
+.user-recent-bet-container > * {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.user-recent-bet-header {
+  grid-area: bhead;
+}
+.user-recent-bet-content {
+  grid-area: bcont;
+  display: flex;
+  flex-direction: column;
 }
 
 .all-bets {

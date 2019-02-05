@@ -21,7 +21,14 @@ class RecentGameMain extends Component {
   renderUserBet = () => {
       const userBet = this.props.userBet;
       if(Object.keys(userBet).length > 0){
-          return this.props.userBet.betString; 
+          return (
+              <div className="user-recent-bet-container">
+              <div className="user-recent-bet-header">Your Bet</div>
+              <div className="user-recent-bet-content">
+            <div style={{fontSize: "16px", padding: "10px"}}>{this.props.userBet.betString}</div>
+            <div>Score: {this.props.userBet.score} points</div>
+              </div>
+              </div>);
       }      
       else {
           return 'No bet made';
@@ -37,7 +44,7 @@ class RecentGameMain extends Component {
           <div className="teams-info">
             <TeamsInfo gameInfo={this.props.gameInfo} mode="final" gameResults={this.props.gameResults} />
           </div>
-          <div className="user-bets">{this.renderUserBet()}</div>
+          <div className="user-bet">{this.renderUserBet()}</div>
           <div className="all-bets"><AllBets allBets={this.props.allBets} scores={true}/></div>
         </div>
       );
