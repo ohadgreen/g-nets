@@ -70,7 +70,7 @@ class GameBet extends Component {
 
   renderUserBet = () => {
     return (
-      <div className="user-bet-container">
+      <div className="new-bet-container">
         <div className="winner-header">Choose winner</div>
         <div className="home-win">
           <input
@@ -88,7 +88,7 @@ class GameBet extends Component {
             onChange={this.setWinner}
           />
         </div>
-        <div className="points-diff-head">Points diff</div>
+        <div className="points-diff-header">Points diff</div>
         <div className="points-diff-dd">
           <Dropdown
             placeholder={"choose"}
@@ -97,32 +97,34 @@ class GameBet extends Component {
             scrolling
           />
         </div>
+        <div className="bet-button">{this.renderBetButton()}</div>
       </div>
     );
   };
 
   renderExistsBet = () => {
-    return this.props.userBet.betString;
+    return (
+      <div className="exists-bet-container">
+      <div className="exists-bet-header">Your Bet</div>
+      <div className="exists-bet-content">{this.props.userBet.betString}</div>
+      <div className="exists-bet-remove-btn">{this.renderBetButton()}</div>
+      </div>);
   };
 
   renderBetButton = () => {
     if (this.props.finalizedBet) {
       return (
-        <div>
           <Button size="tiny" onClick={this.removeBet}>
             Remove
           </Button>
-        </div>
       );
     } else {
       const disableBtn =
         this.state.chosenWinner === "" || this.state.pointsDiff === 0;
       return (
-        <div>
           <Button size="tiny" disabled={disableBtn} onClick={this.placeBet}>
-            Place bet
+            bet
           </Button>
-        </div>
       );
     }
   };
@@ -136,8 +138,8 @@ class GameBet extends Component {
           className="gamebet-container"
           style={{
             gridTemplateAreas: this.props.finalizedBet
-              ? "'teams teams teams ebet ebet bbtn abet abet'"
-              : "'teams teams teams nbet nbet bbtn abet abet'"
+              ? "'teams teams teams ebet ebet abet abet'"
+              : "'teams teams teams nbet nbet abet abet'"
           }}
         >
           <div className="teams-info">
@@ -148,7 +150,7 @@ class GameBet extends Component {
           ) : (
             <div className="new-bet">{this.renderUserBet()}</div>
           )}
-          <div className="bet-button">{this.renderBetButton()}</div>
+          
           <div className="all-bets">
             <AllBets allBets={this.props.allBets} scores={false} />
           </div>
@@ -166,7 +168,6 @@ function mapStateToProps(state) {
   const userBet = state.game.currentUserBet;
   const allBets = state.game.allBets;
   console.log(`new game: ${gameid}`);
-  
   return {
     user,
     gameInfo,
