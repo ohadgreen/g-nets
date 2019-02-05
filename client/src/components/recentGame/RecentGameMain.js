@@ -20,19 +20,26 @@ class RecentGameMain extends Component {
 
   renderUserBet = () => {
       const userBet = this.props.userBet;
+      let recentBetContent;
       if(Object.keys(userBet).length > 0){
-          return (
-              <div className="user-recent-bet-container">
-              <div className="user-recent-bet-header">Your Bet</div>
-              <div className="user-recent-bet-content">
+        recentBetContent = (
+        <React.Fragment>
             <div style={{fontSize: "16px", padding: "10px"}}>{this.props.userBet.betString}</div>
             <div>Score: {this.props.userBet.score} points</div>
-              </div>
-              </div>);
-      }      
-      else {
-          return 'No bet made';
-      }
+        </React.Fragment>);
+    }
+    else {
+        recentBetContent = (
+            <div>No bet made</div>
+        )
+    }
+    return (
+        <div className="user-recent-bet-container">
+        <div className="user-recent-bet-header">Your Bet</div>
+        <div className="user-recent-bet-content">
+        {recentBetContent}
+        </div>
+        </div>);
   }
 
   render() {
