@@ -18,7 +18,8 @@ class Header extends React.Component {
         return (
             <div className="header-grid">
                 <div className="header-user">{headerUser}</div>
-                <div>{logoutBtn}</div>
+                {/* <div>{logoutBtn}</div> */}
+                <div><a href="#" onClick={this.logout}>Logout</a></div>
             </div>
         )
     }

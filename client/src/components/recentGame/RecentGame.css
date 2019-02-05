@@ -3,12 +3,10 @@
   padding: 0px 0px;
   margin: 1px 5px;
   font-size: 14px;
-  /* border: 1px solid;
-  border-radius: 5px; */
   background: white;
   display: grid;
   grid-gap: 5px;
-  grid-template-columns: repeat(8, 1fr);
+  grid-template-columns: repeat(7, 1fr);
   grid-template-areas: "teams teams teams ebet ebet abet abet";
 }
 
@@ -58,8 +56,4 @@
 
 .all-bets {
   grid-area: abet;  
-}
-
-.all-bets ul {
-  list-style: none;
 }

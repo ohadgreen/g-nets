@@ -6,10 +6,11 @@ import { getUser } from '../userAuth/reducer';
     if(recentGame){
         const currentUserId = getUser(getState()).id;
         const userBet = findCurrentUserBet(recentGame, currentUserId);
+        const allBetsOrdered = allBetsOrderByScore(recentGame.bets);
         const gameInfo = {_id: recentGame._id, srId: recentGame.srId, schedule: recentGame.schedule, homeTeam: recentGame.homeTeam, awayTeam: recentGame.awayTeam};
         const gameResults = recentGame.results;
 
-        dispatch({ type: 'RECENT_GAME_INFO_SUCCESS', payload: {gameInfo: gameInfo, gameResults: gameResults, allBets: recentGame.bets, currentUserBet: userBet } });
+        dispatch({ type: 'RECENT_GAME_INFO_SUCCESS', payload: {gameInfo: gameInfo, gameResults: gameResults, allBets: allBetsOrdered, currentUserBet: userBet } });
     }
     else{
         dispatch({ type: 'RECENT_GAME_INFO_FAILURE' });
@@ -17,7 +18,7 @@ import { getUser } from '../userAuth/reducer';
 }
 
 function findCurrentUserBet(game, userid) {
-    console.log(JSON.stringify(game));
+    // console.log(JSON.stringify(game));
     let currentUserBet = {};
     if(game.bets.length > 0){
     for(let bet of game.bets) {
@@ -28,4 +29,9 @@ function findCurrentUserBet(game, userid) {
     }
     }
     return currentUserBet;
+}
+
+function allBetsOrderByScore(allBets) {
+    return allBets.sort((a, b) => { return (b.score - a.score)});
+
 }

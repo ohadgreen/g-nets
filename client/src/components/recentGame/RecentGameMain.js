@@ -10,14 +10,6 @@ class RecentGameMain extends Component {
     this.props.dispatch(recentGamesActions.recentGame());
   }
 
-  renderAllBets = () => {
-    return (
-      <ul>
-      {this.props.allBets.map((b, i) => { return (<li key={i}>{b.user.username} {b.betString}</li>)})}
-      </ul>
-    )
-  }
-
   renderUserBet = () => {
       const userBet = this.props.userBet;
       let recentBetContent;
@@ -65,8 +57,8 @@ function mapStateToProps(state) {
   const gameResults = state.recentGame.gameResults;
   const userBet = state.recentGame.currentUserBet;
   const allBets = state.recentGame.allBets;
-  console.log("mstp allBets: " + JSON.stringify(allBets));
-  console.log('mstp results: ' + JSON.stringify(gameResults));
+//   console.log("mstp allBets: " + JSON.stringify(allBets));
+//   console.log('mstp results: ' + JSON.stringify(gameResults));
   return {
     user,
     gameInfo,

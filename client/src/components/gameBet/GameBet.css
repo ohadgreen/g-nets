@@ -37,10 +37,6 @@
   grid-area: abet;  
 }
 
-.all-bets ul {
-  list-style: none;
-}
-
 .user-bet-container {
   height: 100%;
   display: grid;

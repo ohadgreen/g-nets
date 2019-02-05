@@ -41,7 +41,7 @@ export const removeBet = (userBet) => async (dispatch) => {
 }
 
 function findCurrentUserBet(game, userid) {
-    console.log(JSON.stringify(game));
+    // console.log(JSON.stringify(game));
     let currentUserBet = {};
     if(game.bets.length > 0){
     for(let bet of game.bets) {

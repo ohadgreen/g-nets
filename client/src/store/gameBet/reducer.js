@@ -10,7 +10,7 @@ const initialState = {
 };
 
 export default function reduce(state = initialState, action) {
-    console.log('reducer action.type ', action.type);
+    // console.log('reducer action.type ', action.type);
     switch (action.type) {
         case 'NEW_GAME_INFO_SUCCESS': 
             return {
