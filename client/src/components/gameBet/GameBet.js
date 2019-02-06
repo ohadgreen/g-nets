@@ -46,7 +46,8 @@ class GameBet extends Component {
       user: this.props.user.id,
       winner: this.state.chosenWinner,
       pointsDiff: this.state.pointsDiff,
-      betString: `${winnerTeamName} by ${this.state.pointsDiff}`
+      betString: `${winnerTeamName} by ${this.state.pointsDiff}`,
+      score: 0
     };
     this.props.dispatch(gamesActions.addBet(userBet));
   };
@@ -138,8 +139,8 @@ class GameBet extends Component {
           className="gamebet-container"
           style={{
             gridTemplateAreas: this.props.finalizedBet
-              ? "'teams teams teams ebet ebet abet abet'"
-              : "'teams teams teams nbet nbet abet abet'"
+              ? "'teams teams ebet ebet abet abet'"
+              : "'teams teams nbet nbet abet abet'"
           }}
         >
           <div className="teams-info">

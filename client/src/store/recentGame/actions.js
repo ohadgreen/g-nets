@@ -33,5 +33,4 @@ function findCurrentUserBet(game, userid) {
 
 function allBetsOrderByScore(allBets) {
     return allBets.sort((a, b) => { return (b.score - a.score)});
-
 }

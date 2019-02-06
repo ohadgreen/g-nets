@@ -6,8 +6,8 @@
   background: white;
   display: grid;
   grid-gap: 5px;
-  grid-template-columns: repeat(7, 1fr);
-  grid-template-areas: "teams teams teams ebet ebet abet abet";
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-areas: "teams teams ebet ebet abet abet";
 }
 
 .teams-info {

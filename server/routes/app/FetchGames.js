@@ -4,7 +4,7 @@ const dateUtils = require("../../utils/DateUtils");
 const Game = mongoose.model("games");
 
 module.exports = app => {
-  //return games without results
+  //return new game with top rank
   app.get("/api/games/new", async (req, res) => {
     let errorMsg;
     const newGames = await Game.find(
@@ -29,7 +29,7 @@ module.exports = app => {
     }
   });
 
-  // return games from two days ago that have results
+  // return recent game with top rank
   app.get("/api/games/recent", async (req, res) => {
     let errorMsg;
     let yesterday = dateUtils.dateDiffFromToday(-2);

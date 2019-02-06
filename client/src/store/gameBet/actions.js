@@ -9,7 +9,7 @@ import { getUser } from '../userAuth/reducer';
         const gameInfo = {_id: newGame._id, srId: newGame.srId, schedule: newGame.schedule, homeTeam: newGame.homeTeam, awayTeam: newGame.awayTeam}
         const finalizedBet = Object.keys(userBet).length > 0;
 
-        dispatch({ type: 'NEW_GAME_INFO_SUCCESS', payload: {gameid: newGame.srId, gameInfo: gameInfo, allBets: newGame.bets, currentUserBet: userBet, finalizedBet: finalizedBet } });
+        dispatch({ type: 'NEW_GAME_INFO_SUCCESS', payload: {gameid: newGame.srId, gameInfo: gameInfo, allBets: allBetsOrderByString(newGame.bets), currentUserBet: userBet, finalizedBet: finalizedBet } });
     }
     else{
         dispatch({ type: 'NEW_GAME_INFO_FAILURE' });
@@ -52,4 +52,8 @@ function findCurrentUserBet(game, userid) {
     }
     }
     return currentUserBet;
+}
+
+function allBetsOrderByString(allBets) {
+    return allBets.sort((a, b) => { return (b.betString.localeCompare(a.betString))});
 }
