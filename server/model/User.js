@@ -6,6 +6,7 @@ const userSchema = new Schema({
     password: String,
     nickname: String,
     email: String,
+    bets: {totalBets: Number, totalScore: Number, avgScore: Number}
 });
 
-mongoose.model('users', userSchema); // load a schema to a mongoose model (two arguments)
+mongoose.model('users', userSchema);

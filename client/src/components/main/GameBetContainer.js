@@ -2,7 +2,7 @@ import React from "react";
 import GameBet from "../gameBet/GameBet";
 import { RecentGame } from "./RecentGame";
 import RecentGameMain  from "../recentGame/RecentGameMain";
-import { PlayersChart } from "./PlayersChart";
+import PlayersChartMain from "../playersChart/PlayersChartMain";
 import './GameBetContainer.css';
 
 export const GameBetContainer = props => {
@@ -15,7 +15,7 @@ export const GameBetContainer = props => {
         <RecentGameMain />
       </div>
       <div className="players-chart">
-        <PlayersChart />
+        <PlayersChartMain />
       </div>
     </div>
   );
