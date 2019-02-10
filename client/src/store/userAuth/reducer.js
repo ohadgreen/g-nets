@@ -48,3 +48,7 @@ export default function reduce(state = initialState, action) {
 export function getUser(state) {
     return state.userAuth.user;
 }
+
+export function isLoggedIn(state) {
+    return state.userAuth.loggedIn;
+}

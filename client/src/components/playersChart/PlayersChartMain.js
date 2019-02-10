@@ -20,7 +20,7 @@ class PlayersChartMain extends Component {
       );
     }
   }
-}
+} 
 
 function mapStateToProps(state) {
   const user = state.userAuth.user;

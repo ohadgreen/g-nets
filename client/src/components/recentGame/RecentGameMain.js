@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as recentGamesActions from "../../store/recentGame/actions";
-import { TeamsInfo } from "../gameBet/TeamsInfo";
+import { TeamsInfo } from "../common/TeamsInfo";
 import { AllBets } from "../gameBet/AllBets";
 import "./RecentGame.css";
 
@@ -11,8 +11,12 @@ class RecentGameMain extends Component {
   }
 
   renderUserBet = () => {
+    let recentBetContent;
+    if(!this.props.user) {
+      recentBetContent = 'please login or register';
+    }    
       const userBet = this.props.userBet;
-      let recentBetContent;
+      
       if(Object.keys(userBet).length > 0){
         recentBetContent = (
         <React.Fragment>

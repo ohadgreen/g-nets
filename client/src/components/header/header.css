@@ -15,11 +15,18 @@
     margin-top: 0;
 }
 
-.header-user {
+.app-logo {
     float: right;
     margin-right: 10%;
     color: white;
     font-size: 20px;
+}
+
+.header-user {
+    float: right;
+    margin-right: 10%;
+    color: white;
+    font-size: 16px;
 }
 
 .header-grid > div > a {

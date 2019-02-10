@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import * as gamesActions from "../../store/gameBet/actions";
-import { TeamsInfo } from "./TeamsInfo";
+import { TeamsInfo } from "../common/TeamsInfo";
 import { AllBets } from "./AllBets";
 import { Dropdown, Button } from "semantic-ui-react";
 import "./GameBet.css";
@@ -69,7 +70,11 @@ class GameBet extends Component {
     return pointsDiffMenuItems;
   };
 
-  renderUserBet = () => {
+  renderPleaseLogin = () => {
+    return (<div>Please <Link to="/login">Login</Link> or <Link to="/register">Register</Link></div>);
+  }
+
+  renderUserBet = () => {    
     return (
       <div className="new-bet-container">
         <div className="winner-header">Choose winner</div>
@@ -100,7 +105,7 @@ class GameBet extends Component {
         </div>
         <div className="bet-button">{this.renderBetButton()}</div>
       </div>
-    );
+    )
   };
 
   renderExistsBet = () => {
@@ -131,27 +136,25 @@ class GameBet extends Component {
   };
 
   render() {
+    let userGameBet;
+    if (!this.props.user) {
+      userGameBet = this.renderPleaseLogin();
+    }
+    else {
+      userGameBet = this.props.finalizedBet ? this.renderExistsBet() : this.renderUserBet();
+    }
+
     if (!this.props.gameInfo.srId) {
       return <div>Fetching info...</div>;
-    } else {
+    } else {                    
       return (
-        <div
-          className="gamebet-container"
-          style={{
-            gridTemplateAreas: this.props.finalizedBet
-              ? "'teams teams ebet ebet abet abet'"
-              : "'teams teams nbet nbet abet abet'"
-          }}
-        >
+        <div className="gamebet-container" >
           <div className="teams-info">
-            <TeamsInfo gameInfo={this.props.gameInfo} mode="stats" gameResults={this.props.gameInfo.gameResults} />
+            <TeamsInfo gameInfo={this.props.gameInfo} mode="stats" gameResults={{}} />
           </div>
-          {this.props.finalizedBet ? (
-            <div className="exists-bet">{this.renderExistsBet()}</div>
-          ) : (
-            <div className="new-bet">{this.renderUserBet()}</div>
-          )}
-          
+          <div className="user-game-bet">
+          { userGameBet }       
+          </div>
           <div className="all-bets">
             <AllBets allBets={this.props.allBets} scores={false} />
           </div>

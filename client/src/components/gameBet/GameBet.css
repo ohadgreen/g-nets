@@ -6,15 +6,21 @@
   background: white;
   display: grid;
   grid-gap: 5px;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-areas: "teams userbet abet";
+}
+
+.user-game-bet {
+  grid-area: userbet;
+  border: solid 1px black;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .teams-info {
   grid-area: teams;
-}
-
-.new-bet {
-  grid-area: nbet;
 }
 
 .new-bet-container {
@@ -61,9 +67,7 @@
   grid-area: bbtn;
   justify-content: end;
 }
-.exists-bet {
-  grid-area: ebet;
-}
+
 .exists-bet-container {
   height: 100%;
   display: grid;

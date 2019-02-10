@@ -1,11 +1,15 @@
 import gameService from '../../services/gamebet.service';
-import { getUser } from '../userAuth/reducer';
+import { getUser, isLoggedIn } from '../userAuth/reducer';
 
   export const recentGame = () => async (dispatch, getState) => {
     const recentGame = await gameService.getRecentGame();
     if(recentGame){
-        const currentUserId = getUser(getState()).id;
-        const userBet = findCurrentUserBet(recentGame, currentUserId);
+        const loggedIn = isLoggedIn(getState());
+        let userBet = {};
+        if (loggedIn) {
+            const currentUserId = getUser(getState()).id;
+            userBet = findCurrentUserBet(recentGame, currentUserId);
+        }
         const allBetsOrdered = allBetsOrderByScore(recentGame.bets);
         const gameInfo = {_id: recentGame._id, srId: recentGame.srId, schedule: recentGame.schedule, homeTeam: recentGame.homeTeam, awayTeam: recentGame.awayTeam};
         const gameResults = recentGame.results;
