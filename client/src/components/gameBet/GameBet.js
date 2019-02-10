@@ -71,10 +71,18 @@ class GameBet extends Component {
   };
 
   renderPleaseLogin = () => {
-    return (<div>To guess game results, please <Link to="/login">Login</Link> or <Link to="/register">Register</Link></div>);
-  }
+    return (
+      <div>
+        To guess game results, please <Link to="/login">Login</Link> or{" "}
+        <Link to="/register">Register</Link>
+      </div>
+    );
+  };
+  renderOffHoursNoBets = () => {
+    return <div>No bets for current game</div>;
+  };
 
-  renderUserBet = () => {    
+  renderUserBet = () => {
     return (
       <div className="new-bet-container">
         <div className="winner-header">Choose winner</div>
@@ -105,56 +113,68 @@ class GameBet extends Component {
         </div>
         <div className="bet-button">{this.renderBetButton()}</div>
       </div>
-    )
+    );
   };
 
-  renderExistsBet = () => {
+  renderExistsBet = betHours => {
+    console.log("exist bet " + betHours);
     return (
       <div className="exists-bet-container">
-      <div className="exists-bet-header">Your Bet</div>
-      <div className="exists-bet-content">{this.props.userBet.betString}</div>
-      <div className="exists-bet-remove-btn">{this.renderBetButton()}</div>
-      </div>);
+        <div className="exists-bet-header">Your Bet</div>
+        <div className="exists-bet-content">{this.props.userBet.betString}</div>
+        <div className="exists-bet-remove-btn">
+          {betHours ? this.renderBetButton() : null}
+        </div>
+      </div>
+    );
   };
 
   renderBetButton = () => {
     if (this.props.finalizedBet) {
       return (
-          <Button size="tiny" onClick={this.removeBet}>
-            Remove
-          </Button>
+        <Button size="tiny" onClick={this.removeBet}>
+          Remove
+        </Button>
       );
     } else {
       const disableBtn =
         this.state.chosenWinner === "" || this.state.pointsDiff === 0;
       return (
-          <Button size="tiny" disabled={disableBtn} onClick={this.placeBet}>
-            bet
-          </Button>
+        <Button size="tiny" disabled={disableBtn} onClick={this.placeBet}>
+          bet
+        </Button>
       );
     }
   };
 
   render() {
     let userGameBet;
+    let hour = new Date().getHours();
+    const betHours = hour > 8;
+
     if (!this.props.user) {
       userGameBet = this.renderPleaseLogin();
-    }
-    else {
-      userGameBet = this.props.finalizedBet ? this.renderExistsBet() : this.renderUserBet();
+    } else {
+      if (!this.props.finalizedBet && betHours)
+        userGameBet = this.renderUserBet();
+      if (!this.props.finalizedBet && !betHours)
+        userGameBet = this.renderOffHoursNoBets();
+      if (this.props.finalizedBet) userGameBet = this.renderExistsBet(betHours);
     }
 
     if (!this.props.gameInfo.srId) {
       return <div>Fetching info...</div>;
-    } else {                    
+    } else {
       return (
-        <div className="gamebet-container" >
+        <div className="gamebet-container">
           <div className="teams-info">
-            <TeamsInfo gameInfo={this.props.gameInfo} mode="stats" gameResults={{}} />
+            <TeamsInfo
+              gameInfo={this.props.gameInfo}
+              mode="stats"
+              gameResults={{}}
+            />
           </div>
-          <div className="user-game-bet">
-          { userGameBet }       
-          </div>
+          <div className="user-game-bet">{userGameBet}</div>
           <div className="all-bets">
             <AllBets allBets={this.props.allBets} scores={false} />
           </div>

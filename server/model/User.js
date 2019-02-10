@@ -6,6 +6,7 @@ const userSchema = new Schema({
     password: String,
     nickname: String,
     email: String,
+    avatar: String,
     bets: {totalBets: Number, totalScore: Number, avgScore: Number}
 });
 
