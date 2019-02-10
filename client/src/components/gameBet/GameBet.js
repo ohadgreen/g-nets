@@ -71,7 +71,7 @@ class GameBet extends Component {
   };
 
   renderPleaseLogin = () => {
-    return (<div>Please <Link to="/login">Login</Link> or <Link to="/register">Register</Link></div>);
+    return (<div>To guess game results, please <Link to="/login">Login</Link> or <Link to="/register">Register</Link></div>);
   }
 
   renderUserBet = () => {    

@@ -1,41 +1,48 @@
 .header-grid {
-    height: 40px;
+    height: 45px;
     background: rgb(95, 173, 112);
     grid-area: header;
     padding: 1rem 0;
     padding: 0 1rem;
-    display: flex;
-    justify-content: space-between;
+    display: grid;    
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-areas: "logo pholder pholder pholder gmenu gmenu gmenu user";
     align-items: center;
 }
 
-.header-main {
-    width: 100%;
-    height: 15%;
-    margin-top: 0;
+.app-logo {
+    grid-area: logo;    
 }
 
-.app-logo {
-    float: right;
-    margin-right: 10%;
+.app-logo > a {
+    justify-content: center;
+    align-items: center;
     color: white;
     font-size: 20px;
 }
 
-.header-user {
-    float: right;
-    margin-right: 10%;
-    color: white;
-    font-size: 16px;
-}
-
-.header-grid > div > a {
-    color: white;
-    font-size: 14px;
-}
-
-.header-grid > div > a:hover {
-    color: white;
-    font-size: 14px;
+.app-logo > a:hover {   
     text-decoration: underline;
+}
+
+.header-menu {
+    grid-area: gmenu;
+    display: flex;
+    flex-direction: row;    
+}
+
+.header-menu > a {
+    margin: 10px;
+    color: white;
+    font-size: 14px;
+}
+
+.header-menu > a:hover {
+    text-decoration: underline;
+}
+
+.header-user {
+    grid-area: user;
+    color: white;
+    font-size: 14px;
 }
