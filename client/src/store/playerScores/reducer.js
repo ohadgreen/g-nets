@@ -4,7 +4,6 @@ const initialState = {
 };
 
 export default function reduce(state = initialState, action) {
-    // console.log('reducer action.type ', action.type);
     switch (action.type) {
         case 'ALL_SCORES_SUCCESS': 
             return {

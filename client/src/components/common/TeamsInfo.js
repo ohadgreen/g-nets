@@ -11,29 +11,18 @@ export const TeamsInfo = props => {
     gameSched.getFullYear();
   const homeTeam = props.gameInfo.homeTeam;
   const awayTeam = props.gameInfo.awayTeam;
-  const homeImg = (
-    <img
-      src={require(`../../resources/images/ext/${homeTeam.alias}-70.png`)}
-      alt={homeTeam.name}
-    />
-  );
-  const awayImg = (
-    <img
-      src={require(`../../resources/images/ext/${awayTeam.alias}-70.png`)}
-      alt={awayTeam.name}
-    />
-  );
+
   return (
     <div className="teams-info-container">
       <div className="game-header">{gameDate}</div>
-      <div className="home-team__img">{homeImg}</div>
+      <div className="home-team__img">{getTeamImage(homeTeam)}</div>
       <div className="home-team__details">
         <div>{homeTeam.city} <b>{homeTeam.name}</b></div>
         <div>
           ({homeTeam.wins} - {homeTeam.losses})
         </div>
       </div>
-      <div className="away-team__img">{awayImg}</div>
+      <div className="away-team__img">{getTeamImage(awayTeam)}</div>
       <div className="away-team__details">
       <div>{awayTeam.city} <b>{awayTeam.name}</b></div>
         <div>
@@ -44,6 +33,13 @@ export const TeamsInfo = props => {
     </div>
   );
 };
+
+function getTeamImage(team) {
+  return (<img
+    src={require(`../../resources/images/ext/${team.alias}-70.png`)}
+    alt={team.name}
+  />)
+}
 
 function renderTeamStats (homeTeam, awayTeam){
   return (

@@ -1,5 +1,3 @@
-// import Immutable from 'seamless-immutable';
-
 const initialState = {
     fetched: false,
     gameid: '',
@@ -10,7 +8,6 @@ const initialState = {
 };
 
 export default function reduce(state = initialState, action) {
-    // console.log('reducer action.type ', action.type);
     switch (action.type) {
         case 'NEW_GAME_INFO_SUCCESS': 
             return {
@@ -34,7 +31,7 @@ export default function reduce(state = initialState, action) {
             return state;
     
         case 'BET_REMOVE_SUCCESS': 
-            console.log('reducer: ' + JSON.stringify(action.payload));
+            // console.log('reducer: ' + JSON.stringify(action.payload));
             return {
                 ...state,
                 allBets: action.payload.allBets,
@@ -43,7 +40,7 @@ export default function reduce(state = initialState, action) {
                 }
                 
         case 'BET_REMOVE_FAILURE': 
-            console.log('reducer: ' + JSON.stringify(action.payload));
+            // console.log('reducer: ' + JSON.stringify(action.payload));
             return state;
         
         default:

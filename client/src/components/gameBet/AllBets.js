@@ -1,9 +1,11 @@
 import React from "react";
-import "./AllBets.css";
+import { RenderAvatar } from "../common/RenderAvatar";
 
 export const AllBets = props => {
-  let allBetsDisplay = (props.scores)? (props.allBets.filter(b =>  (b.score > 0))) : (props.allBets);
-  
+  let allBetsDisplay = props.scores
+    ? props.allBets.filter(b => b.score > 0)
+    : props.allBets;
+
   return (
     <div className="all-bets-container">
       <div className="all-bets-header">All Players bets</div>
@@ -25,7 +27,7 @@ export const AllBets = props => {
 function renderBet(bet, i) {
   return (
     <tr key={i}>
-      <td>{bet.user.username}</td>
+      <td><RenderAvatar user={bet.user} /></td>
       <td>{bet.betString}</td>
       {bet.score ? <td>{bet.score}</td> : null}
     </tr>

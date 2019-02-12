@@ -1,19 +1,8 @@
-/* let rawStoredUser = localStorage.getItem('user');
-console.log(`login reducer: ${rawStoredUser.nickname}`);
-let storedUser = (rawStoredUser.length !== 0) ? JSON.stringify(rawStoredUser) : '';
-const initialState = {
-    loggedIn: false,
-    user: (storedUser) ? storedUser : undefined,
-    loginResult: '',
-} */
+let localStorageUser = localStorage.getItem('user');
+const initialState = (localStorageUser.username) ? { loggedIn: true, user: JSON.parse(localStorageUser) } : {};
 
-let user = JSON.parse(localStorage.getItem('user'));
-console.log('auth reducer: ' + JSON.stringify(user));
-const initialState = user ? { loggedIn: true, user } : {};
-
-export default function reduce(state = initialState, action) {
-    console.log(action.type);
-    switch (action.type) {        
+export default function reduce(state = initialState, action) {    
+    switch (action.type) { 
         case 'LOGIN_SUCCESS': {
             return {loggedIn: true,
                     user: action.payload,

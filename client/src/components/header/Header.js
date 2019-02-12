@@ -4,6 +4,7 @@ import { Router, Link } from "react-router-dom";
 import { history } from "../../services/history";
 import "./header.css";
 import * as authActions from "../../store/userAuth/actions";
+import { RenderAvatar } from "../common/RenderAvatar";
 
 class Header extends React.Component {
   logout = e => {
@@ -14,8 +15,8 @@ class Header extends React.Component {
   render() {
     const logoutLink = this.props.user ? "Logout" : "";
     const headerUser =
-      this.props.user && this.props.user.username
-        ? `Welcome ${this.props.user.username}`
+      this.props.user && this.props.user.username && this.props.user.avatar
+        ? <RenderAvatar user={this.props.user} />
         : "Please login or register";
     return (
       <Router history={history}>

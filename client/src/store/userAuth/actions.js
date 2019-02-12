@@ -18,12 +18,13 @@ import authService from '../../services/auth.service';
 }
     export const userRegister = (user) => async dispatch => {
         const registerResult = await authService.registerDb(user);
-        if(!registerResult.data.error){
-            dispatch({ type: 'REGISTER_SUCCESS', payload: registerResult.data.user });
-            appRoute("/login");
+        console.log('userReg action: ' + JSON.stringify(registerResult));
+        if(!registerResult.error){
+            dispatch({ type: 'REGISTER_SUCCESS', payload: registerResult.user });
+            appRoute("/gamebet");
         }
         else{
-            dispatch({ type: 'REGISTER_FAILURE', payload: registerResult.data.error });
+            dispatch({ type: 'REGISTER_FAILURE', payload: registerResult.error });
         }
     }
 

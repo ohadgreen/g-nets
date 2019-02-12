@@ -19,7 +19,7 @@ module.exports = app => {
         "awayTeam",
         "name city alias wins losses winPct pointsFor pointsAgainst pointsDiff gamesBehind.league"
       )
-      .populate({ path: "bets.user", model: "users", select: "username" });
+      .populate({ path: "bets.user", model: "users", select: "username avatar" });
     if (!newGames) {
       errorMsg = "cannot find new games";
       console.log(errorMsg);
@@ -47,7 +47,7 @@ module.exports = app => {
         "awayTeam",
         "name city alias wins losses winPct gamesBehind.league"
       )
-      .populate({ path: "bets.user", model: "users", select: "username" });
+      .populate({ path: "bets.user", model: "users", select: "username avatar" });
     if (!recentGames) {
       errorMsg = "cannot find recent games";
       console.log(errorMsg);
@@ -71,7 +71,7 @@ module.exports = app => {
       { srId: gameid },
       { $push: { bets: userBet } },
       { new: true }
-    ).populate({ path: "bets.user", model: "users", select: "username" });
+    ).populate({ path: "bets.user", model: "users", select: "username avatar" });
 
     if (!addBetRes) {
       errorMsg = "cannot add user bet";
@@ -90,7 +90,7 @@ module.exports = app => {
       { srId: gameid },
       { $pull: { bets: { _id: betid } } },
       { new: true }
-    ).populate({ path: "bets.user", model: "users", select: "username" });
+    ).populate({ path: "bets.user", model: "users", select: "username avatar" });
 
     if (!removeBetRes) {
       errorMsg = "cannot remove user bet";

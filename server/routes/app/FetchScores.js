@@ -7,8 +7,8 @@ module.exports = app => {
     app.get("/api/scores/all", async (req, res) => {
         let errorMsg;
         const allScores = await User.find(
-          {},
-          { username: 1, bets : 1 }
+          {'bets.totalBets' : {'$gt' : 0}}, // filter users that made any bets
+          { username: 1, avatar: 1, bets : 1 }
         )          
         if (!allScores) {
           errorMsg = "cannot fetch scores";

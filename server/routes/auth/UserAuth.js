@@ -1,15 +1,13 @@
 const mongoose = require("mongoose");
 const jwt = require('jsonwebtoken');
 const User = mongoose.model("users");
+const allAvatarImages = require('../../resources/images/avatarImageList');
+const AVATAR_CHOICE_LIMIT = 5;
 
 module.exports = app => {    
-    app.get('/api/auth/test', function (req, res) { 
-        console.log(req.query);
-        res.send({ msg: 'User auth test!!!' })});
-
     // register new user
     app.post('/api/auth/user', function (req, res) {
-        const { username, password, nickname, email } = req.query;
+        const { username, password, nickname, email, avatar } = req.query;
         console.log('req.query: ' + JSON.stringify(req.query));
         console.log('username: ' + username);
 
@@ -18,18 +16,22 @@ module.exports = app => {
             password: password,
             nickname: nickname,
             email: email,
+            avatar: avatar,
+            bets: {totalBets: 0, totalScore: 0, avgScore: 0}
         });
 
-        console.log("Server new user: " + user);
+        // console.log("Server new user: " + user);
         user.save(function (err) {
             if (err)
                 res.send({ text: err });
             else {
-                return res.json({ data: user });
+                const authUser = jwtSign(user);
+                console.log('new user: ', authUser);                          
+                res.send({ authUser }); 
             }
         });
     });
-
+    // loggin existing user
     app.get("/api/auth/user", async (req, res) => {
         const { username, password } = req.query;
         let errorMsg;
@@ -46,15 +48,7 @@ module.exports = app => {
                 res.send({ error: errorMsg });
             }
             else{
-                const userToken = jwt.sign({ email: user.email, username: user.username, _id: user._id }, 'sssshhhh');
-                console.log('userToken: ' + userToken);
-
-                let authUser = {
-                    id: user._id,
-                    username: user.username,
-                    nickname: user.nickname,
-                    token: userToken
-                }
+                const authUser = jwtSign(user);
                 // console.log('user: ', authUser);                          
                 res.send({ authUser }); 
             }            
@@ -62,7 +56,34 @@ module.exports = app => {
     })
 
     app.get("/api/auth/users", async (req, res) => {
-        const users = await User.find({}).select('username -_id') //filter only usernames
-        res.send(users);
+        const users = await User.find({}).select('username avatar -_id') //select only username and avatar fields
+        const allUsernames = users.map(u => {return u.username});
+        const avatarChoice = avatarImagesChoice(users);
+        res.send({ allUsernames, avatarChoice });
     });
+}
+
+function jwtSign(user) {
+    const userToken = jwt.sign({ email: user.email, username: user.username, _id: user._id }, 'sssshhhh');
+    // console.log('userToken: ' + userToken);
+    return {
+        id: user._id,
+        username: user.username,
+        nickname: user.nickname,
+        avatar: user.avatar,
+        token: userToken
+    }
+}
+
+function avatarImagesChoice(users) {
+    let avatarChoice = [];
+    const avatarTaken = users.map(u => {return u.avatar});
+    // console.log(`all avatars: ${allAvatarImages}`);
+    // console.log(`avatar taken: ${avatarTaken}`);
+    for(avatar of allAvatarImages){
+        if(avatarTaken.indexOf(avatar) === -1 && avatarChoice.length < AVATAR_CHOICE_LIMIT){
+            avatarChoice.push(avatar);
+        }
+    }
+    return avatarChoice;
 }

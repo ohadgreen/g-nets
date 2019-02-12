@@ -117,7 +117,6 @@ class GameBet extends Component {
   };
 
   renderExistsBet = betHours => {
-    console.log("exist bet " + betHours);
     return (
       <div className="exists-bet-container">
         <div className="exists-bet-header">Your Bet</div>

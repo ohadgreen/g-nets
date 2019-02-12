@@ -1,5 +1,6 @@
 import React from "react";
 import "./AllBets.css";
+import { RenderAvatar } from "../common/RenderAvatar";
 
 export const AllScores = props => {
   
@@ -32,7 +33,7 @@ export const AllScores = props => {
 function renderUserScore(user, i) {
   return (
     <tr key={i}>
-      <td>{user.username}</td>
+      <td><RenderAvatar user={user} /></td>
       <td>{user.bets.totalBets}</td>
       <td>{user.bets.totalScore}</td>
       <td>{user.bets.avgScore.toFixed(2)}</td>

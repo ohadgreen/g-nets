@@ -28,13 +28,13 @@
   border-bottom: solid 1px;
 }
 .home-team__img > img {
-  height: 75px;  
+  height: 100px;  
 }
 .away-team__img {
   grid-area: aimg;
 }
 .away-team__img > img {
-  height: 75px;  
+  height: 100px;  
 }
 .home-team__details {
   grid-area: hname;
