@@ -1,0 +1,29 @@
+.avatar-main {
+    display: grid;
+    grid-gap: 1px;
+    grid-template-columns: 45px 60px;
+    grid-template-areas: 
+    "avimg avname";
+    align-items: center;
+  }
+  .avatar-main > * {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .avatar-img {
+    grid-area: avimg;    
+  }
+  .avatar-img > img {
+    height: 40px;  
+    width: 40px;
+    border-radius: 50%;
+  }
+  .avatar-name {
+    grid-area: avname;
+  }
+  .avatar-img-only > img {
+    height: 65px;  
+    width: 65px;
+    border-radius: 50%;
+  }

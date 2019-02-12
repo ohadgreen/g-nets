@@ -1,0 +1,21 @@
+.form-main {
+    height: 50%;
+    width: 75%;
+    margin: auto;
+    margin-top: 5%;
+}
+
+.avatar-choice-main {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); 
+    /* grid-template-rows: 70px 20px;  */
+}
+
+.avatar-button {
+    border-radius: 4px;
+}
+
+.avatar-button:hover {
+    cursor: pointer;
+    background: lightgray;
+}
