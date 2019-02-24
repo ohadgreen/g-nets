@@ -53,7 +53,7 @@ class Login extends React.Component {
             />
           </Form.Field>
           <Message error header="Oops..." content={this.props.errorMsg} />
-          <Button type="submit" onClick={this.handleSubmit}>
+          <Button type="submit" disabled={this.state.name === "" || this.state.password === ""} onClick={this.handleSubmit}>
             Login
           </Button>
           <p>

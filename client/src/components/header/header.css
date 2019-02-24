@@ -1,9 +1,8 @@
 .header-grid {
-    height: 45px;
+    grid-row: header;
+    grid-column: app-content / right-gutter;
     background: rgb(95, 173, 112);
-    grid-area: header;
-    padding: 1rem 0;
-    padding: 0 1rem;
+    padding: 10px;
     display: grid;    
     grid-template-columns: repeat(8, 1fr);
     grid-template-areas: "logo pholder pholder pholder gmenu gmenu gmenu user";

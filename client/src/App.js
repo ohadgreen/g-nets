@@ -7,6 +7,7 @@ import { PastGames } from "./components/common/PastGames";
 import { GameRules } from "./components/common/GameRules";
 import Login from "./components/login/Login";
 import Register from "./components/login/Register";
+import "./App.css";
 
 class App extends Component {
   render() {

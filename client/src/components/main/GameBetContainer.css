@@ -1,4 +1,5 @@
 .g-container {
+  height: 100vh;
     display: grid;
     grid-gap: 5px;
     grid-template-rows: repeat(3, 1fr) ;

@@ -11,10 +11,10 @@ class Register extends React.Component {
     user: {
       username: "",
       password: "",
-      nickname: "",
       email: "",
       avatar: ""
     },
+    enableSubmit: false,
     avatarChoice: [],
     existingUsernames: [],
     submitted: false
@@ -31,11 +31,13 @@ class Register extends React.Component {
   handleChange = e => {
     const { name, value } = e.target;
     const { user } = this.state;
+    const enableSubmitBtn = (user.username !== "" && user.password !== "" && user.email !== "" && user.avatar !== "");
     this.setState({
       user: {
         ...user,
-        [name]: value
-      }
+        [name]: value,
+      },
+      enableSubmit: enableSubmitBtn
     });
   };
 
@@ -54,7 +56,8 @@ class Register extends React.Component {
     e.preventDefault(e.target.alt);
     const chosenAvatar = e.target.alt;
     const { user } = this.state;
-    this.setState({ user: { ...user, avatar: chosenAvatar} });
+    const enableSubmitBtn = (user.username !== "" && user.password !== "" && user.email !== "" && user.avatar !== "");
+    this.setState({ user: { ...user, avatar: chosenAvatar}, enableSubmit: enableSubmitBtn });
   }
 
   renderAvatarChoice = () => {
@@ -103,7 +106,7 @@ class Register extends React.Component {
           </Form.Field>
           <Form.Field label="choose avatar" required={true}/>{this.renderAvatarChoice()}
           
-          <Button style={{marginTop: "10px"}} type="submit" onClick={this.handleSubmit}>
+          <Button style={{marginTop: "10px"}} disabled={!this.state.enableSubmit} type="submit" onClick={this.handleSubmit}>
             Register
           </Button>
         </Form>

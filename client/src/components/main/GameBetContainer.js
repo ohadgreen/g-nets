@@ -1,6 +1,5 @@
 import React from "react";
 import GameBet from "../gameBet/GameBet";
-import { RecentGame } from "./RecentGame";
 import RecentGameMain  from "../recentGame/RecentGameMain";
 import PlayersChartMain from "../playersChart/PlayersChartMain";
 import './GameBetContainer.css';

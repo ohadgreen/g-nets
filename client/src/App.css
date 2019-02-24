@@ -1,16 +1,11 @@
 .app-container {
   display: grid;
-    grid-template-areas: "header" "content";
-    height: 100vh;
-    grid-template-columns: 1fr 100px;
-    grid-template-rows: 70px 1fr ;
-    grid-gap: 1px;
-    margin-left: 10px;
+    grid-template-rows: [header] 70px [body] auto;
+    grid-template-columns: [left-gutter] 1fr [app-content] 12fr [right-gutter] 1fr;
+    grid-gap: 1rem;
 }
 
 .app-content {
-  grid-area: content;
-  width: 100%;
-  padding: 10px;
-  background: rgb(223, 222, 222)
+  grid-row: body;
+  grid-column: app-content;
 }
