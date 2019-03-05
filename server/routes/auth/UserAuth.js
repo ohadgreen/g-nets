@@ -6,12 +6,17 @@ const AVATAR_CHOICE_LIMIT = 5;
 
 module.exports = app => {    
     // register new user
-    app.post('/api/auth/user', function (req, res) {
+    app.post('/api/auth/user', async (req, res) => {
         const { username, password, nickname, email, avatar } = req.query;
         console.log('req.query: ' + JSON.stringify(req.query));
         console.log('username: ' + username);
 
+        const UserCounter = mongoose.model('UserCounter', new mongoose.Schema({ usercode: Number }, { collection : 'usercounter' }));
+        const userCounter = await UserCounter.findOne();
+        let { usercode } = userCounter;
+
         user = new User({
+            intcode: usercode++,
             username: username,
             password: password,
             nickname: nickname,
@@ -21,23 +26,27 @@ module.exports = app => {
         });
 
         // console.log("Server new user: " + user);
-        user.save(function (err) {
-            if (err)
-                res.send({ text: err });
-            else {
-                const authUser = jwtSign(user);
-                console.log('new user: ', authUser);                          
-                res.send({ authUser }); 
-            }
-        });
+        const newUserInDb = await user.save();
+        if(!newUserInDb){
+            errorMsg = 'error while saving new user';
+            console.log(errorMsg);            
+            res.send({ error: errorMsg });
+        }
+        else {
+              console.log(JSON.stringify(newUserInDb));
+              const updateCounter = await UserCounter.findOneAndUpdate({}, {$inc: {usercode : 1}}, {new: true}); // increment usercounter collection
+              console.log('updateCounter: ' + JSON.stringify(updateCounter));
+              res.send({ authUser: jwtSign(newUserInDb) })
+        }
     });
+
     // loggin existing user
     app.get("/api/auth/user", async (req, res) => {
         const { username, password } = req.query;
         let errorMsg;
         const user = await User.findOne({ 'username': username });
         if(!user){
-            errorMsg = 'user not found on db';
+            errorMsg = 'user not found in db';
             console.log(errorMsg);            
             res.send({ error: errorMsg });
         }
@@ -66,8 +75,9 @@ module.exports = app => {
 function jwtSign(user) {
     const userToken = jwt.sign({ email: user.email, username: user.username, _id: user._id }, 'sssshhhh');
     // console.log('userToken: ' + userToken);
-    return {
+    return {        
         id: user._id,
+        intcode: user.intcode,
         username: user.username,
         nickname: user.nickname,
         avatar: user.avatar,

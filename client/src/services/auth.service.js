@@ -49,7 +49,7 @@ class AuthService {
         });
         if (!response.status === 200) {
             console.log('response:' + response);
-            return { error: response.text }
+            return { error: response.data.error }
         }
         else {
             const user = response.data.authUser;
