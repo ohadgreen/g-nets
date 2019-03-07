@@ -1,0 +1,6 @@
+import web3 from './web3';
+
+const address = '0x40c670CB98d07D2391beFa34Ac17a88296a4Bf6c';
+const abi = [{"constant": false,"inputs": [{"name": "playerNum","type": "uint256"}],"name": "placeBet","outputs": [],"payable": true,"stateMutability": "payable","type": "function"},{"constant": false,"inputs": [{"name": "winner","type": "uint256"}],"name": "transferPrizeToSingleWinner","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": false,"inputs": [{"name": "winnerCodeList","type": "uint256[]"}],"name": "transferPrizeToWinnerList","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"inputs": [],"payable": false,"stateMutability": "nonpayable","type": "constructor"},{"constant": true,"inputs": [],"name": "manager","outputs": [{"name": "","type": "address"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [{"name": "","type": "uint256"}],"name": "players","outputs": [{"name": "","type": "address"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "showTotalBetSum","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"}];
+
+export default new web3.eth.Contract(abi, address);
