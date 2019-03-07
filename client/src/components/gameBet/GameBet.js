@@ -4,13 +4,16 @@ import { Link } from "react-router-dom";
 import * as gamesActions from "../../store/gameBet/actions";
 import { TeamsInfo } from "../common/TeamsInfo";
 import { AllBets } from "./AllBets";
-import { Dropdown, Button } from "semantic-ui-react";
+import web3 from "../../services/web3";
+import contract from "../../services/contract";
+import { Dropdown, Button, Input } from "semantic-ui-react";
 import "./GameBet.css";
 
 class GameBet extends Component {
   state = {
     chosenWinner: "",
-    pointsDiff: 0
+    pointsDiff: 0,
+    millietherValue: 0
   };
 
   componentDidMount() {
@@ -37,7 +40,21 @@ class GameBet extends Component {
     );
   };
 
-  placeBet = () => {
+  placeBetEther = async event => {
+    event.preventDefault();
+    const accounts = await web3.eth.getAccounts();
+    const betValueEther = this.state.millietherValue / 1000;
+    const betValueString = betValueEther.toString();
+    console.log(`account: ${accounts[0]} betValEther: ${betValueEther} bvString: ${betValueString}`);
+
+    await contract.methods.placeBet(this.props.user.intcode).send({
+      from: accounts[0],
+      value: web3.utils.toWei(betValueString, "ether")
+    });
+    this.placeBetPlain();
+  };
+
+  placeBetPlain = () => {
     const winnerTeamName =
       this.state.chosenWinner === "homeTeam"
         ? this.props.gameInfo.homeTeam.name
@@ -47,6 +64,7 @@ class GameBet extends Component {
       user: this.props.user.id,
       winner: this.state.chosenWinner,
       pointsDiff: this.state.pointsDiff,
+      ether: this.state.miliEtherValue,
       betString: `${winnerTeamName} by ${this.state.pointsDiff}`,
       score: 0
     };
@@ -62,7 +80,7 @@ class GameBet extends Component {
     this.props.dispatch(gamesActions.removeBet(userBet));
   };
 
-  pointsDiffOtionsTest = n => {
+  pointsDiffOtions = n => {
     let pointsDiffMenuItems = [];
     for (let i = 1; i <= n; i++) {
       pointsDiffMenuItems.push({ text: i, value: i });
@@ -85,7 +103,7 @@ class GameBet extends Component {
   renderUserBet = () => {
     return (
       <div className="new-bet-container">
-        <div className="winner-header">Choose winner</div>
+        <div className="winner-header">Winner</div>
         <div className="home-win">
           <input
             type="radio"
@@ -102,16 +120,38 @@ class GameBet extends Component {
             onChange={this.setWinner}
           />
         </div>
-        <div className="points-diff-header">Points diff</div>
+        <div className="points-diff-header">Points Diff</div>
         <div className="points-diff-dd">
           <Dropdown
             placeholder={"choose"}
             onChange={this.setPointsDiff}
-            options={this.pointsDiffOtionsTest(35)}
+            options={this.pointsDiffOtions(35)}
             scrolling
           />
         </div>
-        <div className="bet-button">{this.renderBetButton()}</div>
+        <div className="bet-option-head">Bet Options</div>
+        <div className="bet-eth-sum"><Input            
+            size='mini'
+            value={this.state.millietherValue}
+            onChange={(e) => this.setState({ millietherValue: e.target.value })}
+            />
+        </div>
+        <div className="eth-bet-button">
+        <Button size="tiny"
+          color='green' 
+          disabled={this.state.chosenWinner === "" || this.state.pointsDiff === 0 || this.state.miliEtherValue === 0} 
+          onClick={this.placeBetEther}>
+          Ether Bet
+        </Button>
+        </div>
+        <div className="plain-bet-button">
+        <Button size="tiny"
+          color='blue' 
+          disabled={this.state.chosenWinner === "" || this.state.pointsDiff === 0} 
+          onClick={this.placeBetPlain}>
+          Plain Bet
+        </Button>
+        </div>
       </div>
     );
   };
@@ -120,7 +160,7 @@ class GameBet extends Component {
     return (
       <div className="exists-bet-container">
         <div className="exists-bet-header">Your Bet</div>
-        <div className="exists-bet-content">{this.props.userBet.betString}</div>
+        <div className="exists-bet-content">{this.props.userBet.betString}</div>       
         <div className="exists-bet-remove-btn">
           {betHours ? this.renderBetButton() : null}
         </div>
@@ -139,7 +179,7 @@ class GameBet extends Component {
       const disableBtn =
         this.state.chosenWinner === "" || this.state.pointsDiff === 0;
       return (
-        <Button size="tiny" disabled={disableBtn} onClick={this.placeBet}>
+        <Button size="tiny" disabled={disableBtn} onClick={this.placeBetPlain}>
           bet
         </Button>
       );
@@ -149,7 +189,7 @@ class GameBet extends Component {
   render() {
     let userGameBet;
     let hour = new Date().getHours();
-    const betHours = hour > 8;
+    const betHours = (hour < 2 || hour > 8);
 
     if (!this.props.user) {
       userGameBet = this.renderPleaseLogin();
@@ -185,12 +225,13 @@ class GameBet extends Component {
 
 function mapStateToProps(state) {
   const user = state.userAuth.user;
+  // console.log('GameBet user: ' + JSON.stringify(user));
   const gameInfo = state.game.gameInfo;
   const gameid = state.game.gameid;
   const finalizedBet = state.game.finalizedBet;
   const userBet = state.game.currentUserBet;
   const allBets = state.game.allBets;
-  console.log(`new game: ${gameid}`);
+  // console.log(`new game: ${gameid}`);
   return {
     user,
     gameInfo,

@@ -1,5 +1,6 @@
 let localStorageUser = localStorage.getItem('user');
-const initialState = (localStorageUser && localStorageUser.username) ? { loggedIn: true, user: JSON.parse(localStorageUser) } : {};
+const initialState = (localStorageUser) ? { loggedIn: true, user: JSON.parse(localStorageUser) } : {};
+console.log('localStorageeUser: ' + localStorageUser);
 
 export default function reduce(state = initialState, action) {    
     switch (action.type) { 
@@ -28,8 +29,9 @@ export default function reduce(state = initialState, action) {
         case 'LOGOUT':
             return {loggedIn: false}
 
-        default:
+        default:{
             return state;
+        }
     }    
 }
 

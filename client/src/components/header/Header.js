@@ -30,7 +30,7 @@ class Header extends React.Component {
            
               <Link to="/rules">Game Rules</Link>
             
-            <a href="#" onClick={this.logout}>
+            <a href="/login" onClick={this.logout}>
               {logoutLink}
             </a>
           </div>

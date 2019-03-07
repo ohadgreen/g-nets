@@ -13,8 +13,8 @@ class NewGamesInfo {
         });
         if(!response) {
             const errorMsg = 'cannot fetch new games';
-            return {error: errorMsg};
             console.log(errorMsg);
+            return {error: errorMsg};
         }
         else {
             return response.data[0];

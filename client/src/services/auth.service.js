@@ -27,6 +27,7 @@ class AuthService {
             }
             else {
                 const user = response.data.authUser;
+                console.log('user token: ' + user.token);
                 if (user.token) {
                     const verifiedUser = JSON.stringify(user);
                     localStorage.setItem('user', verifiedUser);
@@ -76,7 +77,7 @@ class AuthService {
             return { error: response.text }
         }
         else {
-            const allUsers = JSON.stringify(response.data);
+            // const allUsers = JSON.stringify(response.data);
             return response.data;
         }
     }

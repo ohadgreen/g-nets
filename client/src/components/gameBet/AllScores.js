@@ -22,6 +22,7 @@ export const AllScores = props => {
               if (i < 10) {
                 return renderUserScore(user, i);
               }
+              else return ''
             })}
           </tbody>
         </table>

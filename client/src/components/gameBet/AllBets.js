@@ -16,6 +16,7 @@ export const AllBets = props => {
               if (i < 5) {
                 return renderBet(bet, i);
               }
+              else return ''
             })}
           </tbody>
         </table>
