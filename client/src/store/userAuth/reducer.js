@@ -1,6 +1,6 @@
 let localStorageUser = localStorage.getItem('user');
 const initialState = (localStorageUser) ? { loggedIn: true, user: JSON.parse(localStorageUser) } : {};
-console.log('localStorageeUser: ' + localStorageUser);
+// console.log('localStorageeUser: ' + localStorageUser);
 
 export default function reduce(state = initialState, action) {    
     switch (action.type) { 
@@ -13,8 +13,7 @@ export default function reduce(state = initialState, action) {
         case 'LOGIN_FAILURE':
             return {                
                 loginResult: action.payload,
-            }
-        
+            }        
         case 'REGISTER_SUCCESS': {
             return {
                 loggedIn: true,

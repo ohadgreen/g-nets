@@ -31,6 +31,7 @@ function renderBet(bet, i) {
       <td><RenderAvatar user={bet.user} /></td>
       <td>{bet.betString}</td>
       {bet.score ? <td>{bet.score}</td> : null}
+      {bet.ether ? <td>{bet.ether}</td> : null}
     </tr>
   );
 }

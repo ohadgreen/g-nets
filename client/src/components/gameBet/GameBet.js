@@ -64,7 +64,7 @@ class GameBet extends Component {
       user: this.props.user.id,
       winner: this.state.chosenWinner,
       pointsDiff: this.state.pointsDiff,
-      ether: this.state.miliEtherValue,
+      ether: this.state.millietherValue,
       betString: `${winnerTeamName} by ${this.state.pointsDiff}`,
       score: 0
     };

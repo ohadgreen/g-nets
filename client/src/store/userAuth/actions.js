@@ -3,11 +3,11 @@ import authService from '../../services/auth.service';
 
     export const userLoginValidate = (userLogin) => async dispatch => {
         const loginResult = await authService.loginDb(userLogin);
-        console.log('loginResult: ', loginResult);
+        //console.log('loginResult: ', loginResult);
         
         let user;        
         if(!loginResult.error){
-            console.log('logic succes');
+           // console.log('logic succes');
             user = loginResult.user;
             dispatch({ type: 'LOGIN_SUCCESS', payload: user });
             appRoute("/gamebet");           

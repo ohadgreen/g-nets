@@ -72,7 +72,7 @@
   
 }
 .bet-eth-sum > div {
-  width: 100%;
+  width: 65%;
 }
 .eth-bet-button {
   grid-area: ethbtn;  
