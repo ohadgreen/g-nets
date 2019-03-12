@@ -44,11 +44,11 @@ class RecentGameMain extends Component {
     } else {      
       return (
         <div className="recent-game-container">
-          <div className="teams-info">
+          <div className="recent-game-teams-info">
             <TeamsInfo gameInfo={this.props.gameInfo} mode="final" gameResults={this.props.gameResults} />
           </div>
-          <div className="user-bet">{this.renderUserBet()}</div>
-          <div className="all-bets"><AllBets allBets={this.props.allBets} scores={true}/></div>
+          <div className="recent-game-bet">{this.renderUserBet()}</div>
+          <div className="recent-game-chart"><AllBets allBets={this.props.allBets} scores={true}/></div>
         </div>
       );
     }

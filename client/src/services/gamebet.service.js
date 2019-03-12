@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { newGameSample } from '../resources/sampleData/newGames';
+const keys = require('../config/keys');
 const baseUrl = '/api/games/';
+const cryptoCompareUrl = 'https://min-api.cryptocompare.com/data/pricemulti?fsyms=ETH&tsyms=USD&api_key=';
 
 class NewGamesInfo {
     async getNewGamesFirst() {
@@ -79,6 +81,24 @@ class NewGamesInfo {
         else {
             // console.log('service removeBet: ' + JSON.stringify(response.data));
             return {success: true, data: response.data};
+        }
+    }
+
+    async getEtherConversionRate() {
+        const fullApiUrl = cryptoCompareUrl + keys.cryptoCompareApiKey;
+        const response = await axios({
+            url: fullApiUrl,
+            method: 'GET',
+            headers: {
+                Accept: 'application/json'
+            }
+        });
+        if(!response){
+            return {success: false};       
+        }
+        else {
+            console.log('cryptoCompare res: ' + JSON.stringify(response.data));
+            return {success: true, data: response.data.ETH.USD};
         }
     }
 }

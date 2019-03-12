@@ -88,6 +88,14 @@ class GameBet extends Component {
     return pointsDiffMenuItems;
   };
 
+  renderTitle = () => {
+    console.log('ether conversion: ' + this.props.etherConvRateValue);
+    return (<div className="game-bet-title">
+        <div className="game-bet-title-main">Game bet title</div>
+        <div className="game-bet-title-prize">Game bet title</div>
+    </div>);
+  }
+
   renderPleaseLogin = () => {
     return (
       <div>
@@ -206,6 +214,7 @@ class GameBet extends Component {
     } else {
       return (
         <div className="gamebet-container">
+        {this.renderTitle()}        
           <div className="teams-info">
             <TeamsInfo
               gameInfo={this.props.gameInfo}
@@ -231,6 +240,7 @@ function mapStateToProps(state) {
   const finalizedBet = state.game.finalizedBet;
   const userBet = state.game.currentUserBet;
   const allBets = state.game.allBets;
+  const etherConvRateValue = state.game.etherConvRateValue;
   // console.log(`new game: ${gameid}`);
   return {
     user,
@@ -238,7 +248,8 @@ function mapStateToProps(state) {
     gameid,
     finalizedBet,
     userBet,
-    allBets
+    allBets,
+    etherConvRateValue
   };
 }
 

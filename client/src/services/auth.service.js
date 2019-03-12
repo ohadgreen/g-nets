@@ -27,7 +27,6 @@ class AuthService {
             }
             else {
                 const user = response.data.authUser;
-                console.log('user token: ' + user.token);
                 if (user.token) {
                     const verifiedUser = JSON.stringify(user);
                     localStorage.setItem('user', verifiedUser);

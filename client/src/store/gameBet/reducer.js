@@ -5,6 +5,7 @@ const initialState = {
     allBets: {},
     currentUserBet: {},
     finalizedBet: false,
+    etherConvRateValue: 0
 };
 
 export default function reduce(state = initialState, action) {
@@ -16,7 +17,8 @@ export default function reduce(state = initialState, action) {
                 gameInfo: action.payload.gameInfo,
                 allBets: action.payload.allBets,
                 currentUserBet: action.payload.currentUserBet,
-                finalizedBet: action.payload.finalizedBet
+                finalizedBet: action.payload.finalizedBet,
+                etherConvRateValue: action.payload.etherConvRateValue
                 }
         
         case 'BET_ADD_SUCCESS': 

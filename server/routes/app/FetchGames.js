@@ -33,7 +33,7 @@ module.exports = app => {
   app.get("/api/games/recent", async (req, res) => {
     let errorMsg;
     let yesterday = dateUtils.dateDiffFromToday(-2);
-    console.log("yesterday: " + yesterday);
+    // console.log("yesterday: " + yesterday);
 
     const recentGames = await Game.find(
         { isRecentGame: true, "gameRank.gameRank": 1 },

@@ -10,7 +10,7 @@
   grid-template-areas: "teams ebet abet";
 }
 
-.teams-info {
+.recent-game-teams-info {
   grid-area: teams;
 }
 
@@ -18,8 +18,11 @@
   grid-area: final;
 }
 
-.user-bet {
+.recent-game-bet {
   grid-area: ebet;  
+}
+.recent-game-chart {
+  grid-area: abet;  
 }
 
 .user-recent-bet-container {
@@ -52,8 +55,4 @@
   grid-area: bcont;
   display: flex;
   flex-direction: column;
-}
-
-.all-bets {
-  grid-area: abet;  
 }
