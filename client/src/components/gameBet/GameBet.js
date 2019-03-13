@@ -13,11 +13,14 @@ class GameBet extends Component {
   state = {
     chosenWinner: "",
     pointsDiff: 0,
-    millietherValue: 0
+    millietherValue: 0,
+    totalPrizeWei: 0,
   };
 
-  componentDidMount() {
+  async componentDidMount() {
     this.props.dispatch(gamesActions.newGame());
+    const totalPrizeWei = await contract.methods.showTotalBetSum().call();
+    this.setState({ totalPrizeWei });
   }
   setWinner = e => {
     const chosenWinner = e.target.value;
@@ -88,11 +91,12 @@ class GameBet extends Component {
     return pointsDiffMenuItems;
   };
 
-  renderTitle = () => {
-    console.log('ether conversion: ' + this.props.etherConvRateValue);
+  renderTitle = () => {        
+    // const prizeInUsd = await web3.utils.fromWei(totalPrizeWei, 'ether') * this.props.etherConvRateValue;
+    console.log('ether conversion: ' + this.props.etherConvRateValue + ' prize: ' + this.state.totalPrizeWei);
     return (<div className="game-bet-title">
         <div className="game-bet-title-main">Game bet title</div>
-        <div className="game-bet-title-prize">Game bet title</div>
+        <div className="game-bet-title-prize">Total Prize: {this.state.totalPrizeWei} ()</div>
     </div>);
   }
 
@@ -254,3 +258,5 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps)(GameBet);
+
+// 09-7651489 bachar
