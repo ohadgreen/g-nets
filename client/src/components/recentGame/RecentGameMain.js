@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import * as recentGamesActions from "../../store/recentGame/actions";
 import { TeamsInfo } from "../common/TeamsInfo";
 import { AllBets } from "../gameBet/AllBets";
+import { GameTitle } from "../common/RenderGameTitle";
 import "./RecentGame.css";
 
 class RecentGameMain extends Component {  
@@ -44,6 +45,9 @@ class RecentGameMain extends Component {
     } else {      
       return (
         <div className="recent-game-container">
+        <div className="recent-game-title">
+        <GameTitle gameType = 'Recent' gameSchedule = {this.props.gameInfo.schedule}/>
+        </div>
           <div className="recent-game-teams-info">
             <TeamsInfo gameInfo={this.props.gameInfo} mode="final" gameResults={this.props.gameResults} />
           </div>

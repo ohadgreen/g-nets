@@ -33,6 +33,15 @@
   grid-column: new-game-chart;
 }
 
+.game-bet-title-main {
+  font-size: 24px;
+  padding-right: 10px;
+}
+.game-bet-title-prize-eth {
+  font-size: 16px;
+  padding-right: 10px;
+}
+
 .new-bet-container {
   height: 100%;
   display: grid;

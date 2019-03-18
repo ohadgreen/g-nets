@@ -4,7 +4,7 @@ import { getUser, isLoggedIn } from "../userAuth/reducer";
 export const newGame = () => async (dispatch, getState) => {
   const newGame = await gameService.getNewGamesFirst();
   const etherConversionRes = await gameService.getEtherConversionRate();
-  console.log('action ether conv: ' + JSON.stringify(etherConversionRes));
+  const contractPrize = await gameService.getPrizeFromContractBalance();
   const etherConvRateValue = etherConversionRes.success ? etherConversionRes.data : 0;
 
   if (newGame) {
@@ -31,7 +31,8 @@ export const newGame = () => async (dispatch, getState) => {
         allBets: allBetsOrderByString(newGame.bets),
         currentUserBet: userBet,
         finalizedBet: finalizedBet,
-        etherConvRateValue
+        etherConvRateValue,
+        contractPrize
       }
     });
   } else {
@@ -44,10 +45,11 @@ export const addBet = userBet => async (dispatch, getState) => {
   const allBets = newBetAdd.data.data.bets;
   const currentUserId = getUser(getState()).id;
   const userBetUpdated = findCurrentUserBet(newBetAdd.data.data, currentUserId);
+  const contractPrize = await gameService.getPrizeFromContractBalance();
   if (newBetAdd.data.msg === "user bet added") {
     dispatch({
       type: "BET_ADD_SUCCESS",
-      payload: { currentUserBet: userBetUpdated, allBets: allBets }
+      payload: { currentUserBet: userBetUpdated, allBets, contractPrize }
     });
   } else {
     dispatch({ type: "BET_ADD_FAILURE" });

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { newGameSample } from '../resources/sampleData/newGames';
+import contract from "./contract";
 const keys = require('../config/keys');
 const baseUrl = '/api/games/';
 const cryptoCompareUrl = 'https://min-api.cryptocompare.com/data/pricemulti?fsyms=ETH&tsyms=USD&api_key=';
@@ -21,7 +22,6 @@ class NewGamesInfo {
         else {
             return response.data[0];
         }
-        // return newGameSample[0];
     }
     getNewGamesAll() {
         return newGameSample;
@@ -100,6 +100,11 @@ class NewGamesInfo {
             console.log('cryptoCompare res: ' + JSON.stringify(response.data));
             return {success: true, data: response.data.ETH.USD};
         }
+    }
+
+    async getPrizeFromContractBalance() {
+        const totalPrizeWei = await contract.methods.showTotalBetSum().call();
+        return totalPrizeWei;
     }
 }
 

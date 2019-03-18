@@ -6,23 +6,26 @@
   background: white;
   display: grid;
   grid-gap: 5px;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-areas: "teams ebet abet";
+  grid-template-rows: [recent-game-title] 1fr [recent-game-body] 5fr;
+  grid-template-columns: [recent-game-teams] 1fr [recent-game-bet] 1fr [recent-game-chart] 1fr;
 }
 
+.recent-game-title {
+  grid-row: recent-game-title;
+  grid-column: 1 / -1;
+}
 .recent-game-teams-info {
-  grid-area: teams;
-}
-
-.final-score {
-  grid-area: final;
+  grid-row: recent-game-body;
+  grid-column: recent-game-teams;
 }
 
 .recent-game-bet {
-  grid-area: ebet;  
+  grid-row: recent-game-body;
+  grid-column: recent-game-bet;
 }
 .recent-game-chart {
-  grid-area: abet;  
+  grid-row: recent-game-body;
+  grid-column: recent-game-chart; 
 }
 
 .user-recent-bet-container {

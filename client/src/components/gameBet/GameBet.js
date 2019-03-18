@@ -6,41 +6,28 @@ import { TeamsInfo } from "../common/TeamsInfo";
 import { AllBets } from "./AllBets";
 import web3 from "../../services/web3";
 import contract from "../../services/contract";
-import { Dropdown, Button, Input } from "semantic-ui-react";
+import { Dropdown, Button, Input, Icon } from "semantic-ui-react";
+import { GameTitle } from '../common/RenderGameTitle';
 import "./GameBet.css";
+
 
 class GameBet extends Component {
   state = {
     chosenWinner: "",
     pointsDiff: 0,
     millietherValue: 0,
-    totalPrizeWei: 0,
   };
 
   async componentDidMount() {
     this.props.dispatch(gamesActions.newGame());
-    const totalPrizeWei = await contract.methods.showTotalBetSum().call();
-    this.setState({ totalPrizeWei });
   }
   setWinner = e => {
     const chosenWinner = e.target.value;
-    this.setState(
-      () => {
-        return { chosenWinner, betStatus: "winner" };
-      },
-      () => {
-        console.log("updated winner state: " + this.state.chosenWinner);
-      }
-    );
+    this.setState({chosenWinner});
   };
 
   setPointsDiff = (e, { value }) => {
-    this.setState(
-      () => {
-        return { pointsDiff: value };
-      },
-      () => console.log("pointsDiff: " + this.state.pointsDiff)
-    );
+    this.setState({ pointsDiff: value })
   };
 
   placeBetEther = async event => {
@@ -90,15 +77,6 @@ class GameBet extends Component {
     }
     return pointsDiffMenuItems;
   };
-
-  renderTitle = () => {        
-    // const prizeInUsd = await web3.utils.fromWei(totalPrizeWei, 'ether') * this.props.etherConvRateValue;
-    console.log('ether conversion: ' + this.props.etherConvRateValue + ' prize: ' + this.state.totalPrizeWei);
-    return (<div className="game-bet-title">
-        <div className="game-bet-title-main">Game bet title</div>
-        <div className="game-bet-title-prize">Total Prize: {this.state.totalPrizeWei} ()</div>
-    </div>);
-  }
 
   renderPleaseLogin = () => {
     return (
@@ -218,7 +196,9 @@ class GameBet extends Component {
     } else {
       return (
         <div className="gamebet-container">
-        {this.renderTitle()}        
+        <div className="game-bet-title">
+        <GameTitle gameType = 'Next' gameSchedule = {this.props.gameInfo.schedule} contractPrize = {this.props.contractPrize} etherConvRate = {this.props.etherConvRateValue}/>
+        </div>
           <div className="teams-info">
             <TeamsInfo
               gameInfo={this.props.gameInfo}
@@ -245,7 +225,7 @@ function mapStateToProps(state) {
   const userBet = state.game.currentUserBet;
   const allBets = state.game.allBets;
   const etherConvRateValue = state.game.etherConvRateValue;
-  // console.log(`new game: ${gameid}`);
+  const contractPrize = state.game.contractPrize;
   return {
     user,
     gameInfo,
@@ -253,10 +233,10 @@ function mapStateToProps(state) {
     finalizedBet,
     userBet,
     allBets,
-    etherConvRateValue
+    etherConvRateValue,
+    contractPrize
   };
 }
-
 export default connect(mapStateToProps)(GameBet);
 
 // 09-7651489 bachar

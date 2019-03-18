@@ -1,20 +1,13 @@
 import React from "react";
 import "./TeamsInfo.css";
 
-export const TeamsInfo = props => {
-  const gameSched = new Date(Date.parse(props.gameInfo.schedule));
-  const gameDate =
-    gameSched.getDate() +
-    "-" +
-    (gameSched.getMonth() + 1) +
-    "-" +
-    gameSched.getFullYear();
+export const TeamsInfo = props => {  
   const homeTeam = props.gameInfo.homeTeam;
   const awayTeam = props.gameInfo.awayTeam;
 
   return (
     <div className="teams-info-container">
-      <div className="game-header">{gameDate}</div>
+      <div className="game-header">Teams</div>
       <div className="home-team__img">{getTeamImage(homeTeam)}</div>
       <div className="home-team__details">
         <div>{homeTeam.city} <b>{homeTeam.name}</b></div>
@@ -44,7 +37,7 @@ function getTeamImage(team) {
 function renderTeamStats (homeTeam, awayTeam){
   return (
    <React.Fragment>
-    <div className="stats-header">Team Stats</div>
+    <div className="stats-header">Stats</div>
       <div className="home-stats">
         <div>Points for: {homeTeam.pointsFor}</div>
         <div>Points Against: {homeTeam.pointsAgainst}</div>
