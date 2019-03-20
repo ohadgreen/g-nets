@@ -7,7 +7,7 @@ require('./model/Team');
 require('./model/User');
 const keys = require('./config/keys');
 
-mongoose.connect(keys.mongoURI, { useNewUrlParser: true, useFindAndModify: false });
+mongoose.connect(keys.mongoURI, { useNewUrlParser: true, useFindAndModify: false, keepAlive: true, keepAliveInitialDelay: 300000 });
 
 const app = express();
 app.use('/', router);

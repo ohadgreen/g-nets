@@ -6,16 +6,23 @@ import { TeamsInfo } from "../common/TeamsInfo";
 import { AllBets } from "./AllBets";
 import web3 from "../../services/web3";
 import contract from "../../services/contract";
-import { Dropdown, Button, Input, Icon } from "semantic-ui-react";
-import { GameTitle } from '../common/RenderGameTitle';
+import {
+  Dropdown,
+  Button,
+  Input,
+  Dimmer,
+  Loader,
+  Segment
+} from "semantic-ui-react";
+import { GameTitle } from "../common/RenderGameTitle";
 import "./GameBet.css";
-
 
 class GameBet extends Component {
   state = {
     chosenWinner: "",
     pointsDiff: 0,
     millietherValue: 0,
+    loadingSpinner: false
   };
 
   async componentDidMount() {
@@ -23,28 +30,34 @@ class GameBet extends Component {
   }
   setWinner = e => {
     const chosenWinner = e.target.value;
-    this.setState({chosenWinner});
+    this.setState({ chosenWinner });
   };
 
   setPointsDiff = (e, { value }) => {
-    this.setState({ pointsDiff: value })
+    this.setState({ pointsDiff: value });
   };
 
   placeBetEther = async event => {
     event.preventDefault();
+    this.setState({ loadingSpinner: true });
     const accounts = await web3.eth.getAccounts();
     const betValueEther = this.state.millietherValue / 1000;
     const betValueString = betValueEther.toString();
-    console.log(`account: ${accounts[0]} betValEther: ${betValueEther} bvString: ${betValueString}`);
+    console.log(
+      `account: ${
+        accounts[0]
+      } betValEther: ${betValueEther} bvString: ${betValueString}`
+    );
 
     await contract.methods.placeBet(this.props.user.intcode).send({
       from: accounts[0],
       value: web3.utils.toWei(betValueString, "ether")
     });
-    this.placeBetPlain();
+    this.placeBetPlain();    
   };
 
   placeBetPlain = () => {
+    this.setState({ loadingSpinner: true });
     const winnerTeamName =
       this.state.chosenWinner === "homeTeam"
         ? this.props.gameInfo.homeTeam.name
@@ -59,6 +72,7 @@ class GameBet extends Component {
       score: 0
     };
     this.props.dispatch(gamesActions.addBet(userBet));
+    this.setState({ loadingSpinner: false });
   };
 
   removeBet = () => {
@@ -87,11 +101,16 @@ class GameBet extends Component {
     );
   };
   renderOffHoursNoBets = () => {
-    return <div>No bets for current game</div>;
+    return <div>No more bets for current game</div>;
   };
 
   renderUserBet = () => {
+    const spinnerText = (this.state.millietherValue == 0) ? "Booking your bet" : "Transaction confirmation in progress...";
     return (
+      <Segment>
+        <Dimmer active={this.state.loadingSpinner}>
+        <Loader active={this.state.loadingSpinner} content={spinnerText} />
+        </Dimmer>
       <div className="new-bet-container">
         <div className="winner-header">Winner</div>
         <div className="home-win">
@@ -120,37 +139,49 @@ class GameBet extends Component {
           />
         </div>
         <div className="bet-option-head">Bet Options</div>
-        <div className="bet-eth-sum"><Input            
-            size='mini'
+        <div className="bet-eth-sum">
+          <Input
+            size="mini"
             value={this.state.millietherValue}
-            onChange={(e) => this.setState({ millietherValue: e.target.value })}
-            />
+            onChange={e => this.setState({ millietherValue: e.target.value })}
+          />
         </div>
         <div className="eth-bet-button">
-        <Button size="tiny"
-          color='green' 
-          disabled={this.state.chosenWinner === "" || this.state.pointsDiff === 0 || this.state.miliEtherValue === 0} 
-          onClick={this.placeBetEther}>
-          Ether Bet
-        </Button>
+          <Button
+            size="tiny"
+            color="green"
+            disabled={
+              this.state.chosenWinner === "" ||
+              this.state.pointsDiff === 0 ||
+              this.state.miliEtherValue === 0
+            }
+            onClick={this.placeBetEther}
+          >
+            Ether Bet
+          </Button>
         </div>
         <div className="plain-bet-button">
-        <Button size="tiny"
-          color='blue' 
-          disabled={this.state.chosenWinner === "" || this.state.pointsDiff === 0} 
-          onClick={this.placeBetPlain}>
-          Plain Bet
-        </Button>
+          <Button
+            size="tiny"
+            color="blue"
+            disabled={
+              this.state.chosenWinner === "" || this.state.pointsDiff === 0
+            }
+            onClick={this.placeBetPlain}
+          >
+            Plain Bet
+          </Button>
         </div>
       </div>
-    );
+      </Segment>
+    )    
   };
 
   renderExistsBet = betHours => {
     return (
       <div className="exists-bet-container">
         <div className="exists-bet-header">Your Bet</div>
-        <div className="exists-bet-content">{this.props.userBet.betString}</div>       
+        <div className="exists-bet-content">{this.props.userBet.betString}</div>
         <div className="exists-bet-remove-btn">
           {betHours ? this.renderBetButton() : null}
         </div>
@@ -179,7 +210,7 @@ class GameBet extends Component {
   render() {
     let userGameBet;
     let hour = new Date().getHours();
-    const betHours = (hour < 2 || hour > 8);
+    const betHours = hour < 2 || hour > 8;
 
     if (!this.props.user) {
       userGameBet = this.renderPleaseLogin();
@@ -196,9 +227,14 @@ class GameBet extends Component {
     } else {
       return (
         <div className="gamebet-container">
-        <div className="game-bet-title">
-        <GameTitle gameType = 'Next' gameSchedule = {this.props.gameInfo.schedule} contractPrize = {this.props.contractPrize} etherConvRate = {this.props.etherConvRateValue}/>
-        </div>
+          <div className="game-bet-title">
+            <GameTitle
+              gameType="Next"
+              gameSchedule={this.props.gameInfo.schedule}
+              contractPrize={this.props.contractPrize}
+              etherConvRate={this.props.etherConvRateValue}
+            />
+          </div>
           <div className="teams-info">
             <TeamsInfo
               gameInfo={this.props.gameInfo}
