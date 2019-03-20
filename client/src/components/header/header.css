@@ -21,7 +21,7 @@
 }
 
 .app-logo > a:hover {   
-    text-decoration: underline;
+    color: gold;
 }
 
 .header-menu {
@@ -37,7 +37,7 @@
 }
 
 .header-menu > a:hover {
-    text-decoration: underline;
+    color: gold;
 }
 
 .header-user {
