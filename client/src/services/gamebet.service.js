@@ -97,7 +97,6 @@ class NewGamesInfo {
             return {success: false};       
         }
         else {
-            console.log('cryptoCompare res: ' + JSON.stringify(response.data));
             return {success: true, data: response.data.ETH.USD};
         }
     }

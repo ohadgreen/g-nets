@@ -12,7 +12,8 @@ import {
   Input,
   Dimmer,
   Loader,
-  Segment
+  Segment,
+  Label
 } from "semantic-ui-react";
 import { GameTitle } from "../common/RenderGameTitle";
 import "./GameBet.css";
@@ -22,7 +23,8 @@ class GameBet extends Component {
     chosenWinner: "",
     pointsDiff: 0,
     millietherValue: 0,
-    loadingSpinner: false
+    loadingSpinner: false,
+    inputError: ""
   };
 
   async componentDidMount() {
@@ -39,8 +41,20 @@ class GameBet extends Component {
 
   placeBetEther = async event => {
     event.preventDefault();
-    this.setState({ loadingSpinner: true });
+    const etherSumInput = this.state.millietherValue;
     const accounts = await web3.eth.getAccounts();
+    console.log('accounts: ' + JSON.stringify(accounts));
+    console.log(`${accounts.length} accounts undef: ${accounts.length === 0}`);
+    if(isNaN(etherSumInput) || etherSumInput >=20 || etherSumInput <= 200){
+      this.setState({ inputError: "value must be between 20-200" })
+    }
+    if (accounts.length === 0) {
+      console.log('metamask closed');
+      this.setState({ inputError: "please verify Metamask is open" })
+    }
+    if (!isNaN(etherSumInput) && etherSumInput >=20 && etherSumInput <= 200 && accounts.length > 0) {
+      console.log('place bet');
+    this.setState({ loadingSpinner: true, inputError: '' });
     const betValueEther = this.state.millietherValue / 1000;
     const betValueString = betValueEther.toString();
     console.log(
@@ -48,12 +62,16 @@ class GameBet extends Component {
         accounts[0]
       } betValEther: ${betValueEther} bvString: ${betValueString}`
     );
-
-    await contract.methods.placeBet(this.props.user.intcode).send({
-      from: accounts[0],
-      value: web3.utils.toWei(betValueString, "ether")
-    });
-    this.placeBetPlain();    
+      try {
+        await contract.methods.placeBet(this.props.user.intcode).send({
+          from: accounts[0],
+          value: web3.utils.toWei(betValueString, "ether")
+        });
+        this.placeBetPlain();
+      } catch (error) {
+        this.setState({ loadingSpinner: false, inputError: 'Metamask transaction rejected' })
+      }
+  }
   };
 
   placeBetPlain = () => {
@@ -94,7 +112,7 @@ class GameBet extends Component {
 
   renderPleaseLogin = () => {
     return (
-      <div>
+      <div className="user-please-login">
         To guess game results, please <Link to="/login">Login</Link> or{" "}
         <Link to="/register">Register</Link>
       </div>
@@ -105,76 +123,110 @@ class GameBet extends Component {
   };
 
   renderUserBet = () => {
-    const spinnerText = (this.state.millietherValue == 0) ? "Booking your bet" : "Transaction confirmation in progress...";
+    const homeTeamName = this.props.gameInfo.homeTeam
+      ? this.props.gameInfo.homeTeam.name
+      : "home team";
+    const awayTeamName = this.props.gameInfo.awayTeam
+      ? this.props.gameInfo.awayTeam.name
+      : "away team";
+    const spinnerText =
+      this.state.millietherValue === 0
+        ? "Booking your bet"
+        : "Transaction confirmation in progress...";
     return (
-      <Segment>
+      <Segment basic padded={false}>
         <Dimmer active={this.state.loadingSpinner}>
-        <Loader active={this.state.loadingSpinner} content={spinnerText} />
+          <Loader active={this.state.loadingSpinner} content={spinnerText} />
         </Dimmer>
-      <div className="new-bet-container">
-        <div className="winner-header">Winner</div>
-        <div className="home-win">
-          <input
-            type="radio"
-            value="homeTeam"
-            name="winner"
-            onChange={this.setWinner}
-          />
+        <div className="user-game-bet">
+          <div className="winner-points-container">
+            <div className="winner-header">Winner</div>
+            <div className="home-win">
+              <label htmlFor="home" style={{ padding: "5px" }}>
+                {homeTeamName}
+              </label>
+              <input
+                id="home"
+                type="radio"
+                value="homeTeam"
+                name="winner"
+                onChange={this.setWinner}
+              />
+            </div>
+            <div className="away-win">
+              <label htmlFor="home" style={{ padding: "5px" }}>
+                {awayTeamName}
+              </label>
+              <input
+                id="away"
+                type="radio"
+                value="awayTeam"
+                name="winner"
+                onChange={this.setWinner}
+              />
+            </div>
+            <div className="points-diff-header">Points Diff</div>
+            <div className="points-diff-dd">
+              <Dropdown
+                placeholder={"choose"}
+                onChange={this.setPointsDiff}
+                options={this.pointsDiffOtions(35)}
+                scrolling
+              />
+            </div>
+          </div>
+          <div className="bet-options-container">
+            <div className="bet-option-head">Bet Options</div>
+            <div className="plain-bet-option">
+              <div className="plain-bet-button">
+                <Button
+                  size="tiny"
+                  color="blue"
+                  disabled={
+                    this.state.chosenWinner === "" ||
+                    this.state.pointsDiff === 0
+                  }
+                  onClick={this.placeBetPlain}
+                >
+                  Plain Bet
+                </Button>
+              </div>
+            </div>
+            <div className="ether-bet-option">
+            <Label color={this.state.inputError === "" ? 'grey' : 'red'}  pointing='below'>
+            {this.state.inputError === "" ? 'Please enter a value' : this.state.inputError}
+              </Label>
+              <div className="bet-eth-sum">
+                <Input
+                  size="mini"
+                  label={{ basic: true, content: 'milliether' }}
+                  labelPosition='right'
+                  placeholder='20-200'
+                  // value={this.state.millietherValue}
+                  onChange={e => 
+                    this.setState({ millietherValue: e.target.value, inputError: '' })
+                  }
+                />
+              </div>
+              <div className="eth-bet-button">
+                <Button
+                  size="tiny"
+                  color="green"
+                  disabled={
+                    this.state.chosenWinner === "" ||
+                    this.state.pointsDiff === 0 ||
+                    this.state.miliEtherValue === 0
+                  }
+                  onClick={this.placeBetEther}
+                >
+                  Ether Bet
+                </Button>
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="away-win">
-          <input
-            type="radio"
-            value="awayTeam"
-            name="winner"
-            onChange={this.setWinner}
-          />
-        </div>
-        <div className="points-diff-header">Points Diff</div>
-        <div className="points-diff-dd">
-          <Dropdown
-            placeholder={"choose"}
-            onChange={this.setPointsDiff}
-            options={this.pointsDiffOtions(35)}
-            scrolling
-          />
-        </div>
-        <div className="bet-option-head">Bet Options</div>
-        <div className="bet-eth-sum">
-          <Input
-            size="mini"
-            value={this.state.millietherValue}
-            onChange={e => this.setState({ millietherValue: e.target.value })}
-          />
-        </div>
-        <div className="eth-bet-button">
-          <Button
-            size="tiny"
-            color="green"
-            disabled={
-              this.state.chosenWinner === "" ||
-              this.state.pointsDiff === 0 ||
-              this.state.miliEtherValue === 0
-            }
-            onClick={this.placeBetEther}
-          >
-            Ether Bet
-          </Button>
-        </div>
-        <div className="plain-bet-button">
-          <Button
-            size="tiny"
-            color="blue"
-            disabled={
-              this.state.chosenWinner === "" || this.state.pointsDiff === 0
-            }
-            onClick={this.placeBetPlain}
-          >
-            Plain Bet
-          </Button>
-        </div>
-      </div>
       </Segment>
-    )    
+    );
   };
 
   renderExistsBet = betHours => {
@@ -242,7 +294,7 @@ class GameBet extends Component {
               gameResults={{}}
             />
           </div>
-          <div className="user-game-bet">{userGameBet}</div>
+          {userGameBet}
           <div className="all-bets">
             <AllBets allBets={this.props.allBets} scores={false} />
           </div>
@@ -274,5 +326,3 @@ function mapStateToProps(state) {
   };
 }
 export default connect(mapStateToProps)(GameBet);
-
-// 09-7651489 bachar
