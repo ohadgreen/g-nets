@@ -13,7 +13,8 @@ import {
   Dimmer,
   Loader,
   Segment,
-  Label
+  Label, 
+  Icon 
 } from "semantic-ui-react";
 import { GameTitle } from "../common/RenderGameTitle";
 import "./GameBet.css";
@@ -202,7 +203,6 @@ class GameBet extends Component {
                   label={{ basic: true, content: 'milliether' }}
                   labelPosition='right'
                   placeholder='20-200'
-                  // value={this.state.millietherValue}
                   onChange={e => 
                     this.setState({ millietherValue: e.target.value, inputError: '' })
                   }
@@ -234,31 +234,16 @@ class GameBet extends Component {
       <div className="exists-bet-container">
         <div className="exists-bet-header">Your Bet</div>
         <div className="exists-bet-content">{this.props.userBet.betString}</div>
+        <div className="exists-bet-ether">{this.props.userBet.ether}<Icon name="ethereum" size="small" /></div>
         <div className="exists-bet-remove-btn">
-          {betHours ? this.renderBetButton() : null}
+          {betHours && this.props.userBet.ether === 0 ? <Button color="red" size="tiny" onClick={this.removeBet}>
+          Remove
+        </Button> : null}
         </div>
       </div>
     );
   };
-
-  renderBetButton = () => {
-    if (this.props.finalizedBet) {
-      return (
-        <Button size="tiny" onClick={this.removeBet}>
-          Remove
-        </Button>
-      );
-    } else {
-      const disableBtn =
-        this.state.chosenWinner === "" || this.state.pointsDiff === 0;
-      return (
-        <Button size="tiny" disabled={disableBtn} onClick={this.placeBetPlain}>
-          bet
-        </Button>
-      );
-    }
-  };
-
+  
   render() {
     let userGameBet;
     let hour = new Date().getHours();

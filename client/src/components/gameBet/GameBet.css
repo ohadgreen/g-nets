@@ -58,11 +58,13 @@
 
 .winner-header {
   grid-row: winner-diff-headers;
-  grid-column: choose-winner; 
+  grid-column: choose-winner;
+  text-decoration: underline;
 }
 .points-diff-header {
   grid-row: winner-diff-headers;
   grid-column: points-diff;
+  text-decoration: underline;
 }
 .home-win {
   grid-row: home-win;
@@ -88,9 +90,9 @@
 .bet-options-container {
   grid-column: bet-options;
   display: grid;
-  grid-gap: 2px;
-  border: solid 1px black;
-  border-radius: 10px;
+  grid-gap: 4px;
+  /* border: solid 1px black;
+  border-radius: 10px; */
   grid-template-rows: [bet-options-header] 1fr [plain-bet] 2fr [ether-bet] 4fr;
 }
 .bet-options-container > * {
@@ -100,14 +102,21 @@
 }
 .bet-option-head {
   grid-row: bet-options-header;
+  text-decoration: underline;
 }
 .plain-bet-option {
   grid-row: plain-bet;
+  border: solid 1px black;
+  border-radius: 10px;
 }
 .ether-bet-option {
+  padding: 4px;
   grid-row: ether-bet;
   display: flex;
   flex-direction: column;
+  border: solid 1px black;
+  border-radius: 10px;
+  background-color: blanchedalmond;
 }
 .bet-eth-sum > div > input {
   width: 60px;
@@ -118,19 +127,9 @@
 .exists-bet-container {
   height: 100%;
   display: grid;
+  border: solid 1px black;
   border-radius: 10px;
-  grid-template-rows: repeat(7, 1fr);
-  grid-template-columns: repeat(5, 1fr);
-
-  grid-template-areas:
-    "bhead bhead bhead bhead bhead"
-    "bcon bcon bcon bcon rbtn"
-    "bcon bcon bcon bcon rbtn"
-    "bcon bcon bcon bcon rbtn"
-    "beth beth beth beth beth"
-    "beth beth beth beth beth"
-    "beth beth beth beth beth"    
-    ;
+  grid-template-rows: [exist-bet-header] 1fr [exist-bet-content] 2fr [exist-bet-ether] 1fr [remove-btn] 3fr; 
 }
 .exists-bet-container > * {
   display: flex;
@@ -138,11 +137,12 @@
   align-items: center;
 }
 .exists-bet-header {
-  grid-area: bhead;
+  grid-row: exist-bet-header;
+  text-decoration: underline;
 }
 .exists-bet-content {
-  grid-area: bcon;
+  grid-row: exist-bet-content;
 }
 .exists-bet-remove-btn {
-  grid-area: rbtn;
+  grid-row: remove-btn;
 }
