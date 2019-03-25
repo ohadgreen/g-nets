@@ -59,13 +59,14 @@ module.exports = app => {
   // add bet
   app.post("/api/games/addbet", async (req, res) => {
     let errorMsg;
-    const { gameid, user, winner, pointsDiff, ether, betString } = req.query;
+    const { gameid, user, usercode, winner, pointsDiff, ether, betString } = req.query;
     const userBet = {
-      user: user,
-      winner: winner,
-      pointsDiff: pointsDiff,
-      ether: ether,
-      betString: betString
+      user,
+      usercode,
+      winner,
+      pointsDiff,
+      ether,
+      betString
     };
     // console.log('userBet: ' + JSON.stringify(userBet));
     const addBetRes = await Game.findOneAndUpdate(

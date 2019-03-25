@@ -84,6 +84,7 @@ class GameBet extends Component {
     const userBet = {
       gameid: this.props.gameid,
       user: this.props.user.id,
+      usercode: this.props.user.intcode,
       winner: this.state.chosenWinner,
       pointsDiff: this.state.pointsDiff,
       ether: this.state.millietherValue,

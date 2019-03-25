@@ -10,6 +10,7 @@ const gameSchema = new Schema({
     results: { homePoints: Number, awayPoints: Number, resultsString: String },
     bets: [{
         user: { type: Schema.Types.ObjectId, ref: 'users' },
+        usercode: Number,
         winner: String,
         pointsDiff: Number,
         ether: Number,
