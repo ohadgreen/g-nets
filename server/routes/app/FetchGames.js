@@ -59,10 +59,10 @@ module.exports = app => {
   // add bet
   app.post("/api/games/addbet", async (req, res) => {
     let errorMsg;
-    const { gameid, user, usercode, winner, pointsDiff, ether, betString } = req.query;
+    const { gameid, user, intcode, winner, pointsDiff, ether, betString } = req.query;
     const userBet = {
       user,
-      usercode,
+      intcode,
       winner,
       pointsDiff,
       ether,
