@@ -10,15 +10,19 @@ node_modules/
 # testing
 /coverage
 
+# env
+.env
+server/config/dev.js
+.vscode/
+
 # resources
-/client/src/resources
-/server/resources
+/client/src/resources/sampleData/
+/server/resources/sampleData/
 
 # production
 /build
 
 # misc
-/server/config/
 .DS_Store
 .env.local
 .env.development.local
