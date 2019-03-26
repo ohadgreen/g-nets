@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 require("../../model/Game");
-const dateUtils = require("../../utils/DateUtils");
+const dateUtils = require("../../utils/DateUtilsXXX");
 const Game = mongoose.model("games");
 
 module.exports = app => {
@@ -32,8 +32,6 @@ module.exports = app => {
   // return recent game with top rank
   app.get("/api/games/recent", async (req, res) => {
     let errorMsg;
-    let yesterday = dateUtils.dateDiffFromToday(-2);
-    // console.log("yesterday: " + yesterday);
 
     const recentGames = await Game.find(
         { isRecentGame: true, "gameRank.gameRank": 1 },

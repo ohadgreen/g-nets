@@ -29,7 +29,7 @@ export const TeamsInfo = props => {
 
 function getTeamImage(team) {
   return (<img
-    src={require(`../../resources/images/ext/${team.alias}-70.png`)}
+    src={require(`../../resources/images/teamLogos/${team.alias}-70.png`)}
     alt={team.name}
   />)
 }
