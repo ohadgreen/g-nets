@@ -18,11 +18,21 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: false,
 }));
-app.use(express.static(__dirname + '/public'));
 
 require('./routes/auth/UserAuth')(app);
 require('./routes/app/FetchGames')(app);
 require('./routes/app/FetchScores')(app);
+
+if (process.env.NODE_ENV === "production") {
+    // tell Express to server production assets like main.js
+    app.use(express.static(__dirname + "../client/build"));
+  
+    // Express will server the index.html file if it doesn't recognize the route
+    const path = require("path");
+    app.get("*", (req, res) => {
+      res.sendfile(path.resolve(__dirname, "../client", "build", "index.html"));
+    });
+  }
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Listening on port ${port}`));

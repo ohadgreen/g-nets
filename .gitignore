@@ -12,15 +12,15 @@ node_modules/
 
 # env
 .env
-server/config/dev.js
-.vscode/
+/server/config/dev.js
+/client/.vscode/
 
 # resources
 /client/src/resources/sampleData/
 /server/resources/sampleData/
 
 # production
-/build
+/client/build
 
 # misc
 .DS_Store

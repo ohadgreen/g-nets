@@ -4,8 +4,9 @@
     "private": true,
     "scripts": {
         "client": "cd client && npm run start",
-        "server": "cd server && nodemon main.js",
-        "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
+        "server": "cd server && nodemon index.js",
+        "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
+        "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false cd client && npm install && npm run build"
     },
     "dependencies": {
         "axios": "^0.18.0",
