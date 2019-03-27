@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { newGameSample } from '../resources/sampleData/newGames';
 import contract from "./contract";
 const keys = require('../config/keys');
 const baseUrl = '/api/games/';
@@ -22,9 +21,6 @@ class NewGamesInfo {
         else {
             return response.data[0];
         }
-    }
-    getNewGamesAll() {
-        return newGameSample;
     }
 
     async getRecentGame() {
