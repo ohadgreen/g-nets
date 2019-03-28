@@ -58,7 +58,7 @@ module.exports = app => {
             }
             else{
                 const authUser = jwtSign(user);
-                // console.log('user: ', authUser);                          
+                console.log('user: ', authUser);                          
                 res.send({ authUser }); 
             }            
         }        

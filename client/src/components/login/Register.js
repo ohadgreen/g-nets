@@ -22,6 +22,7 @@ class Register extends React.Component {
 
   async componentDidMount() {
     let allExistingUsers = await authService.fetchAllUsers();
+    console.log('avatar choices: ' + allExistingUsers.avatarChoice);
     this.setState({
       avatarChoice: allExistingUsers.avatarChoice,
       existingUsernames: allExistingUsers.allUsernames
