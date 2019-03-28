@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const fs = require('fs');
+const path = require("path");
 const router = express.Router();
 require('./model/Game');
 require('./model/Team');
@@ -24,9 +24,9 @@ require('./routes/auth/UserAuth')(app);
 require('./routes/app/FetchGames')(app);
 require('./routes/app/FetchScores')(app);
 
-if (process.env.NODE_ENV === "production") {
-    const path = require("path");
-    console.log('*** running prod build');    
+if (process.env.NODE_ENV === "production") {    
+    console.log('*** runnig prod build');
+    const buildPath = path.resolve(__dirname, "../client/build");    
     // tell Express to server production assets like main.js
     app.use(express.static(buildPath));
   
