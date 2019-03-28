@@ -2,7 +2,6 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const fs = require('fs');
-const path = require('path');
 const router = express.Router();
 require('./model/Game');
 require('./model/Team');
@@ -26,6 +25,7 @@ require('./routes/app/FetchGames')(app);
 require('./routes/app/FetchScores')(app);
 
 if (process.env.NODE_ENV === "production") {
+    const path = require("path");
     console.log('*** prod build files');
     const buildPath = path.resolve(__dirname, "../client/build");
     fs.readdir(buildPath, (err, files) => {
@@ -37,8 +37,7 @@ if (process.env.NODE_ENV === "production") {
     // tell Express to server production assets like main.js
     app.use(express.static(buildPath));
   
-    // Express will server the index.html file if it doesn't recognize the route
-    const path = require("path");
+    // Express will server the index.html file if it doesn't recognize the route    
     app.get("*", (req, res) => {
       res.sendfile(path.resolve(__dirname, "../client", "build", "index.html"));
     });
