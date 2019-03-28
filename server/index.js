@@ -26,14 +26,7 @@ require('./routes/app/FetchScores')(app);
 
 if (process.env.NODE_ENV === "production") {
     const path = require("path");
-    console.log('*** prod build files');
-    const buildPath = path.resolve(__dirname, "../client/build");
-    fs.readdir(buildPath, (err, files) => {
-        files.forEach(file => {
-          files.push(file);
-          console.log(file);
-        });
-      });
+    console.log('*** running prod build');    
     // tell Express to server production assets like main.js
     app.use(express.static(buildPath));
   
