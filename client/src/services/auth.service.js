@@ -1,5 +1,5 @@
 import axios from 'axios';
-const BASE_URL = 'https://netsbets.herokuapp.com/api/prodauth/';
+const BASE_URL = 'https://netsbets.herokuapp.com/api/prodauth';
 
 class AuthService {
     async loginDb(userLogin) {
