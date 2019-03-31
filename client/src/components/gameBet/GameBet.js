@@ -292,7 +292,7 @@ class GameBet extends Component {
 
 function mapStateToProps(state) {
   const user = state.userAuth.user;
-  // console.log('GameBet user: ' + JSON.stringify(user));
+  console.log('GameBet user: ' + JSON.stringify(user));
   const gameInfo = state.game.gameInfo;
   const gameid = state.game.gameid;
   const finalizedBet = state.game.finalizedBet;

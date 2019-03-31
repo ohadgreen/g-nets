@@ -33,6 +33,10 @@ class AuthService {
                     localStorage.setItem('user', verifiedUser);
                     return { user: user };
                 }
+              /*   const user = response.data.authUser;
+                const verifiedUser = JSON.stringify(user);
+                localStorage.setItem('user', verifiedUser);
+                return { user: user }; */
             }
         }
     }
@@ -54,11 +58,15 @@ class AuthService {
         }
         else {
             const user = response.data.authUser;
-                if (user.token) {
+                /* if (user.token) {
                     const verifiedUser = JSON.stringify(user);
                     localStorage.setItem('user', verifiedUser);
                     return { user: user };
-                }
+                } */
+            const verifiedUser = JSON.stringify(user);
+            localStorage.setItem('user', verifiedUser);
+            return { user: user };
+                
         }
     }
 

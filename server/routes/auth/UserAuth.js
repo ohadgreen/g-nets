@@ -73,7 +73,7 @@ module.exports = app => {
 }
 
 function jwtSign(user) {
-    const userToken = jwt.sign({ email: user.email, username: user.username, _id: user._id }, 'sssshhhh');
+    // const userToken = jwt.sign({ email: user.email, username: user.username, _id: user._id }, 'sssshhhh');
     // console.log('userToken: ' + userToken);
     return {        
         id: user._id,
@@ -81,7 +81,7 @@ function jwtSign(user) {
         username: user.username,
         nickname: user.nickname,
         avatar: user.avatar,
-        token: userToken
+        token: 'fake-token'
     }
 }
 
@@ -89,7 +89,6 @@ function avatarImagesChoice(users) {
     let avatarChoice = [];
     const avatarTaken = users.map(u => {return u.avatar});
     // console.log(`all avatars: ${allAvatarImages}`);
-    // console.log(`avatar taken: ${avatarTaken}`);
     for(avatar of allAvatarImages){
         if(avatarTaken.indexOf(avatar) === -1 && avatarChoice.length < AVATAR_CHOICE_LIMIT){
             avatarChoice.push(avatar);
