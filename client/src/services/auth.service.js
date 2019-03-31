@@ -13,8 +13,7 @@ class AuthService {
                 Accept: 'application/json'
             }
         });
-        console.log('auth response:\n');
-        console.log(JSON.stringify(response));
+        // console.log(JSON.stringify(response));
         if (!response.status === 200) {
             console.log('response:' + response);
             return { error: response.statusText }
@@ -83,7 +82,6 @@ class AuthService {
             return { error: response.text }
         }
         else {
-            console.log('all users: \n' + JSON.stringify(response.data));
             return response.data;
         }
     }

@@ -1,7 +1,8 @@
 import Web3 from 'web3';
 
 let web3;
-if (typeof window.web3 !== undefined){
+if (typeof window.web3 !== undefined && typeof window.web3.currentProvider !== undefined){
+    console.log('web3: \n' + Object.keys(window.web3.currentProvider));
     web3 = new Web3(window.web3.currentProvider);
 }
 else {
