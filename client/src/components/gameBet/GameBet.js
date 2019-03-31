@@ -43,15 +43,18 @@ class GameBet extends Component {
   placeBetEther = async event => {
     event.preventDefault();
     const etherSumInput = this.state.millietherValue;
-    const accounts = await web3.eth.getAccounts();
-    console.log('accounts: ' + JSON.stringify(accounts));
+    let accounts = [];
+    if(web3 && web3.eth){
+      accounts = await web3.eth.getAccounts();
+    }      
+    console.log('mm account: ' + JSON.stringify(accounts[0]));
     console.log(`${accounts.length} accounts undef: ${accounts.length === 0}`);
     if(isNaN(etherSumInput) || etherSumInput >=20 || etherSumInput <= 200){
       this.setState({ inputError: "value must be between 20-200" })
     }
     if (accounts.length === 0) {
       console.log('metamask closed');
-      this.setState({ inputError: "please verify Metamask is open" })
+      this.setState({ inputError: "please verify Metamask is installed and you logged in" })
     }
     if (!isNaN(etherSumInput) && etherSumInput >=20 && etherSumInput <= 200 && accounts.length > 0) {
       console.log('place bet');
@@ -292,7 +295,7 @@ class GameBet extends Component {
 
 function mapStateToProps(state) {
   const user = state.userAuth.user;
-  console.log('GameBet user: ' + JSON.stringify(user));
+  // console.log('GameBet user: ' + JSON.stringify(user));
   const gameInfo = state.game.gameInfo;
   const gameid = state.game.gameid;
   const finalizedBet = state.game.finalizedBet;
