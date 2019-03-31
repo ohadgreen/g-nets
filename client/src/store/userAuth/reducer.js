@@ -1,6 +1,6 @@
 let localStorageUser = localStorage.getItem('user');
-const initialState = (localStorageUser) ? { loggedIn: true, user: JSON.parse(localStorageUser) } : {};
 console.log('localStorageUser: ' + localStorageUser);
+const initialState = (localStorageUser && localStorageUser.length > 20) ? { loggedIn: true, user: JSON.parse(localStorageUser) } : {};
 
 export default function reduce(state = initialState, action) {    
     switch (action.type) { 
