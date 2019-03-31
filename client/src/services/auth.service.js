@@ -27,22 +27,22 @@ class AuthService {
 
             }
             else {
+                // const user = response.data.authUser;
+                // if (user.token) {
+                //     const verifiedUser = JSON.stringify(user);
+                //     localStorage.setItem('user', verifiedUser);
+                //     return { user: user };
+                // }
                 const user = response.data.authUser;
-                if (user.token) {
-                    const verifiedUser = JSON.stringify(user);
-                    localStorage.setItem('user', verifiedUser);
-                    return { user: user };
-                }
-              /*   const user = response.data.authUser;
                 const verifiedUser = JSON.stringify(user);
                 localStorage.setItem('user', verifiedUser);
-                return { user: user }; */
+                return { user: user };
             }
         }
     }
 
     async registerDb(user) {
-        // console.log('register service user: ' + JSON.stringify(user));
+        console.log('register service user: ' + JSON.stringify(user));
         const postRegisterUrl = `${baseUrl}/user`;
         const response = await axios({
             url: postRegisterUrl,
@@ -74,7 +74,6 @@ class AuthService {
         const fetchAllUsersUrl = `${baseUrl}/users`;
         const response = await axios({
             url: fetchAllUsersUrl,
-            // params: user,
             method: 'GET',
             headers: {
                 Accept: 'application/json'
@@ -85,7 +84,7 @@ class AuthService {
             return { error: response.text }
         }
         else {
-            // const allUsers = JSON.stringify(response.data);
+            console.log('all users: \n' + JSON.stringify(response.data));
             return response.data;
         }
     }

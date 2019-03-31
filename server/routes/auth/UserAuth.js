@@ -80,8 +80,8 @@ function jwtSign(user) {
         intcode: user.intcode,
         username: user.username,
         nickname: user.nickname,
-        avatar: user.avatar,
-        token: 'fake-token'
+        avatar: user.avatar
+        //token: 'fake-token'
     }
 }
 
