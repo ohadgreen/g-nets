@@ -3,10 +3,11 @@ const jwt = require('jsonwebtoken');
 const User = mongoose.model("users");
 const allAvatarImages = require('../../resources/images/avatarImageList');
 const AVATAR_CHOICE_LIMIT = 5;
+const BASE_URL = '/api/prodauth/';
 
 module.exports = app => {    
     // register new user
-    app.post('/api/auth/user', async (req, res) => {
+    app.post(BASE_URL + 'user', async (req, res) => {
         const { username, password, nickname, email, avatar } = req.query;
         console.log('req.query: ' + JSON.stringify(req.query));
         console.log('username: ' + username);
@@ -41,7 +42,7 @@ module.exports = app => {
     });
 
     // loggin existing user
-    app.get("/api/auth/user", async (req, res) => {
+    app.get(BASE_URL + "user", async (req, res) => {
         const { username, password } = req.query;
         let errorMsg;
         const user = await User.findOne({ 'username': username });
@@ -64,7 +65,7 @@ module.exports = app => {
         }        
     })
 
-    app.get("/api/auth/users", async (req, res) => {
+    app.get(BASE_URL + "users", async (req, res) => {
         const users = await User.find({}).select('username avatar -_id') //select only username and avatar fields
         const allUsernames = users.map(u => {return u.username});
         const avatarChoice = avatarImagesChoice(users);

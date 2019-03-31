@@ -1,11 +1,11 @@
 import axios from 'axios';
 
-const baseUrl = '/api/auth/';
+const BASE_URL = '/api/prodauth/';
 
 class AuthService {
     async loginDb(userLogin) {
         console.log('login db');
-        const getUserUrl = `${baseUrl}/user`;
+        const getUserUrl = `${BASE_URL}/user`;
         const response = await axios({
             url: getUserUrl,
             params: userLogin,
@@ -43,7 +43,7 @@ class AuthService {
 
     async registerDb(user) {
         console.log('register service user: ' + JSON.stringify(user));
-        const postRegisterUrl = `${baseUrl}/user`;
+        const postRegisterUrl = `${BASE_URL}/user`;
         const response = await axios({
             url: postRegisterUrl,
             params: user,
@@ -71,7 +71,7 @@ class AuthService {
     }
 
     async fetchAllUsers() {
-        const fetchAllUsersUrl = `${baseUrl}/users`;
+        const fetchAllUsersUrl = `${BASE_URL}/users`;
         const response = await axios({
             url: fetchAllUsersUrl,
             method: 'GET',
