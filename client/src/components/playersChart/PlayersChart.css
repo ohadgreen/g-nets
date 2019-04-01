@@ -1,23 +1,21 @@
-.total-chart-container {
+.players-chart-container {
+    width: 100%;
     height: 100%;
     border: solid 1px black;
     border-radius: 10px;
     display: grid;
     grid-gap: 2px;
-    grid-template-rows: repeat(7, 1fr);
-    grid-template-areas: 
-    "allhead"
-    "allcont"
-    "allcont"
-    "allcont"
-    "allcont"
-    "allcont"
-    "allcont"   
-    ;
+    grid-template-rows: [players-chart-header] 1fr [players-chart-content-table] 12fr;  
   }
-  .total-chart-content > * {
+  .players-chart-header {
+    grid-row: players-chart-header;
+    text-decoration: underline;
+  }
+  .players-chart-content {
+    grid-row: players-chart-content-table;
+  }
+
+  .players-chart-container > * {
     display: flex;
     justify-content: center;
-    /* align-items: center; */
   }
-  

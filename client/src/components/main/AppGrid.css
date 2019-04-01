@@ -1,12 +1,7 @@
 .g-container {
   height: 100vh;
     display: grid;
-    grid-gap: 5px;
-    /* grid-template-rows: repeat(3, 1fr) ;
-    grid-template-areas: 
-    "newgame"
-    "recent"
-    "chart"; */
+    grid-gap: 15px;
     grid-template-rows: [new-game] 1fr [recent-game] 1fr [total-chart] 1fr;
     grid-template-columns: [billboard] 1fr [total-chart] 1fr;
    }
@@ -28,6 +23,8 @@
 .billboard {
   grid-row: total-chart;
   grid-column: billboard;
+  border: solid 1px black;
+  border-radius: 10px;
 }
 .players-chart {
     grid-row: total-chart;

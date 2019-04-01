@@ -1,6 +1,6 @@
 .app-container {
   display: grid;
-    grid-template-rows: [header] 70px [body] auto;
+    grid-template-rows: [header] 50px [body] auto;
     grid-template-columns: [left-gutter] 1fr [app-content] 12fr [right-gutter] 1fr;
     grid-gap: 1rem;
 }
