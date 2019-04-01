@@ -1,7 +1,7 @@
 .avatar-main {
     display: grid;
     grid-gap: 1px;
-    grid-template-columns: 45px 60px;
+    grid-template-columns: 45px 55px;
     grid-template-areas: 
     "avimg avname";
     align-items: center;
@@ -15,9 +15,9 @@
     grid-area: avimg;    
   }
   .avatar-img > img {
-    height: 40px;  
+    height: 35px;  
     width: 40px;
-    border-radius: 50%;
+    border-radius: 10%;
   }
   .avatar-name {
     grid-area: avname;

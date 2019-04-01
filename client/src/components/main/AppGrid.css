@@ -1,0 +1,35 @@
+.g-container {
+  height: 100vh;
+    display: grid;
+    grid-gap: 5px;
+    /* grid-template-rows: repeat(3, 1fr) ;
+    grid-template-areas: 
+    "newgame"
+    "recent"
+    "chart"; */
+    grid-template-rows: [new-game] 1fr [recent-game] 1fr [total-chart] 1fr;
+    grid-template-columns: [billboard] 1fr [total-chart] 1fr;
+   }
+
+  .g-container > * {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+.new-game {
+    grid-row: new-game;
+    grid-column: 1 / -1;   
+}
+.recent-game {
+    grid-row: recent-game;
+    grid-column: 1 / -1;
+}
+.billboard {
+  grid-row: total-chart;
+  grid-column: billboard;
+}
+.players-chart {
+    grid-row: total-chart;
+    grid-column: total-chart;
+}

@@ -1,5 +1,7 @@
 import React from "react";
+import { Icon, Table } from "semantic-ui-react";
 import { RenderAvatar } from "../common/RenderAvatar";
+import './AllBets.css';
 
 export const AllBets = props => {
   let allBetsDisplay = props.scores
@@ -10,16 +12,23 @@ export const AllBets = props => {
     <div className="all-bets-container">
       <div className="all-bets-header">All Players bets</div>
       <div className="all-bets-content">
-        <table>
-          <tbody>
+        <Table celled striped compact size="small">
+          <Table.Header>
+            <Table.Row>
+              <Table.HeaderCell>Player</Table.HeaderCell>
+              <Table.HeaderCell>Bet</Table.HeaderCell>
+              {props.scores ? null : <Table.HeaderCell><Icon name="ethereum" size="small"/></Table.HeaderCell>}
+              {props.scores ? <Table.HeaderCell>Score</Table.HeaderCell> : null}
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>
             {allBetsDisplay.map((bet, i) => {
               if (i < 5) {
                 return renderBet(bet, i);
-              }
-              else return ''
+              } else return "";
             })}
-          </tbody>
-        </table>
+          </Table.Body>
+        </Table>
       </div>
     </div>
   );
@@ -27,11 +36,11 @@ export const AllBets = props => {
 
 function renderBet(bet, i) {
   return (
-    <tr key={i}>
-      <td><RenderAvatar user={bet.user} /></td>
-      <td>{bet.betString}</td>
-      {bet.score ? <td>{bet.score}</td> : null}
-      {bet.ether ? <td>{bet.ether}</td> : null}
-    </tr>
+    <Table.Row key={i}>
+      <Table.Cell><RenderAvatar user={bet.user} /></Table.Cell>
+      <Table.Cell>{bet.betString}</Table.Cell>
+      {bet.score ? <Table.Cell>{bet.score}</Table.Cell> : null}
+      {bet.score ? null : <Table.Cell>{bet.ether}</Table.Cell>}
+    </Table.Row>
   );
 }

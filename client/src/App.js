@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Router, Route, Switch } from "react-router-dom";
 import { history } from "./services/history";
 import Header from "./components/header/Header";
-import { GameBetContainer } from "./components/main/GameBetContainer";
+import { AppGrid } from "./components/main/AppGrid";
 import { PastGames } from "./components/common/PastGames";
 import { GameRules } from "./components/common/GameRules";
 import Login from "./components/login/Login";
@@ -21,7 +21,7 @@ class App extends Component {
             <Route path="/register" component={Register} />
             <Route path="/pastgames" component={PastGames} />
             <Route path="/rules" component={GameRules} />
-            <Route path="/" component={GameBetContainer} />
+            <Route path="/" component={AppGrid} />
           </Switch>
         </Router>
         </div>

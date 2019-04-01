@@ -4,16 +4,7 @@
     border-radius: 10px;
     display: grid;
     grid-gap: 2px;
-    grid-template-rows: repeat(7, 1fr);
-    grid-template-areas: 
-    "allhead"
-    "allcont"
-    "allcont"
-    "allcont"
-    "allcont"
-    "allcont"
-    "allcont"   
-    ;
+    grid-template-rows: [all-bets-header] 1fr [all-bets-content-table] 6fr;   
   }
   .all-bets-container > * {
     display: flex;
@@ -21,39 +12,17 @@
   }
   
   .all-bets-header {
-    grid-area: allhead;
+    grid-row: all-bets-header;
+    text-decoration: underline;
   }
   .all-bets-content {
-    grid-area: allcont;    
+    grid-row: all-bets-content-table;    
   }
 
-  .all-bets-content > table {
-    width: 100%;
+  .ui.compact.table th {
+    padding: .2em .4em;
   }
 
-  .avatar-main {
-    display: grid;
-    grid-gap: 1px;
-    grid-template-columns: 45px 60px;
-    grid-template-areas: 
-    "avimg avname";
-    align-items: center;
-  }
-
-  .avatar-main > * {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .avatar-img {
-    grid-area: avimg;    
-  }
-  .avatar-img > img {
-    height: 40px;  
-    width: 40px;
-    border-radius: 50%;
-  }
-  .avatar-name {
-    grid-area: avname;
+.ui.compact.table td {
+    padding: .2em .4em;
   }

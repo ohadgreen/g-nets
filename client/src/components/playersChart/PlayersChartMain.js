@@ -14,8 +14,8 @@ class PlayersChartMain extends Component {
       return <div>Fetching info...</div>;
     } else {      
       return (
-        <div className="players-chart-container">
-          <div className="all-bets"><AllScores allScores={this.props.allPlayerScores}/></div>
+        <div className="total-chart-container">
+          <div className="total-chart-content"><AllScores allScores={this.props.allPlayerScores}/></div>
         </div>
       );
     }

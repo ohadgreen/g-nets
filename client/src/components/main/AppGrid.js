@@ -2,9 +2,9 @@ import React from "react";
 import GameBet from "../gameBet/GameBet";
 import RecentGameMain  from "../recentGame/RecentGameMain";
 import PlayersChartMain from "../playersChart/PlayersChartMain";
-import './GameBetContainer.css';
+import './AppGrid.css';
 
-export const GameBetContainer = props => {
+export const AppGrid = () => {
   return (
     <div className="g-container">
       <div className="new-game">
@@ -12,6 +12,9 @@ export const GameBetContainer = props => {
       </div>
       <div className="recent-game">
         <RecentGameMain />
+      </div>
+      <div className="billboard">
+        <h2>Billboard placeholder</h2>
       </div>
       <div className="players-chart">
         <PlayersChartMain />

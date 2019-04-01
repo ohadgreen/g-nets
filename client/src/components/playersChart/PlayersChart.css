@@ -1,4 +1,4 @@
-.players-chart-container {
+.total-chart-container {
     height: 100%;
     border: solid 1px black;
     border-radius: 10px;
@@ -15,15 +15,9 @@
     "allcont"   
     ;
   }
-  .all-bets-container > * {
+  .total-chart-content > * {
     display: flex;
     justify-content: center;
     /* align-items: center; */
   }
   
-  .all-bets-header {
-    grid-area: allhead;
-  }
-  .all-bets-content {
-    grid-area: allcont;    
-  }
