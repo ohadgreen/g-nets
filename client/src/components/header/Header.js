@@ -17,7 +17,7 @@ class Header extends React.Component {
     const headerUser =
       this.props.user && this.props.user.username && this.props.user.avatar
         ? <RenderAvatar user={this.props.user} />
-        : "Please login or register";
+        : "Welcome Visitor";
     return (
       <Router history={history}>
         <div className="header-grid">
@@ -25,11 +25,10 @@ class Header extends React.Component {
             <Link to="/">NETS:BETS</Link>
           </div>
           <div className="header-menu">
-           
               <Link to="/pastgames">Past Games</Link>
-           
               <Link to="/rules">Game Rules</Link>
-            
+              <a href='https://rinkeby.etherscan.io/address/0x40c670cb98d07d2391befa34ac17a88296a4bf6c'>Contract on Etherscan</a>
+              {this.props.user ? null : <Link to="/login">Login</Link>}
             <a href="/login" onClick={this.logout}>
               {logoutLink}
             </a>
