@@ -31,6 +31,7 @@ app.use(function(req, res, next) {
 require('./routes/auth/UserAuth')(app);
 require('./routes/app/FetchGames')(app);
 require('./routes/app/FetchScores')(app);
+require('./routes/app/FetchPastGames')(app);
 
 if (process.env.NODE_ENV === "production") {    
     console.log('*** runnig prod build');

@@ -3,7 +3,7 @@ import { Router, Route, Switch } from "react-router-dom";
 import { history } from "./services/history";
 import Header from "./components/header/Header";
 import { AppGrid } from "./components/main/AppGrid";
-import { PastGames } from "./components/common/PastGames";
+import PastGames from "./components/common/PastGames";
 import { GameRules } from "./components/common/GameRules";
 import Login from "./components/login/Login";
 import Register from "./components/login/Register";
