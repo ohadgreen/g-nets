@@ -79,7 +79,6 @@ class GameBet extends Component {
   };
 
   placeBetPlain = () => {
-    this.setState({ loadingSpinner: true });
     const winnerTeamName =
       this.state.chosenWinner === "homeTeam"
         ? this.props.gameInfo.homeTeam.name
@@ -94,12 +93,12 @@ class GameBet extends Component {
       betString: `${winnerTeamName} by ${this.state.pointsDiff}`,
       score: 0
     };
+    this.setState({ loadingSpinner: true });
     this.props.dispatch(gamesActions.addBet(userBet));
-    this.setState({ loadingSpinner: false });
   };
-
+  
   removeBet = () => {
-    this.setState({ chosenWinner: "", pointsDiff: 0 });
+    this.setState({ chosenWinner: "", pointsDiff: 0, loadingSpinner: false });
     const userBet = {
       gameid: this.props.gameid,
       betid: this.props.userBet._id

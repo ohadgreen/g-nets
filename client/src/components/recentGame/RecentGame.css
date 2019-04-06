@@ -53,6 +53,7 @@
 
 .user-recent-bet-header {
   grid-area: bhead;
+  text-decoration: underline;
 }
 .user-recent-bet-content {
   grid-area: bcont;
