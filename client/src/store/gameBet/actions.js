@@ -1,5 +1,6 @@
 import gameService from "../../services/gamebet.service";
 import { getUser, isLoggedIn } from "../userAuth/reducer";
+import utils from '../../services/utils.service';
 
 export const newGame = () => async (dispatch, getState) => {
   const newGame = await gameService.getNewGamesFirst();
@@ -12,7 +13,7 @@ export const newGame = () => async (dispatch, getState) => {
     let userBet = {};
     if (loggedIn) {
       const currentUserId = getUser(getState()).id;
-      userBet = findCurrentUserBet(newGame, currentUserId);
+      userBet = utils.findCurrentUserBet(newGame, currentUserId);
     }
     const gameInfo = {
       _id: newGame._id,

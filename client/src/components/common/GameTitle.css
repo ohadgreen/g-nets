@@ -1,11 +1,11 @@
 .game-bet-title-flex {
-    display: flex;
+  display: flex;
 }
 .game-bet-title-main {
-    font-size: 24px;
-    padding-right: 10px;
+    font-size: 1.8rem;
+    padding-right: 0.9rem;
   }
   .game-bet-title-prize-eth {
-    font-size: 16px;
-    padding-right: 10px;
+    font-size: 1rem;
+    padding-right: 0.8rem;
   }

@@ -2,10 +2,10 @@
     grid-row: header;
     grid-column: app-content / right-gutter;
     background: rgb(95, 173, 112);
-    padding: 10px;
+    padding: 0.5rem;
     display: grid;    
     grid-template-columns: repeat(8, 1fr);
-    grid-template-areas: "logo pholder pholder pholder gmenu gmenu gmenu user";
+    grid-template-areas: "logo pholder gmenu gmenu gmenu gmenu gmenu user";
     align-items: center;
 }
 
@@ -17,7 +17,7 @@
     justify-content: center;
     align-items: center;
     color: white;
-    font-size: 20px;
+    font-size: 1.5rem;
 }
 
 .app-logo > a:hover {   
@@ -31,9 +31,9 @@
 }
 
 .header-menu > a {
-    margin: 10px;
+    margin: 0.6rem;
     color: white;
-    font-size: 14px;
+    font-size: 1rem;
 }
 
 .header-menu > a:hover {
@@ -43,5 +43,5 @@
 .header-user {
     grid-area: user;
     color: white;
-    font-size: 14px;
+    font-size: 1rem;
 }

@@ -3,7 +3,6 @@ const baseUrl = '/api/games/past';
 
 class getPastGames {
     async getAllPastGames(pastGames) {
-        console.log('past games service ' + pastGames.daysDiff);
         const response = await axios({
             url: baseUrl,
             method: 'GET',
@@ -22,5 +21,4 @@ class getPastGames {
         }
     }   
 }
-
 export default new getPastGames();

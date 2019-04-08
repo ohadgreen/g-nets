@@ -1,5 +1,5 @@
 .g-container {
-  height: 100vh;
+    height: 100vh;
     display: grid;
     grid-gap: 15px;
     grid-template-rows: [new-game] 1fr [recent-game] 1fr [total-chart] 1fr;

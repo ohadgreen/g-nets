@@ -2,7 +2,7 @@
   width: 100%;
   padding: 0px 0px;
   margin: 1px 5px;
-  font-size: 14px;
+  font-size: 0.9rem;
   background: white;
   display: grid;
   grid-gap: 5px;
@@ -12,6 +12,7 @@
 .game-bet-title {
   grid-row: new-game-title;
   grid-column: 1 / -1;
+  
 }
 .teams-info {
   grid-row: new-game-body;

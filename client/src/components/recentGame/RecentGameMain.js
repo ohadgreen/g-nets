@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import * as recentGamesActions from "../../store/recentGame/actions";
 import { TeamsInfo } from "../common/TeamsInfo";
 import { AllBets } from "../gameBet/AllBets";
-import { GameTitle } from "../common/RenderGameTitle";
+import { GameTitle } from "../common/GameTitle";
 import "./RecentGame.css";
 
 class RecentGameMain extends Component {  
@@ -21,7 +21,7 @@ class RecentGameMain extends Component {
       if(Object.keys(userBet).length > 0){
         recentBetContent = (
         <React.Fragment>
-            <div style={{fontSize: "16px", padding: "10px"}}>{this.props.userBet.betString}</div>
+            <div style={{fontSize: "1rem", padding: "0.8rem"}}>{this.props.userBet.betString}</div>
             <div>Score: {this.props.userBet.score} points</div>
         </React.Fragment>);
     }
@@ -65,8 +65,6 @@ function mapStateToProps(state) {
   const gameResults = state.recentGame.gameResults;
   const userBet = state.recentGame.currentUserBet;
   const allBets = state.recentGame.allBets;
-//   console.log("mstp allBets: " + JSON.stringify(allBets));
-//   console.log('mstp results: ' + JSON.stringify(gameResults));
   return {
     user,
     gameInfo,

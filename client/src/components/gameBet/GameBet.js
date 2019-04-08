@@ -4,8 +4,10 @@ import { Link } from "react-router-dom";
 import * as gamesActions from "../../store/gameBet/actions";
 import { TeamsInfo } from "../common/TeamsInfo";
 import { AllBets } from "./AllBets";
+import { GameTitle } from "../common/GameTitle";
 import web3 from "../../services/web3";
 import contract from "../../services/contract";
+import utils from "../../services/utils.service";
 import {
   Dropdown,
   Button,
@@ -16,7 +18,6 @@ import {
   Label, 
   Icon 
 } from "semantic-ui-react";
-import { GameTitle } from "../common/RenderGameTitle";
 import "./GameBet.css";
 
 class GameBet extends Component {
@@ -106,18 +107,10 @@ class GameBet extends Component {
     this.props.dispatch(gamesActions.removeBet(userBet));
   };
 
-  pointsDiffOtions = n => {
-    let pointsDiffMenuItems = [];
-    for (let i = 1; i <= n; i++) {
-      pointsDiffMenuItems.push({ text: i, value: i });
-    }
-    return pointsDiffMenuItems;
-  };
-
   renderPleaseLogin = () => {
     return (
       <div className="user-please-login">
-        To guess game results, please <Link to="/login">Login</Link> or 
+        To play, please <span>&nbsp;</span> <Link to="/login">Login</Link><span>&nbsp; or &nbsp;</span>
         <Link to="/register">Register</Link>
       </div>
     );
@@ -174,7 +167,7 @@ class GameBet extends Component {
               <Dropdown
                 placeholder={"choose"}
                 onChange={this.setPointsDiff}
-                options={this.pointsDiffOtions(35)}
+                options={utils.dropDownNumberOptions(35)}
                 scrolling
               />
             </div>

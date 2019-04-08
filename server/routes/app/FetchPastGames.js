@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 require("../../model/User");
-const User = mongoose.model("users");
 const Game = mongoose.model("games");
 
 module.exports = app => {
@@ -9,13 +8,13 @@ app.get("/api/games/past", async (req, res) => {
     const { daysDiff } = req.query;
     const today = new Date();
     const fromDate = new Date().setDate(today.getDate() + (daysDiff ? (-daysDiff) : (-14)));
-    console.log(`daysDiff ${daysDiff} fromDate ${fromDate}`);
     let errorMsg;
 
     const pastGames = await Game.find(
         { "schedule": {"$gte": new Date(fromDate)}, "isArchiveGame": true, "gameRank.gameRank": 1 },
       { srIdLong: 0 }
     )
+    .sort({schedule: -1})
       .populate(
         "homeTeam",
         "name city alias wins losses winPct gamesBehind.league"

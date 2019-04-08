@@ -1,22 +1,14 @@
 import React from "react";
 import web3 from "../../services/web3";
 import { Icon } from "semantic-ui-react";
+import utils from '../../services/utils.service';
 import "./TeamsInfo.css";
 import "./GameTitle.css";
 
 export const GameTitle = props => {
-  const gameSched = new Date(Date.parse(props.gameSchedule));
-  const gameDate =
-    gameSched.getDate() +
-    "-" +
-    (gameSched.getMonth() + 1) +
-    "-" +
-    gameSched.getFullYear();
-    
   return (
-    
     <div className="game-bet-title-flex">
-      <div className="game-bet-title-main">{props.gameType} Game: {gameDate}</div>
+      <div className="game-bet-title-main">{props.gameType} Game: {utils.parseDateToString(props.gameSchedule)}</div>
       {props.contractPrize ? renderEtherPrize(props.contractPrize, props.etherConvRate) : null}
     </div>
   );

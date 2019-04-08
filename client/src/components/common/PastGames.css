@@ -1,0 +1,26 @@
+
+.options-ruler {
+  display: grid;
+  grid-gap: 5px;
+  grid-template-columns: [daysdiff-choice] 5fr [make-room] 2fr [user-only-choice] 2fr;
+}
+.options-ruler > * {
+  padding: 0.4rem;
+}
+.daysdiff-choice {
+  grid-column: daysdiff-choice;
+}
+.daysdiff-choice > * {
+  padding-right: 1rem;
+}
+.daysdiff-choice > div {
+  border: 1px solid lightgray;
+  border-radius: 10%;
+  padding: 2px;
+}
+.ui.blue.tiny.button {
+  margin-left: 1rem;
+}
+.user-only-choice {
+  grid-column: user-only-choice;
+}
