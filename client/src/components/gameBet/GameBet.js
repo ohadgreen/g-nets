@@ -233,7 +233,7 @@ class GameBet extends Component {
         <div className="exists-bet-ether">{this.props.userBet.ether}<Icon name="ethereum" size="small" /></div>
         <div className="exists-bet-remove-btn">
           {betHours && this.props.userBet.ether === 0 ? <Button color="red" size="tiny" onClick={this.removeBet}>
-          Remove
+          Cancel
         </Button> : null}
         </div>
       </div>
