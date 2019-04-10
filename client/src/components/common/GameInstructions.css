@@ -1,0 +1,13 @@
+.item-header {
+  padding: 10px;
+  border: 1px solid grey;
+  background-color: blanchedalmond; 
+}
+.item-header:hover {
+  cursor: pointer;
+}
+
+.item-content {
+  padding: 10px;
+  border: 1px solid grey; 
+}
