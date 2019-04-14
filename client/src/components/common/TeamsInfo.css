@@ -1,5 +1,6 @@
 .teams-info-container {
   height: 100%;
+  padding: 5px;
   border: solid 1px black;
   border-radius: 10px;
   display: grid;
@@ -7,13 +8,13 @@
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(7, 1fr);
   grid-template-areas:
-  "ghead ghead ghead shead shead"
-    "himg hname hname hstat hstat"
-    "himg hname hname hstat hstat"
-    "himg hname hname hstat hstat"
-    "aimg aname aname astat astat"
-    "aimg aname aname astat astat"
-    "aimg aname aname astat astat"
+  "ghead ghead ghead shead shead series-head"
+    "himg hname hname hstat hstat home-serie-rec"
+    "himg hname hname hstat hstat home-serie-rec"
+    "himg hname hname hstat hstat home-serie-rec"
+    "aimg aname aname astat astat away-serie-rec"
+    "aimg aname aname astat astat away-serie-rec"
+    "aimg aname aname astat astat away-serie-rec"
 }
 
 .teams-info-container > * {
@@ -72,4 +73,15 @@
   grid-area: astat;
   display: flex;
   flex-direction: column;  
+}
+.series-header {
+  grid-area: series-head;
+  text-decoration: underline;
+}
+.home-serie-record {
+  grid-area: home-serie-rec;
+  border-bottom: solid 1px;
+}
+.away-serie-record {
+  grid-area: away-serie-rec;
 }

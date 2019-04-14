@@ -46,7 +46,7 @@ class RecentGameMain extends Component {
       return (
         <div className="recent-game-container">
         <div className="recent-game-title">
-        <GameTitle gameType = 'Recent' gameSchedule = {this.props.gameInfo.schedule}/>
+        <GameTitle gameType = 'Recent' gameSchedule = {this.props.gameInfo.schedule} playoffSeries={this.props.gameInfo.playoffSeries}/>
         </div>
           <div className="recent-game-teams-info">
             <TeamsInfo gameInfo={this.props.gameInfo} mode="final" gameResults={this.props.gameResults} />

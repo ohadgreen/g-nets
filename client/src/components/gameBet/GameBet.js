@@ -266,6 +266,7 @@ class GameBet extends Component {
               gameSchedule={this.props.gameInfo.schedule}
               contractPrize={this.props.contractPrize}
               etherConvRate={this.props.etherConvRateValue}
+              playoffSeries={this.props.gameInfo.playoffSeries}
             />
           </div>
           <div className="teams-info">

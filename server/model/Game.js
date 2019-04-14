@@ -8,6 +8,14 @@ const gameSchema = new Schema({
     homeTeam: { type: Schema.Types.ObjectId, ref: 'teams' },
     awayTeam: { type: Schema.Types.ObjectId, ref: 'teams' },
     results: { homePoints: Number, awayPoints: Number, resultsString: String },
+    playoffSeries: {
+        seriesTitle: String,
+        round: Number,
+        status: String,
+        gameTitle: String,
+        homeTeamRecord: Number,
+        awayTeamRecord: Number,    
+      },
     bets: [{
         user: { type: Schema.Types.ObjectId, ref: 'users' },
         intcode: Number,

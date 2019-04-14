@@ -20,7 +20,8 @@ export const newGame = () => async (dispatch, getState) => {
       srId: newGame.srId,
       schedule: newGame.schedule,
       homeTeam: newGame.homeTeam,
-      awayTeam: newGame.awayTeam
+      awayTeam: newGame.awayTeam,
+      playoffSeries: newGame.playoffSeries
     };
     const finalizedBet = Object.keys(userBet).length > 0;
 

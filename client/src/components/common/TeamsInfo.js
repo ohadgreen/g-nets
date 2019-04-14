@@ -4,6 +4,8 @@ import "./TeamsInfo.css";
 export const TeamsInfo = props => {  
   const homeTeam = props.gameInfo.homeTeam;
   const awayTeam = props.gameInfo.awayTeam;
+  const homeRecord = props.gameInfo.playoffSeries.homeTeamRecord;
+  const awayRecord = props.gameInfo.playoffSeries.awayTeamRecord;
 
   return (
     <div className="teams-info-container">
@@ -23,6 +25,7 @@ export const TeamsInfo = props => {
         </div>
       </div>
       {(props.mode === 'stats') ? renderTeamStats(homeTeam, awayTeam):renderFinalScore(props.gameResults)}
+      {renderSeriesScore(homeRecord, awayRecord)}
     </div>
   );
 };
@@ -65,6 +68,16 @@ function renderFinalScore(gameResults) {
         <div className="away-stats">
           <div style={{fontSize: "16px", color: awayPointsColor}}>{gameResults.awayPoints}</div>
         </div>          
+        </React.Fragment>
+    );
+}
+
+function renderSeriesScore(homeRecord, awayRecord) {  
+  return (
+    <React.Fragment>
+      <div className="series-header">Series</div>
+        <div className="home-serie-record" >{homeRecord}</div>
+        <div className="away-serie-record" >{awayRecord}</div>
         </React.Fragment>
     );
 }

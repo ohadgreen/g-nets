@@ -11,7 +11,7 @@ import { getUser, isLoggedIn } from '../userAuth/reducer';
             userBet = findCurrentUserBet(recentGame, currentUserId);
         }
         const allBetsOrdered = allBetsOrderByScore(recentGame.bets);
-        const gameInfo = {_id: recentGame._id, srId: recentGame.srId, schedule: recentGame.schedule, homeTeam: recentGame.homeTeam, awayTeam: recentGame.awayTeam};
+        const gameInfo = {_id: recentGame._id, srId: recentGame.srId, schedule: recentGame.schedule, homeTeam: recentGame.homeTeam, awayTeam: recentGame.awayTeam, playoffSeries: recentGame.playoffSeries};
         const gameResults = recentGame.results;
 
         dispatch({ type: 'RECENT_GAME_INFO_SUCCESS', payload: {gameInfo: gameInfo, gameResults: gameResults, allBets: allBetsOrdered, currentUserBet: userBet } });

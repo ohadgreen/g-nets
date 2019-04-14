@@ -8,7 +8,7 @@ import "./GameTitle.css";
 export const GameTitle = props => {
   return (
     <div className="game-bet-title-flex">
-      <div className="game-bet-title-main">{props.gameType} Game: {utils.parseDateToString(props.gameSchedule)}</div>
+      <div className="game-bet-title-main">{props.gameType} Game: {utils.parseDateToString(props.gameSchedule)} {formatPlayoffSerieTitle(props.playoffSeries)} </div>
       {props.contractPrize ? renderEtherPrize(props.contractPrize, props.etherConvRate) : null}
     </div>
   );
@@ -26,4 +26,20 @@ function renderEtherPrize(contractPrizeWei, etherConvRate) {
   <div className="game-bet-title-prize-usd">
     ({prizeInUsd})<Icon name="dollar" size="small" />
   </div></React.Fragment>)
+}
+
+function formatPlayoffSerieTitle(playoffSeriesInfo) {
+  if(playoffSeriesInfo){
+    try {
+      const seriesTitleSplit = playoffSeriesInfo.seriesTitle.split(" - ");
+      if(seriesTitleSplit.length > 1){
+        return seriesTitleSplit[0] + ' - ' + seriesTitleSplit[1] + ' - ' + playoffSeriesInfo.gameTitle;
+      }
+    } catch (error) {
+      return null;   
+    }
+  }
+  else {
+    return null;
+  }
 }
