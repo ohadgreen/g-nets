@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as recentGamesActions from "../../store/recentGame/actions";
 import { TeamsInfo } from "../common/TeamsInfo";
-import { AllBets } from "../gameBet/AllBets";
+import AllBets from "../gameBet/AllBets";
 import { GameTitle } from "../common/GameTitle";
 import "./RecentGame.css";
 

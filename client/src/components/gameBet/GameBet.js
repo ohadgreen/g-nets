@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import * as gamesActions from "../../store/gameBet/actions";
 import { TeamsInfo } from "../common/TeamsInfo";
-import { AllBets } from "./AllBets";
+import AllBets from "./AllBets";
 import { GameTitle } from "../common/GameTitle";
 import web3 from "../../services/web3";
 import contract from "../../services/contract";

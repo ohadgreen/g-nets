@@ -30,7 +30,7 @@ export const newGame = () => async (dispatch, getState) => {
       payload: {
         gameid: newGame.srId,
         gameInfo,
-        allBets: allBetsOrderByString(newGame.bets),
+        allBets: allBetsOrderByDate(newGame.bets),
         currentUserBet: userBet,
         finalizedBet: finalizedBet,
         etherConvRateValue,
@@ -44,7 +44,7 @@ export const newGame = () => async (dispatch, getState) => {
 
 export const addBet = userBet => async (dispatch, getState) => {
   const newBetAdd = await gameService.addUserBet(userBet);
-  const allBets = newBetAdd.data.data.bets;
+  const allBets = allBetsOrderByDate(newBetAdd.data.data.bets);
   const currentUserId = getUser(getState()).id;
   const userBetUpdated = findCurrentUserBet(newBetAdd.data.data, currentUserId);
   const contractPrize = await gameService.getPrizeFromContractBalance();
@@ -60,7 +60,7 @@ export const addBet = userBet => async (dispatch, getState) => {
 
 export const removeBet = userBet => async dispatch => {
   const betRemove = await gameService.removeUserBet(userBet);
-  const allBets = betRemove.data.data.bets;
+  const allBets = allBetsOrderByDate(betRemove.data.data.bets);
   if (betRemove.success) {
     dispatch({ type: "BET_REMOVE_SUCCESS", payload: { allBets: allBets } });
   } else {
@@ -82,8 +82,8 @@ function findCurrentUserBet(game, userid) {
   return currentUserBet;
 }
 
-function allBetsOrderByString(allBets) {
+function allBetsOrderByDate(allBets) {
   return allBets.sort((a, b) => {
-    return b.betString.localeCompare(a.betString);
-  });
+    return (a.timestamp > b.timestamp) ? -1 : ((a.timestamp < b.timestamp) ? 1 : 0);
+  })
 }

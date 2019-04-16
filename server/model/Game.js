@@ -24,7 +24,8 @@ const gameSchema = new Schema({
         ether: Number,
         betString: String,
         score: Number,
-        rank: Number
+        rank: Number,
+        timestamp: { type: Date, default: Date.now },
     }],
     gameSummaryUrl: String,
 });
