@@ -13,6 +13,13 @@ const allAvatars = [
     "no99",
     "purple",
     "shark",
-    "swivel"
+    "swivel", 
+    "african",
+    "beard",
+    "cleveland",
+    "dwayne",
+    "red_and_black",
+    "seven_stock",
+    "thirteen"
   ]
 module.exports = allAvatars;

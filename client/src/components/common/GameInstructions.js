@@ -45,7 +45,7 @@ const instructionsContent = [
     },
     { 
         header: 'how does the game work?',
-        content: 'every day it will show the next night NBA game. Players can try and guess game results: winning team and the points difference. The closer your guess to the actual results - the higher score you get. By the end of the season, the player with best average score will be the game winner' 
+        content: 'every day it will show the next night NBA game. Players can try and guess game results: winning team and the points difference. The closer your guess to the actual results - the higher score you get. Games are closed for bets after 2 am. By the end of the season, the player with best average score will be the game winner' 
     },
     { 
         header: 'how are the scores calculated?',
@@ -69,7 +69,7 @@ const instructionsContent = [
             <li>once you click the bet button, you will be prompted to accept the transaction in Metamask popup window. Notice that each transaction has some (very small) fee, called "gas". You must confirm the transaction to place the bet</li>
             <li>the transaction to the Ethereum network takes approx. 30 seconds. Be patient :) </li>
             <li>when you choose to bet with Ether, you can't cancel your bet</li>
-            <li>the player with the highest bet score will win the entire prize, regardless to the bet sum. If two or more players share the highest score - the prize will split between them equally</li>
+            <li>the player with the highest bet score will win the entire prize, regardless to the bet sum - but only players who bet with ether on this game. If two or more players share the highest score - the prize will split between them equally</li>
             <li>the prize will be transferred to the winners accounts automatically the next day</li>
             <li>if no one had a score (had bet the winning team), the prize will be carried on to the next game </li>
             </ul>
