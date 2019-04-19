@@ -13,8 +13,8 @@ class AllBets extends Component {
           <Table.Row key={i}>
             <Table.Cell><RenderAvatar user={bet.user} /></Table.Cell>
             <Table.Cell>{bet.betString}</Table.Cell>
-            {bet.score ? <Table.Cell>{bet.score}</Table.Cell> : null}
-            {bet.score ? null : <Table.Cell>{bet.ether}</Table.Cell>}
+            {this.props.scores ? <Table.Cell>{bet.score}</Table.Cell> : null}
+            {this.props.scores ? null : <Table.Cell>{bet.ether}</Table.Cell>}
           </Table.Row>
         );
       }
@@ -26,8 +26,8 @@ class AllBets extends Component {
                     <Table.Row key={i}>
                         <Table.Cell><RenderAvatar user={bet.user} /></Table.Cell>
                         <Table.Cell>{bet.betString}</Table.Cell>
-                        {bet.score ? <Table.Cell>{bet.score}</Table.Cell> : null}
-                        {bet.score ? null : <Table.Cell>{bet.ether}</Table.Cell>}
+                        {this.props.scores ? <Table.Cell>{bet.score}</Table.Cell> : null}
+                        {this.props.scores ? null : <Table.Cell>{bet.ether}</Table.Cell>}
                     </Table.Row>
                   )
               }
