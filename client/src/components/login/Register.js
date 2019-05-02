@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Button, Form } from "semantic-ui-react";
+import { Button, Form, Message } from "semantic-ui-react";
 import { userRegister } from "../../store/userAuth/actions";
 import authService from "../../services/auth.service";
 import { RenderAvatarImageOnly } from "../common/RenderAvatar";
@@ -17,7 +17,8 @@ class Register extends React.Component {
     enableSubmit: false,
     avatarChoice: [],
     existingUsernames: [],
-    submitted: false
+    submitted: false,
+    errorMessage: ""
   };
 
   async componentDidMount() {
@@ -44,14 +45,61 @@ class Register extends React.Component {
 
   handleSubmit = e => {
     // console.log("register submit: " + JSON.stringify(this.state.user));
-    e.preventDefault();
-    this.setState({ submitted: true });
+    e.preventDefault();    
     const { user } = this.state;
-    const { dispatch } = this.props;
+    let validUser = true;
+    
     if (user.username && user.password && user.email && user.avatar) {
-      dispatch(userRegister(user));
+      const userNameLengthValidation = this.stringWithinLengthLimit("username", user.username);
+      if (userNameLengthValidation){
+        this.setState({errorMessage: userNameLengthValidation})
+        validUser = false;
+      }
+      const existUsernameValidation = this.existingUsernameValidation(user.username);
+      if (existUsernameValidation) {
+        this.setState({errorMessage: existUsernameValidation})
+        validUser = false;
+      }
+      const passwordLengthValidation = this.stringWithinLengthLimit("password", user.password);
+      if (passwordLengthValidation){
+        this.setState({errorMessage: passwordLengthValidation})
+        validUser = false;
+      }
+      const emailPatternValid = this.emailPatternValidation(user.email);
+      if (emailPatternValid){
+        this.setState({errorMessage: emailPatternValid})
+        validUser = false;
+      }
+      
+      if (validUser) {
+        const { dispatch } = this.props;
+        this.setState({ submitted: true });
+        dispatch(userRegister(user));
+      }
     }
   };
+
+  stringWithinLengthLimit = (name, value) => {
+    if(value.length < 3 || value.length > 12) {
+      return `${name} should be between 3 - 12 characters`;
+    }
+    else return null;
+  }
+
+  existingUsernameValidation = value => {
+    if(this.state.existingUsernames.includes(value)) {
+      return "username already taken. Please choose a different one";
+    }
+    else return null;
+  }
+
+  emailPatternValidation = value => {
+    const emailRegex = /\S+@\S+\.\S+/;
+    if(!emailRegex.test(value)) {
+      return "email address not valid";
+    }
+    else return null;
+  }
 
   handleAvatarChoice = e => {
     e.preventDefault(e.target.alt);
@@ -76,7 +124,7 @@ class Register extends React.Component {
     return (
       <div className="form-main">
         <h3>Registration</h3>
-        <Form>
+        <Form error={this.state.errorMessage !== "" ? true : false}>
           <Form.Field>
             <Form.Input
               required={true}
@@ -110,6 +158,7 @@ class Register extends React.Component {
           <Button style={{marginTop: "10px"}} disabled={!this.state.enableSubmit} type="submit" onClick={this.handleSubmit}>
             Register
           </Button>
+          <Message error header="Oops..." content={this.state.errorMessage} />
         </Form>
       </div>
     );
